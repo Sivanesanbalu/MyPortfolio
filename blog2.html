@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Updated Title -->
+    <title>Building My First Portfolio | Sivanesan</title>
+    <!-- Updated Description -->
+    <meta name="description" content="Follow the journey of building my first portfolio website, from Figma design and coding with HTML/CSS/JS to hosting on GitHub and adding a 3D animation.">
+
+    <!-- Removed MathJax includes as they are not needed for this post -->
+
+    <style>
+        /* --- Copied Styles from code(8).html / blog5.html --- */
+        /* 1. --- Reset & Base Styles --- */
+        :root {
+            --font-primary: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            --font-serif: "Merriweather", "Georgia", serif;
+            --font-mono: "Fira Code", "Courier New", monospace;
+
+            --color-text: #333;
+            --color-bg: #ffffff;
+            --color-primary: #0d6efd; /* Bootstrap Blue */
+            --color-secondary: #6c757d;
+            --color-accent: #fd7e14; /* Bootstrap Orange */
+            --color-border: #dee2e6;
+            --color-code-bg: #f8f9fa;
+            --color-blockquote-border: var(--color-primary);
+            --color-illustration-bg: #e9ecef;
+            --color-illustration-border: var(--color-accent);
+
+            --container-width: 800px;
+            --toc-width: 220px; /* Width for the Table of Contents */
+            --layout-gap: calc(var(--spacing-unit) * 2.5); /* Gap between content and TOC */
+            --main-wrapper-width: calc(var(--container-width) + var(--toc-width) + var(--layout-gap)); /* Max width for content+TOC */
+
+            --spacing-unit: 1rem;
+            --border-radius: 6px;
+            --transition-speed: 0.3s;
+            --transition-speed-fast: 0.15s;
+            --header-height: 65px;
+        }
+
+        body.dark-mode {
+            --color-text: #e9ecef;
+            --color-bg: #121212;
+            --color-primary: #4dabf7;
+            --color-secondary: #adb5bd;
+            --color-accent: #ff922b;
+            --color-border: #495057;
+            --color-code-bg: #2a2a2a;
+            --color-blockquote-border: var(--color-primary);
+            --color-illustration-bg: #343a40;
+            --color-illustration-border: var(--color-accent);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 100%; } /* Enable smooth scroll */
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        img, video, figure, canvas, iframe { max-width: 100%; height: auto; display: block; margin: var(--spacing-unit) 0; }
+        a { color: var(--color-primary); text-decoration: none; transition: color var(--transition-speed-fast) ease, opacity var(--transition-speed-fast) ease; }
+        a:hover { color: var(--color-accent); text-decoration: underline; }
+        *:focus-visible { outline: 3px dashed var(--color-primary); outline-offset: 3px; }
+
+        /* Target headings for scroll margin */
+        h2[id], h3[id], h4[id], section[id] {
+            scroll-margin-top: calc(var(--header-height) + var(--spacing-unit) * 1.5);
+        }
+
+        /* 2. --- Layout Structure --- */
+        .container { /* Still used for header/footer */
+             width: 90%;
+             max-width: var(--container-width); /* Default article width */
+             margin: 0 auto;
+             padding: 0 calc(var(--spacing-unit) / 2);
+        }
+        /* New wrapper for main content and TOC */
+        .content-wrapper {
+            width: 90%;
+            max-width: var(--main-wrapper-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, var(--container-width)) auto; /* Article column + TOC column */
+            gap: var(--layout-gap);
+            align-items: start; /* Align top */
+        }
+        .article-column {
+            grid-column: 1 / 2;
+            max-width: 100%; /* Ensure it doesn't overflow */
+        }
+        .toc-column {
+            grid-column: 2 / 3;
+            width: var(--toc-width);
+            position: sticky;
+            top: calc(var(--header-height) + var(--spacing-unit) * 1.5); /* Stick below header */
+            height: calc(100vh - var(--header-height) - var(--spacing-unit) * 3); /* Limit height */
+            overflow-y: auto; /* Allow scrolling within TOC if needed */
+        }
+
+        #progress-bar { position: fixed; top: 0; left: 0; height: 5px; background: linear-gradient(90deg, var(--color-primary), var(--color-accent)); width: 0%; z-index: 100; transition: width 0.1s linear; }
+
+        /* 3. --- Header --- */
+        .site-header {
+            background-color: rgba(var(--color-bg-rgb, 255, 255, 255), 0.85);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            /* Make border slightly less prominent */
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Example: Less opaque black */
+            padding: calc(var(--spacing-unit) * 0.75) 0;
+            position: sticky; top: 0; z-index: 99;
+            transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+            height: var(--header-height);
+        }
+
+        /* Add this rule for dark mode border adjustment */
+        body.dark-mode .site-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Example: Less opaque white */
+        }
+        body { --color-bg-rgb: 255, 255, 255; --color-primary-rgb: 13, 110, 253;}
+        body.dark-mode { --color-bg-rgb: 18, 18, 18; --color-primary-rgb: 77, 171, 247; }
+
+        .site-header .container { display: flex; justify-content: space-between; align-items: center; height: 100%; max-width: var(--main-wrapper-width); /* Make header align with content+toc */ }
+        .logo { font-size: 1.6rem; font-weight: 700; color: var(--color-text); transition: color var(--transition-speed-fast) ease; }
+        .logo:hover { text-decoration: none; color: var(--color-primary); }
+
+        /* Remove these rules for nav if not used - kept for potential future use but hidden via media query mostly */
+        .main-navigation ul { list-style: none; display: flex; gap: calc(var(--spacing-unit) * 1.8); }
+        .main-navigation a { font-weight: 500; color: var(--color-secondary); position: relative; padding: 5px 0; }
+        .main-navigation a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--color-primary); transition: width var(--transition-speed) ease; }
+        .main-navigation a:hover::after, .main-navigation a.active::after { width: 100%; }
+        .main-navigation a.active, .main-navigation a:hover { color: var(--color-primary); text-decoration: none; }
+        @media (max-width: 768px) { .main-navigation { display: none; } }
+
+        .header-actions { display: flex; align-items: center; gap: calc(var(--spacing-unit) * 1.2); }
+        .header-actions button { background: none; border: none; cursor: pointer; font-size: 1.3rem; color: var(--color-secondary); transition: color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease; padding: 5px; }
+        .header-actions button:hover {
+            color: var(--color-primary);
+            transform: scale(1.1);
+            background-color: rgba(var(--color-primary-rgb), 0.08);
+            border-radius: 50%;
+        }
+        .header-actions button:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+            background-color: rgba(var(--color-primary-rgb), 0.08);
+            border-radius: 50%;
+        }
+        #search-input { display: none; border: 1px solid var(--color-border); padding: 6px 10px; border-radius: var(--border-radius); background-color: var(--color-bg); color: var(--color-text); }
+        body.search-active #search-input { display: inline-block; animation: fadeIn 0.3s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(10px)} to { opacity: 1; transform: translateX(0)} }
+
+        /* 4. --- Main Content Area --- */
+        .main-content { flex-grow: 1; padding: calc(var(--spacing-unit) * 2.5) 0; }
+        .blog-post { background-color: var(--color-bg); transition: background-color var(--transition-speed) ease; }
+
+        /* Back to blog link style */
+        .back-to-blog {
+          display: inline-block;
+          margin-bottom: calc(var(--spacing-unit) * 1.5);
+          font-weight: 500;
+          color: var(--color-secondary);
+        }
+        .back-to-blog:hover {
+          color: var(--color-primary);
+          text-decoration: none;
+        }
+
+        /* Featured image now within the article column */
+        .post-featured-image { margin-bottom: calc(var(--spacing-unit) * 2); border-radius: var(--border-radius); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: box-shadow var(--transition-speed) ease; max-height: 350px; /* Optional: constrain height */ object-fit: cover; /* Ensure image covers area nicely */ }
+        body.dark-mode .post-featured-image { box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
+        .post-featured-image img { width: 100%; max-width: none; height: auto; display: block; margin: 0 auto; border-radius: 0; /* Remove radius if container handles it */ object-fit: cover; /* Match container's object-fit */ max-height: 350px; /* Match container */ }
+
+        .post-meta { font-size: 0.9rem; color: var(--color-secondary); margin-bottom: var(--spacing-unit); display: flex; flex-wrap: wrap; gap: calc(var(--spacing-unit) * 1.2); align-items: center; }
+        .post-meta .category a { background-color: var(--color-primary); color: #fff; padding: 3px 10px; border-radius: calc(var(--border-radius) / 1.5); font-size: 0.8rem; font-weight: 500; text-transform: uppercase; transition: background-color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease; display: inline-block; }
+        .post-meta .category a:hover { background-color: var(--color-accent); text-decoration: none; transform: translateY(-2px); }
+        .post-title { font-size: 2.8rem; font-family: var(--font-serif); font-weight: 700; line-height: 1.25; margin-bottom: var(--spacing-unit); color: var(--color-text); transition: color var(--transition-speed) ease; }
+        .author-info { display: flex; align-items: center; gap: calc(var(--spacing-unit) * 0.75); margin-bottom: calc(var(--spacing-unit) * 2.5); font-size: 0.95rem; }
+        .author-info .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-border); }
+        .author-info .author-name { font-weight: 500; color: var(--color-text); transition: color var(--transition-speed-fast) ease; }
+
+        .content-body { font-family: var(--font-serif); font-size: 1.15rem; line-height: 1.8; color: var(--color-text); transition: color var(--transition-speed) ease; }
+        .content-body > * + * { margin-top: calc(var(--spacing-unit) * 1.8); }
+        .content-body h2, .content-body h3, .content-body h4 { font-family: var(--font-primary); font-weight: 700; line-height: 1.3; margin-top: calc(var(--spacing-unit) * 3); color: var(--color-text); transition: color var(--transition-speed) ease; }
+        /* Ensure headings with IDs have enough space above them for scrolling */
+        .content-body h2[id] { font-size: 2rem; border-bottom: 2px solid var(--color-primary); padding-bottom: 5px; display: inline-block; }
+        .content-body h3[id] { font-size: 1.6rem; }
+        .content-body h4[id] { font-size: 1.3rem; color: var(--color-primary); }
+        .content-body h2:not([id]) { font-size: 2rem; border-bottom: 2px solid var(--color-primary); padding-bottom: 5px; display: inline-block; } /* Style non-ID H2s */
+        .content-body h3:not([id]) { font-size: 1.6rem; }
+        .content-body h4:not([id]) { font-size: 1.3rem; color: var(--color-primary); }
+
+        /* Styles to prevent transitions on static elements */
+        .content-body p, .content-body ul, .content-body ol, .content-body blockquote, .content-body figure, .content-body pre, .content-body section, .content-body table, .content-body iframe, .content-body img {
+            transition: none; /* Disable transitions */
+        }
+        .content-body figure { margin: calc(var(--spacing-unit) * 1.5) 0; }
+        .content-body figcaption { font-size: 0.9rem; color: var(--color-secondary); text-align: center; margin-top: calc(var(--spacing-unit) * 0.5); }
+        .content-body img { border-radius: var(--border-radius); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        body.dark-mode .content-body img { box-shadow: 0 4px 12px rgba(255,255,255,0.05); }
+
+
+        .content-body ul, .content-body ol { margin-left: calc(var(--spacing-unit) * 1.5); padding-left: var(--spacing-unit); }
+        .content-body li { margin-bottom: calc(var(--spacing-unit) * 0.5); }
+        .content-body blockquote { border-left: 5px solid var(--color-blockquote-border); padding-left: calc(var(--spacing-unit) * 1.5); margin-left: 0; font-style: italic; font-size: 1.2rem; color: var(--color-secondary); transition: border-color var(--transition-speed) ease, color var(--transition-speed) ease; }
+        .content-body code:not(pre > code) { /* Inline code */ font-family: var(--font-mono); background-color: var(--color-code-bg); padding: 3px 6px; border-radius: var(--border-radius); font-size: 0.9em; color: var(--color-text); transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease; border: 1px solid var(--color-border); }
+        body.dark-mode .content-body code:not(pre > code) { color: #f8f9fa; border-color: #444; }
+        .content-body pre { background-color: var(--color-code-bg); padding: calc(var(--spacing-unit) * 1.5); border-radius: var(--border-radius); overflow-x: auto; position: relative; transition: background-color var(--transition-speed) ease; border: 1px solid var(--color-border); margin: var(--spacing-unit) 0; }
+        .content-body pre code { background-color: transparent; padding: 0; font-size: 0.95rem; line-height: 1.6; color: var(--color-text); transition: color var(--transition-speed) ease; display: block; border: none; /* Remove border from code inside pre */ box-shadow: none; border-radius: 0;}
+        body.dark-mode .content-body pre code { color: #f8f9fa; }
+        .copy-code-button { position: absolute; top: 12px; right: 12px; background-color: var(--color-secondary); color: #fff; border: none; padding: 6px 12px; border-radius: var(--border-radius); font-size: 0.85rem; cursor: pointer; opacity: 0; transition: opacity var(--transition-speed) ease, background-color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease; transform: translateY(5px); }
+        .content-body pre:hover .copy-code-button { opacity: 1; transform: translateY(0); }
+        .copy-code-button:hover { background-color: var(--color-primary); transform: scale(1.05) translateY(0); }
+        .copy-code-button.copied { background-color: var(--color-accent); transform: scale(1.05) translateY(0); }
+
+        /* Styles for the "Connect" section copied from blog2.css */
+        .connect-container {
+          max-width: 100%; /* Make it fit within content-body */
+          margin: calc(var(--spacing-unit) * 3) 0; /* Adjust margin */
+          padding: calc(var(--spacing-unit) * 2);
+          border-radius: var(--border-radius);
+          background: var(--color-illustration-bg); /* Use theme variable */
+          /* background: linear-gradient(to right, #f8f9fa, #e9ecef); Original, replaced */
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Soften shadow */
+          font-family: var(--font-primary); /* Use theme font */
+          border: 1px solid var(--color-border);
+        }
+        body.dark-mode .connect-container {
+           /* background: linear-gradient(to right, #2a2a2a, #343a40); */ /* Darker gradient */
+           background: var(--color-illustration-bg); /* Use theme variable */
+           box-shadow: 0 5px 15px rgba(255, 255, 255, 0.03);
+        }
+        .connect-heading {
+          color: var(--color-text); /* Use theme color */
+          font-size: 1.8rem; /* Adjust size */
+          margin-bottom: var(--spacing-unit);
+          position: relative;
+          padding-bottom: calc(var(--spacing-unit) * 0.5);
+          font-family: var(--font-primary); /* Match other headings */
+          font-weight: 700;
+          border-bottom: none; /* Remove old underline effect */
+          display: inline-block; /* Reset display */
+        }
+        .connect-heading::after { /* Style the underline to match h2 */
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: -2px; /* Position below text */
+          height: 3px;
+          width: 60px;
+          background-color: var(--color-primary); /* Use theme color */
+          border-radius: 3px;
+        }
+        .connect-text {
+          color: var(--color-secondary); /* Use theme color */
+          font-size: 1.05rem; /* Adjust size */
+          line-height: 1.7;
+          margin-bottom: calc(var(--spacing-unit) * 1.5);
+          font-family: var(--font-serif); /* Match body text */
+        }
+        .social-links {
+          display: flex;
+          flex-wrap: wrap;
+          gap: var(--spacing-unit);
+          list-style: none;
+          padding: 0;
+          margin: 0; /* Reset margin */
+        }
+        .social-link {
+          display: inline-flex; /* Use inline-flex */
+          align-items: center;
+          padding: 8px 18px; /* Adjust padding */
+          background-color: var(--color-bg); /* Use theme background */
+          border: 1px solid var(--color-border); /* Add border */
+          border-radius: 50px;
+          text-decoration: none;
+          color: var(--color-text); /* Use theme color */
+          font-weight: 500;
+          font-size: 0.9rem; /* Adjust size */
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Soften shadow */
+        }
+        .social-link:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          border-color: var(--color-primary);
+          color: var(--color-primary); /* Change text color on hover */
+        }
+         body.dark-mode .social-link {
+             background-color: var(--color-code-bg);
+             border-color: var(--color-border);
+             color: var(--color-text);
+         }
+         body.dark-mode .social-link:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+         }
+        .social-link:hover .icon { transform: scale(1.1); } /* Simpler icon effect */
+        .icon {
+          margin-right: 8px; /* Adjust spacing */
+          transition: transform 0.3s ease;
+          width: 18px; /* Slightly smaller icon */
+          height: 18px;
+          fill: currentColor; /* Make SVG use text color */
+        }
+        /* Remove specific background colors on hover, use border/text color instead */
+        .linkedin:hover { background-color: var(--color-bg); }
+        .instagram:hover { background-color: var(--color-bg); }
+        .github:hover { background-color: var(--color-bg); }
+        body.dark-mode .linkedin:hover { background-color: var(--color-code-bg); }
+        body.dark-mode .instagram:hover { background-color: var(--color-code-bg); }
+        body.dark-mode .github:hover { background-color: var(--color-code-bg); }
+
+        @media (max-width: 600px) {
+          .social-links { flex-direction: row; /* Keep horizontal */ } /* Removed column layout */
+          .social-link { width: auto; justify-content: flex-start; } /* Adjust width */
+        }
+
+
+        /* --- End of Connect Section Styles --- */
+
+        .content-body .math { text-align: center; margin: var(--spacing-unit) 0; padding: var(--spacing-unit); background-color: var(--color-code-bg); border-radius: var(--border-radius); overflow-x: auto; border: 1px solid var(--color-border); }
+
+        .content-body table { width: 100%; border-collapse: collapse; margin: calc(var(--spacing-unit) * 2) 0; font-size: 0.95rem; border: 1px solid var(--color-border); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .content-body th, .content-body td { border: 1px solid var(--color-border); padding: calc(var(--spacing-unit) * 0.75); text-align: left; }
+        .content-body thead th { background-color: var(--color-code-bg); font-weight: 600; color: var(--color-text); }
+        .content-body tbody tr:nth-child(even) { background-color: var(--color-code-bg); }
+        body.dark-mode .content-body tbody tr:nth-child(even) { background-color: rgba(var(--color-bg-rgb), 0.1); }
+        body.dark-mode .content-body thead th { background-color: var(--color-code-bg); }
+
+        .section-divider { height: 5px; width: 100px; margin: calc(var(--spacing-unit) * 3) auto; background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-primary)); background-size: 200% 100%; border-radius: 3px; animation: gradient-shift 4s linear infinite; }
+        @keyframes gradient-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* Post Tags, Social Share, Author Bio, Related Posts, Comments... */
+        .post-tags { margin-top: calc(var(--spacing-unit) * 3); padding-top: calc(var(--spacing-unit) * 1.5); border-top: 1px solid var(--color-border); transition: border-color var(--transition-speed) ease; }
+        .post-tags span { font-weight: 600; margin-right: var(--spacing-unit); color: var(--color-secondary); transition: color var(--transition-speed) ease; }
+        .post-tags a { display: inline-block; background-color: var(--color-code-bg); color: var(--color-secondary); padding: 5px 12px; border-radius: 15px; font-size: 0.9rem; margin-right: calc(var(--spacing-unit) / 2); margin-bottom: calc(var(--spacing-unit) / 2); transition: background-color var(--transition-speed-fast) ease, color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease; border: 1px solid var(--color-border); }
+        .post-tags a:hover { background-color: var(--color-primary); color: #fff; text-decoration: none; transform: translateY(-2px) scale(1.03); border-color: var(--color-primary); }
+
+        .social-share { margin-top: calc(var(--spacing-unit) * 3); padding: calc(var(--spacing-unit) * 2); border: 1px solid var(--color-border); border-radius: var(--border-radius); background-color: var(--color-code-bg); text-align: center; transition: border-color var(--transition-speed) ease, background-color var(--transition-speed) ease; }
+        .social-share h3 { margin-bottom: calc(var(--spacing-unit) * 1.5); font-size: 1.2rem; font-weight: 600; color: var(--color-text); transition: color var(--transition-speed) ease; }
+        .share-buttons a, .share-buttons button { display: inline-flex; align-items: center; justify-content: center; margin: 6px; padding: 10px 18px; border-radius: var(--border-radius); color: #fff; font-size: 0.95rem; font-weight: 500; text-decoration: none; border: none; cursor: pointer; transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; min-width: 110px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .share-buttons a:hover, .share-buttons button:hover { opacity: 0.9; transform: translateY(-3px) scale(1.02); text-decoration: none; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        .share-facebook { background-color: #1877F2; } .share-twitter { background-color: #1DA1F2; } .share-linkedin { background-color: #0A66C2; } .share-reddit { background-color: #FF4500; } .share-email { background-color: #777; } .share-copy { background-color: var(--color-secondary); }
+        .share-copy.copied { background-color: var(--color-accent) !important; }
+        #native-share-button { background-color: #0056b3; }
+
+        .author-bio { margin-top: calc(var(--spacing-unit) * 4); padding: calc(var(--spacing-unit) * 2); background-color: var(--color-code-bg); border-radius: var(--border-radius); display: flex; gap: calc(var(--spacing-unit) * 1.5); align-items: flex-start; transition: background-color var(--transition-speed) ease; border: 1px solid var(--color-border); }
+        .author-bio .avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid var(--color-bg); box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .author-bio-content h4 { margin-bottom: calc(var(--spacing-unit) / 1.5); font-size: 1.3rem; color: var(--color-text); transition: color var(--transition-speed) ease; }
+        .author-bio-content p { font-size: 1rem; line-height: 1.6; color: var(--color-secondary); transition: color var(--transition-speed) ease; margin-bottom: var(--spacing-unit); }
+        .author-social-links a { margin-right: 12px; font-size: 1.3rem; color: var(--color-secondary); transition: color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease; display: inline-block; }
+        .author-social-links a:hover { color: var(--color-primary); transform: scale(1.1); }
+        .author-social-links a svg { width: 20px; height: 20px; vertical-align: middle; fill: currentColor; }
+
+        .related-posts { margin-top: calc(var(--spacing-unit) * 4); padding-top: calc(var(--spacing-unit) * 2.5); border-top: 1px solid var(--color-border); transition: border-color var(--transition-speed) ease; }
+        .related-posts h2 { text-align: center; margin-bottom: calc(var(--spacing-unit) * 2); font-size: 1.8rem; font-weight: 600; color: var(--color-text); transition: color var(--transition-speed) ease; }
+        .related-posts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: calc(var(--spacing-unit) * 1.5); }
+        .related-post-card { border: 1px solid var(--color-border); border-radius: var(--border-radius); overflow: hidden; background-color: var(--color-bg); transition: border-color var(--transition-speed) ease, box-shadow 0.3s ease, transform 0.3s ease; display: flex; flex-direction: column; }
+        .related-post-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-color: var(--color-primary); transform: translateY(-5px); }
+        body.dark-mode .related-post-card { background-color: var(--color-code-bg); }
+        body.dark-mode .related-post-card:hover { box-shadow: 0 8px 25px rgba(255,255,255,0.08); }
+        .related-post-card a:first-child:focus-visible { outline-offset: -3px; }
+        .related-post-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-bottom: 1px solid var(--color-border); transition: transform 0.3s ease; margin: 0; }
+        .related-post-card:hover img { transform: scale(1.05); }
+        .related-post-card-content { padding: calc(var(--spacing-unit) * 1.2); flex-grow: 1; display: flex; flex-direction: column; }
+        .related-post-card h3 { font-size: 1.1rem; margin-bottom: calc(var(--spacing-unit) / 1.5); line-height: 1.4; flex-grow: 1; }
+        .related-post-card h3 a { color: var(--color-text); transition: color var(--transition-speed-fast) ease; }
+        .related-post-card h3 a:hover { color: var(--color-primary); text-decoration: none; }
+        .related-post-card .post-meta { font-size: 0.8rem; margin-top: var(--spacing-unit); margin-bottom: 0; gap: calc(var(--spacing-unit) / 1.5); color: var(--color-secondary); }
+
+        .comments-section { margin-top: calc(var(--spacing-unit) * 4); padding-top: calc(var(--spacing-unit) * 2.5); border-top: 1px solid var(--color-border); transition: border-color var(--transition-speed) ease; }
+        .comments-section h2 { margin-bottom: calc(var(--spacing-unit) * 1.8); font-size: 1.8rem; font-weight: 600; color: var(--color-text); transition: color var(--transition-speed) ease; }
+        #comment-form { border: 1px solid var(--color-border); padding: calc(var(--spacing-unit) * 1.5); border-radius: var(--border-radius); background-color: var(--color-code-bg); margin-bottom: calc(var(--spacing-unit) * 2.5); }
+        #comment-form p { font-weight: 500; margin-bottom: var(--spacing-unit); font-size: 1.1rem;}
+        #comment-form textarea, #comment-form input[type="text"], #comment-form input[type="email"] { width: 100%; padding: 12px; margin-bottom: var(--spacing-unit); border: 1px solid var(--color-border); border-radius: var(--border-radius); font-family: inherit; font-size: 1rem; background-color: var(--color-bg); color: var(--color-text); transition: border-color var(--transition-speed) ease, background-color var(--transition-speed) ease, color var(--transition-speed) ease, box-shadow 0.2s ease; }
+        #comment-form textarea:focus, #comment-form input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.2); outline: none; }
+        #comment-form .form-row { display: flex; gap: var(--spacing-unit); margin-bottom: var(--spacing-unit); }
+        #comment-form .form-row > input { flex: 1; margin-bottom: 0; }
+        @media (max-width: 600px) { #comment-form .form-row { flex-direction: column; } }
+        #comment-form button { padding: 12px 25px; background-color: var(--color-primary); color: #fff; border: none; border-radius: var(--border-radius); cursor: pointer; font-size: 1rem; font-weight: 500; transition: background-color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease; }
+        #comment-form button:hover { background-color: var(--color-accent); transform: translateY(-2px); }
+        #comment-form button:active { transform: translateY(0); }
+        .gh-comments-info { background-color: var(--color-illustration-bg); border: 1px dashed var(--color-secondary); padding: calc(var(--spacing-unit) * 1.5); margin: calc(var(--spacing-unit)*2) 0; border-radius: var(--border-radius); font-size: 0.95rem; line-height: 1.6; color: var(--color-secondary); }
+        .gh-comments-info p { margin-bottom: 1em; }
+        .gh-comments-info strong { color: var(--color-text); }
+        .gh-comments-info code { font-size: 0.85em; padding: 2px 5px; background-color: rgba(0,0,0,0.05); border-radius: 3px; }
+        body.dark-mode .gh-comments-info code { background-color: rgba(255,255,255,0.1); }
+        #comment-thread-container { margin-top: calc(var(--spacing-unit) * 2); }
+
+        /* 5. --- Footer --- */
+        .site-footer { background-color: var(--color-code-bg); color: var(--color-secondary); padding: calc(var(--spacing-unit) * 2.5) 0; margin-top: calc(var(--spacing-unit) * 4); font-size: 0.9rem; text-align: center; transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease; border-top: 1px solid var(--color-border); }
+        .site-footer .container { max-width: var(--main-wrapper-width); } /* Align footer content */
+        .site-footer a { color: var(--color-secondary); transition: color var(--transition-speed-fast) ease; }
+        .site-footer a:hover { color: var(--color-primary); }
+        .footer-links { margin-top: calc(var(--spacing-unit) / 1.5); }
+        .footer-links a { margin: 0 10px; }
+
+        /* 6. --- Utility & Interaction Styles --- */
+        #back-to-top { position: fixed; bottom: 25px; right: 25px; background-color: var(--color-primary); color: #fff; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.8rem; line-height: 50px; text-align: center; cursor: pointer; opacity: 0; visibility: hidden; transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease, background-color var(--transition-speed-fast) ease, transform 0.2s ease; z-index: 90; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        #back-to-top.visible { opacity: 0.8; visibility: visible; transform: scale(1); }
+        #back-to-top:hover { opacity: 1; background-color: var(--color-accent); transform: scale(1.1); }
+        #back-to-top:active { transform: scale(1); }
+
+
+        /* 7. --- Table of Contents Styling --- */
+        #toc-container {
+            padding: calc(var(--spacing-unit) * 1);
+            border-left: 1px solid var(--color-border); /* Optional separator */
+            transition: border-color var(--transition-speed) ease;
+        }
+        #toc-container h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-unit);
+            padding-bottom: calc(var(--spacing-unit) * 0.5);
+            border-bottom: 1px solid var(--color-border);
+            color: var(--color-text);
+        }
+        #toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        #toc-list li {
+            margin-bottom: calc(var(--spacing-unit) * 0.5);
+        }
+        #toc-list a {
+            display: block;
+            color: var(--color-secondary);
+            padding: 4px 0;
+            transition: color var(--transition-speed-fast), border-left-color var(--transition-speed-fast), transform var(--transition-speed-fast);
+            border-left: 3px solid transparent; /* For active state indicator */
+            padding-left: calc(var(--spacing-unit) * 0.75);
+            text-decoration: none;
+        }
+        #toc-list a:hover {
+            color: var(--color-primary);
+            transform: translateX(3px);
+            text-decoration: none;
+        }
+        #toc-list a.active {
+            color: var(--color-primary);
+            font-weight: 600;
+            border-left-color: var(--color-primary);
+        }
+
+
+        /* --- Responsive Adjustments --- */
+        /* Hide TOC and revert to single column on smaller screens */
+        @media (max-width: 1024px) { /* Adjust breakpoint as needed */
+            .content-wrapper {
+                grid-template-columns: 1fr; /* Single column */
+                max-width: var(--container-width); /* Revert to article width */
+                 width: 90%; /* Maintain padding */
+            }
+            .toc-column {
+                display: none; /* Hide TOC */
+            }
+            .site-header .container,
+            .site-footer .container {
+                 max-width: var(--container-width); /* Adjust header/footer */
+            }
+            .post-featured-image img {
+                max-width: 800px; /* Re-apply max-width if needed on smaller screens */
+            }
+        }
+        @media (max-width: 768px) {
+            .post-title { font-size: 2.2rem; }
+            .content-body { font-size: 1.1rem; }
+            .content-body h2 { font-size: 1.8rem; }
+            .content-body h3 { font-size: 1.5rem; }
+            .author-bio { flex-direction: column; align-items: center; text-align: center; }
+            .author-bio .avatar { margin-bottom: var(--spacing-unit); }
+        }
+         @media (max-width: 600px) {
+              .related-posts-grid { grid-template-columns: 1fr; }
+         }
+    </style>
+</head>
+<body>
+    <!-- Optional Loading Spinner -->
+    <!-- <div class="loader-wrapper"><div class="loader"></div></div> -->
+
+
+    <div id="progress-bar"></div>
+
+    <header class="site-header">
+        <div class="container">
+             <a href="bloghome.html" class="logo">Sivanesan's Blog</a>
+             <!-- Navigation block is present but likely hidden on mobile -->
+             <nav class="main-navigation">
+                 <!-- Add nav links here if needed -->
+                 <!-- <ul><li><a href="#">Home</a></li></ul> -->
+             </nav>
+             <div class="header-actions">
+                 <input type="search" id="search-input" placeholder="Search posts..." aria-label="Search Input">
+                 <button id="search-toggle" aria-label="Toggle Search" title="Search">🔍</button>
+                 <button id="theme-toggle" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">🌓</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <!-- New Content Wrapper for Article + TOC -->
+        <div class="content-wrapper">
+
+             <!-- Back to Home Link -->
+             <a href="bloghome.html" class="back-to-blog">← Back to Home</a>
+
+            <!-- Article Column -->
+            <div class="article-column">
+                <article class="blog-post" itemscope itemtype="http://schema.org/BlogPosting">
+
+                    <!-- Featured Image -->
+                    <figure class="post-featured-image">
+                        <!-- Updated Image Source -->
+                        <img src="assets/blog_cover_image/NAC.png"
+                             alt="Portfolio website mockup or abstract design elements"
+                             itemprop="image"
+                             loading="eager"> <!-- Load featured image eagerly -->
+                    </figure>
+
+                    <!-- Post Meta -->
+                    <div class="post-meta">
+                        <!-- Updated Categories/Tags -->
+                        <span class="category"><a href="#category-portfolio" itemprop="articleSection">Portfolio</a></span>
+                        <span class="category"><a href="#category-design" itemprop="articleSection">NSA</a></span>
+                        <span class="category"><a href="#category-blogging" itemprop="articleSection">Blogging</a></span>
+                        <span class="reading-time" title="Estimated reading time">⏱️ Calculating...</span>
+                        <!-- Updated Date -->
+                        <time class="publication-date" datetime="2025-02-23" itemprop="datePublished">February 23, 2025</time>
+                    </div>
+
+                    <!-- Post Title -->
+                    <!-- Updated Title -->
+                    <h1 class="post-title" itemprop="headline">AI Models That Build Themselves: The Rise of Neural Architecture Search (NAS)</h1>
+
+                    <!-- Author Info - Kept the same -->
+                    <div class="author-info" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                         <img src="assets/myself/sivanesan.png" alt="SivanesanAvatar" class="avatar" itemprop="image">
+                        <span class="author-name" itemprop="name">Sivanesan</span>
+                    </div>
+
+                    <!-- Content Body -->
+                    <!-- Updated Content from blog2.html -->
+                    <div class="content-body" itemprop="articleBody">
+
+                        <p>Hi, I’m Sivanesan, a final-year B.Tech student in Artificial Intelligence and Data Science at Kumaraguru College of Technology. I’m deeply passionate about AI and how it’s shaping the future. This is my very first blog, and I’m thrilled to share my journey, experiences, and insights with you. Whether you're here for some tech talk or just curious about my story, I hope you'll stick around. Let’s get started!</p>
+
+                        <h2 id="section1">1. Introduction</h2>
+
+                        <p>
+                        Imagine a world where AI doesn’t just learn — it designs itself. Welcome to the era of <strong>Neural Architecture Search (NAS)</strong>. This cutting-edge technique automates the process of discovering the most effective neural network architecture for a given task. Instead of relying on manual experimentation, NAS uses algorithms to explore countless model configurations, dramatically speeding up innovation and reducing the need for human guesswork.
+                        </p>
+
+                        <p><strong>Example:</strong> Like Chitti Designing a Smarter Version of Himself</p>
+
+                        <p>
+                        Think of NAS like <em>Chitti</em>, the robot from <strong>Enthiran</strong>. Imagine Chitti wasn’t just powerful but also smart enough to design a better version of himself—faster, stronger, and more efficient—without needing <em>Vaseegaran’s</em> help.
+                        </p>
+
+                        <p>
+                        That’s what Neural Architecture Search does.
+                        </p>
+
+                        <p>
+                        Just like Chitti could analyze millions of possibilities in seconds, NAS explores countless neural network designs—testing which combination of layers, neurons, and connections works best for a task (like image recognition or speech translation). It learns from each design and keeps improving automatically.
+                        </p>
+
+                        <p><strong>In short:</strong><br>
+                        NAS = Chitti designing Chitti 2.0
+                        </p>
+
+
+                        <h2 id="section2">2. What is Neural Architecture Search (NAS)?</h2>
+
+                            <p>
+                            <strong>Neural Architecture Search (NAS)</strong> is a powerful machine learning technique where AI designs better AI.
+                            </p>
+
+                            <p>
+                            Instead of humans manually crafting neural network architectures (like CNNs or RNNs), NAS automates the process—finding the optimal design for a specific task, such as image classification, language translation, or speech recognition.
+                            </p>
+
+                            <p><strong>In short:</strong></p>
+                            <ul>
+                            <li><strong>Traditional AI:</strong> Humans build models.</li>
+                            <li><strong>NAS:</strong> AI builds models.</li>
+                            </ul>
+
+                            <h3>Key Components of NAS:</h3>
+
+                            <h4>1. Search Space</h4>
+                            <p>
+                            The universe of possible neural network architectures. It defines what the AI is allowed to try—like types of layers, activation functions, or connections.
+                            </p>
+
+                            <h4>2. Search Strategy</h4>
+                            <p>
+                            The brain behind the exploration. It decides how to navigate the search space. Common strategies include:
+                            </p>
+                            <ul>
+                            <li>Reinforcement Learning (RL)</li>
+                            <li>Evolutionary Algorithms</li>
+                            <li>Bayesian Optimization</li>
+                            <li>Gradient-based methods</li>
+                            </ul>
+
+                            <h4>3. Evaluation Strategy</h4>
+                            <p>
+                            How each candidate model is judged. It usually involves:
+                            </p>
+                            <ul>
+                            <li>Training the model (fully or partially)</li>
+                            <li>Testing it on validation data</li>
+                            <li>Scoring it based on accuracy, speed, or resource usage</li>
+                            </ul>
+
+                        <h2 id="section3">3. How NAS Works (Simplified)</h2>
+
+                        <ol>
+                        <li>
+                            <strong>Define the building blocks</strong><br>
+                            Start by listing the basic components like layers (e.g., convolution, pooling) and how they can connect—like LEGO pieces for neural networks.
+                        </li>
+
+                        <li>
+                            <strong>Search for combinations</strong><br>
+                            Use a search algorithm (random search, reinforcement learning, evolution, etc.) to explore different architectures—similar to trial-and-error.
+                        </li>
+
+                        <li>
+                            <strong>Train and evaluate each model</strong><br>
+                            Each candidate architecture is trained (like a student learning) and tested on a task to see how well it performs.
+                        </li>
+
+                        <li>
+                            <strong>Select and refine the best</strong><br>
+                            The top-performing architectures are kept and improved over time—like keeping the best students and helping them grow smarter.
+                        </li>
+                        </ol>
+
+                        <!-- Placeholder for the zoom image -->
+                        <div style="margin-top: 20px;">
+                        <p><strong>Visual Aid:</strong></p>
+                        <img src="/assets/content_images/blog2.1.jpg" alt="NAS Process Zoom Image" style="max-width: 100%; height: auto;">
+                        </div>
+
+                        <h2 id="section4">4. Popular Approaches to NAS</h2>
+
+                        <h3>1. Reinforcement Learning-based NAS</h3>
+                        <p>
+                        A controller (often an RNN) generates network architectures. It receives feedback based on how well the architecture performs and learns to generate better ones over time — like a gamer learning through rewards.
+                        </p>
+
+                        <h3>2. Evolutionary Algorithms</h3>
+                        <p>Inspired by Darwin’s theory of evolution:</p>
+                        <ul>
+                        <li>Start with a population of random architectures</li>
+                        <li>Apply mutations and crossover</li>
+                        <li>Keep the best performers</li>
+                        </ul>
+                        <p>
+                        Over generations, the models “evolve” to become better.
+                        </p>
+
+                        <h3>3. Gradient-based NAS</h3>
+                        <p>
+                        Uses gradient descent to directly optimize architecture parameters.
+                        </p>
+                        <ul>
+                        <li>Much faster than other methods</li>
+                        <li>Requires continuous/relaxable search spaces</li>
+                        <li>Techniques like <strong>DARTS</strong> (Differentiable Architecture Search) are popular in this category</li>
+                        </ul>
+
+                        <!-- Placeholder for the zoom image -->
+                        <div style="margin-top: 20px;">
+                        <p><strong>Visual Aid:</strong></p>
+                        <img src="/assets/content_images/blog2.2.jpg" alt="Popular NAS Approaches Diagram" style="max-width: 100%; height: auto;">
+                        </div>
+
+                                                <h2 id="section5">5. Real-World Impact: Google AutoML</h2>
+                        <p>
+                        Google’s <strong>AutoML</strong> leverages Neural Architecture Search (NAS) to automatically design high-performing models—often surpassing those crafted by human experts.
+                        </p>
+                        <p>It has been successfully applied to tasks like:</p>
+                        <ul>
+                        <li>Image Classification</li>
+                        <li>Object Detection</li>
+                        <li>Natural Language Processing</li>
+                        </ul>
+                        <p>
+                        What makes AutoML powerful is its accessibility—it empowers non-experts to build top-tier AI systems without deep knowledge of neural network design.
+                        </p>
+
+                        <h2 id="section6">6. Challenges in NAS</h2>
+                        <ul>
+                        <li><strong>Expensive:</strong> Searching for the best architecture requires massive computational resources—often needing hundreds of GPUs or TPUs.</li>
+                        <li><strong>Time-Consuming:</strong> Each candidate model must be trained and evaluated, which makes the entire search process very slow.</li>
+                        <li><strong>Risk of Overfitting:</strong> NAS might overfit to the validation set it uses during search, especially if the search space or dataset is small.</li>
+                        </ul>
+
+                        <h2 id="section7">7. The Future of NAS</h2>
+
+                        <h3>One-shot NAS</h3>
+                        <p>
+                        Instead of training each model from scratch, a <strong>supernet</strong> is trained once. Multiple architectures are then evaluated by sharing weights—making the search much faster and cheaper.
+                        </p>
+
+                        <h3>Hardware-aware NAS</h3>
+                        <p>
+                        Designs architectures not just for accuracy, but also for efficiency on specific devices (e.g., smartphones, edge devices). It balances performance with constraints like latency, memory, and power usage.
+                        </p>
+
+                        <h3>Few-shot NAS</h3>
+                        <p>
+                        Aims to reduce the amount of data and compute needed during search, making NAS more accessible in low-resource settings.
+                        </p>
+
+                        <h2 id="section8">8. Why NAS Matters</h2>
+                        <p>
+                        <strong>Neural Architecture Search (NAS)</strong> democratizes AI by automating the design of powerful models—no deep machine learning expertise required.
+                        </p>
+
+                        <p>It empowers:</p>
+                        <ul>
+                        <li>Developers without AI backgrounds</li>
+                        <li>Startups without large research teams</li>
+                        <li>Industries seeking custom, optimized solutions</li>
+                        </ul>
+
+                        <p>
+                        By making AI more accessible, efficient, and adaptable, NAS is paving the way for smarter systems across <strong>healthcare, finance, manufacturing,</strong> and beyond.
+                        </p>
+
+                        <h2 id="final-thoughts">Final Thoughts</h2>
+                        <p>
+                        <strong>Neural Architecture Search (NAS)</strong> is AI building better AI — a bold step toward truly autonomous intelligence.
+                        </p>
+
+                        <p>
+                        Though still evolving, NAS holds the power to redefine how we design deep learning models, shifting from manual engineering to automated optimization.
+                        </p>
+
+                        <p>
+                        As computing becomes faster, cheaper, and more intelligent, NAS will likely sit at the heart of the next wave of AI breakthroughs — accelerating innovation across every field it touches.
+                        </p>
+
+                        <h2 id="thank-you">Thanks for Reading!</h2>
+                        <p>
+                        Thanks for taking the time to read my post on <strong>Neural Architecture Search (NAS)</strong>. I hope it gave you a clear and simplified understanding of how AI is evolving to design itself.
+                        </p>
+                        <p>
+                        I’d love to hear your thoughts or questions in the comments!
+                        </p>
+                        <p>
+                        Let’s grow and learn together in the world of AI.
+                        </p>
+
+
+                    </div> <!-- /.content-body -->
+
+                     <!-- Post Tags -->
+                    <!-- Updated Tags -->
+                    <div class="post-tags" itemprop="keywords">
+                        <span>Tags:</span>
+                        <a href="#tag-neuralarchitecturesearch">Neural Architecture Search</a>
+                        <a href="#tag-nas">NAS</a>
+                        <a href="#tag-ai">AI</a>
+                        <a href="#tag-machinelearning">Machine Learning</a>
+                        <a href="#tag-deeplearning">Deep Learning</a>
+                    </div>
+
+
+                     <!-- Social Share Section - Kept the same -->
+                     <div class="social-share">
+                         <h3>Share This Post</h3>
+                         <div class="share-buttons">
+                             <a href="#" class="share-facebook" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">Facebook</a>
+                             <a href="#" class="share-twitter" target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter">Twitter</a>
+                             <a href="https://www.linkedin.com/shareArticle?mini=true&url=[YOUR_BLOG_POST_URL]&title=Building%20My%20First%20Portfolio" class="share-linkedin" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">LinkedIn</a>
+                             <a href="#" class="share-reddit" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit">Reddit</a>
+                             <a href="mailto:?subject=Check%20out%20this%20post%20on%20building%20a%20portfolio!&body=Thought%20you%20might%20find%20this%20interesting%3A%0A%0A[YOUR_BLOG_POST_URL]" class="share-email" aria-label="Share via Email">Email</a>
+                             <button id="copy-link-button" class="share-copy" aria-label="Copy post link">Copy Link</button>
+                              <button id="native-share-button" aria-label="Share natively" style="display: none;">Share...</button>
+                        </div>
+                     </div>
+
+                     <!-- Author Bio - Kept the same -->
+                     <section class="author-bio" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                         <img src="assets/myself/sivanesan.png" alt="Sivanesan Avatar" class="avatar" itemprop="image">
+                         <div class="author-bio-content">
+                            <h4 itemprop="name">Sivanesan</h4>
+                            <p itemprop="description">
+                            Passionate about AI, Neural Architecture Search (NAS), and building smarter models through automation. Currently exploring how AI can design better AI using deep learning and reinforcement learning. Let’s connect, share ideas, and grow together!
+                            </p>
+                            <div class="author-social-links">
+                                 <a href="https://www.linkedin.com/in/sivanesan-b-871ba7264" target="_blank" rel="noopener me" aria-label="Sivanesanon LinkedIn" title="LinkedIn">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                 </a>
+                                 <a href="https://github.com/Sivanesanbalu" target="_blank" rel="noopener me" aria-label="Sivanesanon GitHub" title="GitHub">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                 </a>
+                                
+                            </div>
+                         </div>
+                    </section>
+
+                    <!-- Related Posts Section -->
+                    <!-- Updated Previous/Next Posts -->
+                    <section class="related-posts">
+                        <h2>Previous & Next Posts</h2>
+                        <div class="related-posts-grid">
+                            <!-- Previous Post Link -->
+                            <div class="related-post-card">
+                                 <a href="blog1.html" aria-label="Read previous post: Welcome to My Blog!">
+                                     <!-- UPDATE IMAGE PATH -->
+                                    <img src="assets/blogpost thumbnails/blog1.png" alt="Thumbnail for First Blog Post" loading="lazy">
+                                </a>
+                                 <div class="related-post-card-content">
+                                    <h3><a href="blog1.html">← Previous Post: Welcome to My Blog!</a></h3>
+                                    <div class="post-meta">
+                                        <!-- <time datetime="2025-XX-XX">Feb 18, 2025</time> -->
+                                        <!-- <span>&middot; X min read</span> -->
+                                    </div>
+                                 </div>
+                            </div>
+                             <!-- Next Post Link -->
+                            
+                        </div>
+                    </section>
+
+                     <!-- Comments Section - Kept the same -->
+                    <section id="comments" class="comments-section">
+                        <h2>Join the Discussion (<span id="comment-count">0</span>)</h2>
+                        <div class="gh-comments-info">
+                            <p><strong>Comments via GitHub Discussions:</strong> This blog uses <a href="https://giscus.app/" target="_blank" rel="noopener">Giscus</a>, which leverages GitHub Discussions for comments.</p>
+                            <p>You'll need a GitHub account to comment. Comments will appear in a dedicated Discussion category within the blog's repository.</p>
+                        </div>
+                        <div id="comment-thread-container">
+                            <script src="https://giscus.app/client.js"
+                                data-repo="Sivanesanbalu/BLOG-1"
+                                data-repo-id="R_kgDOPZWV1Q"
+                                data-category="General"
+                                data-category-id="DIC_kwDOPZWV1c4Ct2aw"
+                                data-mapping="pathname"
+                                data-strict="0"
+                                data-reactions-enabled="1"
+                                data-emit-metadata="0"
+                                data-input-position="bottom"
+                                data-theme="preferred_color_scheme"
+                                data-lang="en"
+                                crossorigin="anonymous"
+                                async>
+                        </script>
+                            <noscript>Please enable JavaScript to view the comments powered by Giscus.</noscript>
+                         </div>
+                    </section>
+
+                </article> <!-- /.blog-post -->
+            </div> <!-- /.article-column -->
+
+            <!-- Table of Contents Column -->
+            <aside class="toc-column">
+                <nav id="toc-container" aria-label="Table of Contents">
+                    <h3>Table of Contents</h3>
+                    <!-- Updated TOC List for NAS Content -->
+                    <ol id="toc-list">
+                        <li><a href="#section1">1. Introduction</a></li>
+                        <li><a href="#section2">2. What is Neural Architecture Search (NAS)?</a></li>
+                        <li><a href="#section3">3. How NAS Works (Simplified)</a></li>
+                        <li><a href="#section4">4. Popular Approaches to NAS</a></li>
+                        <li><a href="#section5">5. Real-World Impact: Google AutoML</a></li>
+                        <li><a href="#section6">6. Challenges in NAS</a></li>
+                        <li><a href="#section7">7. The Future of NAS</a></li>
+                        <li><a href="#section8">8. Why NAS Matters</a></li>
+                        <li><a href="#final-thoughts">Final Thoughts</a></li>
+                        <li><a href="#thank-you">Thanks for Reading</a></li>
+                    </ol>
+                </nav>
+            </aside>
+ <!-- /.toc-column -->
+
+        </div> <!-- /.content-wrapper -->
+    </main> <!-- /.main-content -->
+
+    <!-- Footer - Kept the same -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Sivanesan. Exploring AI and sharing the journey.</p>
+            <div class="footer-links">
+                 <a href="#privacy">Privacy Policy</a> |
+                 <a href="#terms">Terms of Use</a> |
+                 <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" aria-label="Back to top" title="Back to top" style="transform: scale(0);">↑</button>
+
+    <!-- Copied JavaScript from blog5.html -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- Theme Toggle ---
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme');
+        const sunIcon = '☀️';
+        const moonIcon = '🌓';
+        let isDarkMode = false;
+
+        const setTheme = (theme) => {
+            isDarkMode = theme === 'dark';
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            themeToggleButton.textContent = isDarkMode ? sunIcon : moonIcon;
+            themeToggleButton.setAttribute('aria-label', `Switch to ${isDarkMode ? 'Light' : 'Dark'} Mode`);
+            localStorage.setItem('theme', theme);
+
+            if (isDarkMode) {
+                 document.body.style.setProperty('--color-bg-rgb', '18, 18, 18');
+                 document.body.style.setProperty('--color-primary-rgb', '77, 171, 247');
+            } else {
+                 document.body.style.setProperty('--color-bg-rgb', '255, 255, 255');
+                 document.body.style.setProperty('--color-primary-rgb', '13, 110, 253');
+            }
+
+             // Update Giscus theme
+             const giscusFrame = document.querySelector('iframe.giscus-frame');
+             if (giscusFrame?.contentWindow) {
+                 giscusFrame.contentWindow.postMessage({ giscus: { setConfig: { theme: isDarkMode ? 'dark' : 'light' } } }, 'https://giscus.app');
+             }
+        };
+
+        const initialTheme = currentTheme || (prefersDarkScheme.matches ? 'dark' : 'light');
+        setTheme(initialTheme);
+
+        themeToggleButton.addEventListener('click', () => {
+            setTheme(document.body.classList.contains('dark-mode') ? 'light' : 'dark');
+        });
+        prefersDarkScheme.addEventListener('change', (e) => { if (!localStorage.getItem('theme')) setTheme(e.matches ? 'dark' : 'light'); });
+
+
+         // --- Search Toggle ---
+         const searchToggleButton = document.getElementById('search-toggle');
+         const searchInput = document.getElementById('search-input');
+         searchToggleButton.addEventListener('click', () => { document.body.classList.toggle('search-active'); if(document.body.classList.contains('search-active')) searchInput.focus(); });
+
+        // --- Back to Top Button ---
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+             const isVisible = window.scrollY > 400;
+             backToTopButton.classList.toggle('visible', isVisible);
+             backToTopButton.style.transform = isVisible ? 'scale(1)' : 'scale(0)';
+        }, { passive: true });
+        backToTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+
+        // --- Reading Progress Bar ---
+        const progressBar = document.getElementById('progress-bar');
+         const updateProgressBar = () => {
+              // Make calculation relative to the main content wrapper height if possible
+              const contentElement = document.querySelector('.content-wrapper') || document.body;
+              const element = document.documentElement;
+              const scrollableHeight = contentElement.scrollHeight - window.innerHeight;
+              const scrolled = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
+              progressBar.style.width = `${Math.min(scrolled, 100)}%`;
+         };
+         window.addEventListener('scroll', updateProgressBar, { passive: true });
+         window.addEventListener('resize', updateProgressBar);
+         updateProgressBar(); // Initial calculation
+
+
+         // --- Copy Code Button ---
+         // Ensure buttons are added to pre tags if not present
+        document.querySelectorAll('.content-body pre').forEach(pre => {
+            if (!pre.querySelector('.copy-code-button')) {
+                const button = document.createElement('button');
+                button.className = 'copy-code-button';
+                button.textContent = 'Copy';
+                button.setAttribute('aria-label', 'Copy code snippet');
+                pre.appendChild(button);
+            }
+        });
+        // Add event listeners
+        document.querySelectorAll('.copy-code-button').forEach(button => {
+             const pre = button.closest('pre');
+             const code = pre?.querySelector('code');
+             if (!code || !navigator.clipboard) { button.style.display = 'none'; return; }
+             button.addEventListener('click', async () => {
+                 try {
+                     await navigator.clipboard.writeText(code.innerText);
+                     button.textContent = 'Copied!'; button.classList.add('copied');
+                     setTimeout(() => { button.textContent = 'Copy'; button.classList.remove('copied'); }, 2000);
+                 } catch (err) { console.error('Copy failed:', err); button.textContent = 'Error'; }
+             });
+         });
+
+
+        // --- Copy Link Button ---
+        const copyLinkButton = document.getElementById('copy-link-button');
+        if (copyLinkButton && navigator.clipboard) {
+            copyLinkButton.addEventListener('click', async () => {
+                 try {
+                     const postUrl = window.location.href; // Dynamically get current URL
+                     await navigator.clipboard.writeText(postUrl);
+                     copyLinkButton.textContent = 'Link Copied!'; copyLinkButton.classList.add('copied');
+                     setTimeout(() => { copyLinkButton.textContent = 'Copy Link'; copyLinkButton.classList.remove('copied'); }, 2000);
+                 } catch (err) { console.error('Copy link failed:', err); copyLinkButton.textContent = 'Error'; }
+            });
+        } else if (copyLinkButton) { copyLinkButton.style.display = 'none'; }
+
+
+        // --- Native Share API Button ---
+        const nativeShareButton = document.getElementById('native-share-button');
+        const postTitle = document.querySelector('.post-title')?.innerText || document.title;
+        const shareUrl = window.location.href;
+        if (nativeShareButton && navigator.share) {
+             nativeShareButton.style.display = 'inline-flex';
+             nativeShareButton.addEventListener('click', async () => {
+                 try {
+                    await navigator.share({
+                        title: postTitle,
+                        text: `Check out this post: ${postTitle}`,
+                        url: shareUrl
+                    });
+                 } catch (err) {
+                    if (err.name !== 'AbortError') { console.error('Share failed:', err); }
+                 }
+             });
+        } else if(nativeShareButton) { nativeShareButton.style.display = 'none'; }
+
+
+
+
+        // --- Table of Contents (TOC) Active State Highlighting ---
+        const tocLinks = document.querySelectorAll('#toc-list a');
+        const sections = [];
+        tocLinks.forEach(link => {
+            try {
+                const selector = link.getAttribute('href');
+                if (selector && selector.startsWith('#')) {
+                    const section = document.querySelector(selector); // Use querySelector for robustness
+                    if (section) {
+                        sections.push(section);
+                    } else {
+                        console.warn(`TOC link points to non-existent element: ${selector}`);
+                    }
+                }
+            } catch (e) {
+                console.error(`Invalid selector in TOC link: ${link.getAttribute('href')}`, e);
+            }
+        });
+
+
+        if (tocLinks.length > 0 && sections.length > 0) {
+             const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height').trim(), 10) || 65;
+             const topMargin = headerHeight + 24; // Header height + some buffer (adjust 24 as needed)
+
+             const observerOptions = {
+                 root: null, // relative to the viewport
+                 // Adjust top margin for sticky header, bottom margin to activate earlier
+                 // Positive top margin means the trigger point is BELOW the actual top of the viewport
+                 // Negative bottom margin means the trigger point is ABOVE the bottom of the viewport
+                 rootMargin: `-${topMargin}px 0px -${window.innerHeight * 0.6}px 0px`,
+                 threshold: 0 // Trigger as soon as any part enters the adjusted viewport
+             };
+
+             const activateTocLink = (id) => {
+                let activated = false;
+                 tocLinks.forEach(link => {
+                     if (link.getAttribute('href') === `#${id}`) {
+                         link.classList.add('active');
+                         activated = true;
+                         // Optional: Scroll TOC into view if the active link is hidden
+                         // link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                     } else {
+                        link.classList.remove('active');
+                     }
+                 });
+                 // Fallback if ID is somehow null or not found
+                 if (!activated && tocLinks.length > 0) {
+                    // console.log("Activating first link as fallback or if ID was null");
+                    // tocLinks[0].classList.add('active'); // Or choose not to activate any
+                 }
+             };
+
+             let lastActiveSectionId = null;
+
+            const observerCallback = (entries) => {
+                let intersectingSections = [];
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        intersectingSections.push(entry.target);
+                    }
+                });
+
+                intersectingSections.sort((a, b) => a.offsetTop - b.offsetTop);
+
+                let currentActiveSectionId = lastActiveSectionId;
+
+                if (intersectingSections.length > 0) {
+                    // The highest visible section within the rootMargin bounds is the active one
+                    currentActiveSectionId = intersectingSections[0].id;
+                } else {
+                    // If nothing is intersecting within the adjusted margin,
+                    // check if we are above the first section or below the last one.
+                    if (window.scrollY < sections[0].offsetTop - topMargin) {
+                        currentActiveSectionId = null; // Or sections[0].id if you want the first always active at top
+                    } else {
+                        // Find the last section whose top edge is above the trigger margin top edge
+                         let highestSectionAboveViewportTopMargin = null;
+                         for (let i = sections.length - 1; i >= 0; i--) {
+                            if (sections[i].getBoundingClientRect().top < topMargin) {
+                                highestSectionAboveViewportTopMargin = sections[i];
+                                break;
+                            }
+                         }
+                         if (highestSectionAboveViewportTopMargin) {
+                             currentActiveSectionId = highestSectionAboveViewportTopMargin.id;
+                         } else {
+                             currentActiveSectionId = null; // Or sections[0].id
+                         }
+                    }
+                }
+
+
+                if (currentActiveSectionId !== lastActiveSectionId) {
+                    activateTocLink(currentActiveSectionId);
+                    lastActiveSectionId = currentActiveSectionId;
+                }
+            };
+
+
+             const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+             sections.forEach(section => scrollObserver.observe(section));
+
+             // Initial check in case the page loads scrolled
+             // setTimeout(updateActiveTocLink, 100); // Add a slight delay for accurate initial position
+
+        } else {
+            console.log("TOC or Sections not found for active state highlighting.");
+        }
+
+        // --- Dynamic Reading Time Calculation ---
+        try {
+            const contentBody = document.querySelector('.content-body');
+            const readingTimeSpan = document.querySelector('.reading-time');
+            if (contentBody && readingTimeSpan) {
+                 const text = contentBody.innerText || contentBody.textContent;
+                 const wordCount = text.match(/\b\w+\b/g)?.length || 0; // More robust word count
+                 const wordsPerMinute = 200; // Average reading speed
+                 const minutes = Math.ceil(wordCount / wordsPerMinute);
+                 readingTimeSpan.innerHTML = `⏱️ ~${minutes} min read`; // Update the span
+                 readingTimeSpan.title = `Estimated reading time: ${minutes} minutes (${wordCount} words)`;
+            } else {
+                 if (readingTimeSpan) readingTimeSpan.innerHTML = `⏱️ ~? min read`;
+            }
+        } catch (e) {
+            console.error("Could not calculate reading time:", e);
+            const readingTimeSpan = document.querySelector('.reading-time');
+            if(readingTimeSpan) readingTimeSpan.innerHTML = `⏱️ Reading time N/A`;
+        }
+
+
+        // --- Giscus Comment Count ---
+        const giscusFrame = document.querySelector('iframe.giscus-frame');
+        const commentCountSpan = document.getElementById('comment-count');
+
+        window.addEventListener("message", event => {
+            if (event.origin !== "https://giscus.app") return;
+            if (!(typeof event.data === "object" && event.data.giscus)) return;
+
+            const giscusData = event.data.giscus;
+            if (giscusData.hasOwnProperty("discussion")) {
+                // Ensure discussion has totalCommentCount property
+                 if (commentCountSpan && giscusData.discussion.hasOwnProperty("totalCommentCount")) {
+                    commentCountSpan.textContent = giscusData.discussion.totalCommentCount;
+                 }
+            }
+         }, false);
+         // Request metadata emission on load if Giscus might load late
+        if (giscusFrame?.contentWindow) {
+             giscusFrame.contentWindow.postMessage({ giscus: {} }, "https://giscus.app");
+        }
+
+
+    }); // End DOMContentLoaded
+    </script>
+
+</body>
+</html>

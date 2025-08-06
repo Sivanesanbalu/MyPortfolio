@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Updated Title for Blog 1 -->
+    <title>Starting My Blogging Journey: From Curiosity to Code | Sivanesan</title>
+    <!-- Updated Description for Blog 1 -->
+    <meta name="description" content="My first blog post detailing my journey into AI, computers, fitness, and the motivation behind starting this blog.">
+
+    <!-- Include MathJax for rendering LaTeX equations (Kept in case needed later) -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* --- Copied Styles from blog5.html --- */
+        /* 1. --- Reset & Base Styles --- */
+        :root {
+            --font-primary: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            --font-serif: "Merriweather", "Georgia", serif;
+            --font-mono: "Fira Code", "Courier New", monospace;
+
+            --color-text: #333;
+            --color-bg: #ffffff;
+            --color-primary: #0d6efd; /* Bootstrap Blue */
+            --color-secondary: #6c757d;
+            --color-accent: #fd7e14; /* Bootstrap Orange */
+            --color-border: #dee2e6;
+            --color-code-bg: #f8f9fa;
+            --color-blockquote-border: var(--color-primary);
+            --color-illustration-bg: #e9ecef;
+            --color-illustration-border: var(--color-accent);
+
+            --container-width: 800px;
+            --toc-width: 220px; /* Width for the Table of Contents */
+            --layout-gap: calc(var(--spacing-unit) * 2.5); /* Gap between content and TOC */
+            --main-wrapper-width: calc(var(--container-width) + var(--toc-width) + var(--layout-gap)); /* Max width for content+TOC */
+
+            --spacing-unit: 1rem;
+            --border-radius: 6px;
+            --transition-speed: 0.3s;
+            --transition-speed-fast: 0.15s;
+            --header-height: 65px;
+        }
+
+        body.dark-mode {
+            --color-text: #e9ecef;
+            --color-bg: #121212;
+            --color-primary: #4dabf7;
+            --color-secondary: #adb5bd;
+            --color-accent: #ff922b;
+            --color-border: #495057;
+            --color-code-bg: #2a2a2a;
+            --color-blockquote-border: var(--color-primary);
+            --color-illustration-bg: #343a40;
+            --color-illustration-border: var(--color-accent);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 100%; } /* Enable smooth scroll */
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        img, video, figure, canvas, iframe { max-width: 100%; height: auto; display: block; margin: var(--spacing-unit) 0; }
+        a { color: var(--color-primary); text-decoration: none; transition: color var(--transition-speed-fast) ease, opacity var(--transition-speed-fast) ease; }
+        a:hover { color: var(--color-accent); text-decoration: underline; }
+        *:focus-visible { outline: 3px dashed var(--color-primary); outline-offset: 3px; }
+
+        /* Target headings for scroll margin */
+        h2[id], h3[id], h4[id], section[id] {
+            scroll-margin-top: calc(var(--header-height) + var(--spacing-unit) * 1.5);
+        }
+
+        /* 2. --- Layout Structure --- */
+        .container { /* Still used for header/footer */
+             width: 90%;
+             max-width: var(--container-width); /* Default article width */
+             margin: 0 auto;
+             padding: 0 calc(var(--spacing-unit) / 2);
+        }
+        /* New wrapper for main content and TOC */
+        .content-wrapper {
+            width: 90%;
+            max-width: var(--main-wrapper-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, var(--container-width)) auto; /* Article column + TOC column */
+            gap: var(--layout-gap);
+            align-items: start; /* Align top */
+        }
+        .article-column {
+            grid-column: 1 / 2;
+            max-width: 100%; /* Ensure it doesn't overflow */
+        }
+        .toc-column {
+            grid-column: 2 / 3;
+            width: var(--toc-width);
+            position: sticky;
+            top: calc(var(--header-height) + var(--spacing-unit) * 1.5); /* Stick below header */
+            height: calc(100vh - var(--header-height) - var(--spacing-unit) * 3); /* Limit height */
+            overflow-y: auto; /* Allow scrolling within TOC if needed */
+        }
+         /* Back to Blog link specific style */
+        .back-to-blog {
+            display: inline-block; /* Or inline-flex if aligning icon */
+            margin-bottom: calc(var(--spacing-unit) * 1.5);
+            font-size: 0.95rem;
+            color: var(--color-secondary);
+            text-decoration: none;
+            transition: color var(--transition-speed-fast) ease;
+        }
+        .back-to-blog:hover {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        #progress-bar { position: fixed; top: 0; left: 0; height: 5px; background: linear-gradient(90deg, var(--color-primary), var(--color-accent)); width: 0%; z-index: 100; transition: width 0.1s linear; }
+
+        /* 3. --- Header --- */
+        .site-header {
+            background-color: rgba(var(--color-bg-rgb, 255, 255, 255), 0.85);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: calc(var(--spacing-unit) * 0.75) 0;
+            position: sticky; top: 0; z-index: 99;
+            transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+            height: var(--header-height);
+        }
+        body.dark-mode .site-header { border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        body { --color-bg-rgb: 255, 255, 255; --color-primary-rgb: 13, 110, 253;}
+        body.dark-mode { --color-bg-rgb: 18, 18, 18; --color-primary-rgb: 77, 171, 247; }
+        .site-header .container { display: flex; justify-content: space-between; align-items: center; height: 100%; max-width: var(--main-wrapper-width); }
+        .logo { font-size: 1.6rem; font-weight: 700; color: var(--color-text); transition: color var(--transition-speed-fast) ease; }
+        .logo:hover { text-decoration: none; color: var(--color-primary); }
+        .header-actions { display: flex; align-items: center; gap: calc(var(--spacing-unit) * 1.2); }
+        .header-actions button { background: none; border: none; cursor: pointer; font-size: 1.3rem; color: var(--color-secondary); transition: color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease; padding: 5px; }
+        .header-actions button:hover { color: var(--color-primary); transform: scale(1.1); background-color: rgba(var(--color-primary-rgb), 0.08); border-radius: 50%; }
+        .header-actions button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; background-color: rgba(var(--color-primary-rgb), 0.08); border-radius: 50%; }
+        #search-input { display: none; border: 1px solid var(--color-border); padding: 6px 10px; border-radius: var(--border-radius); background-color: var(--color-bg); color: var(--color-text); }
+        body.search-active #search-input { display: inline-block; animation: fadeIn 0.3s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(10px)} to { opacity: 1; transform: translateX(0)} }
+        @media (max-width: 768px) { .main-navigation { display: none; } }
+
+        /* 4. --- Main Content Area --- */
+        .main-content { flex-grow: 1; padding: calc(var(--spacing-unit) * 2.5) 0; }
+        .blog-post { background-color: var(--color-bg); transition: background-color var(--transition-speed) ease; }
+        .post-featured-image { margin-bottom: calc(var(--spacing-unit) * 2); border-radius: var(--border-radius); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: box-shadow var(--transition-speed) ease; }
+        body.dark-mode .post-featured-image { box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
+        .post-featured-image img { width: 100%; max-width: none; height: auto; display: block; margin: 0 auto; }
+        /* Specific height adjustment for Blog 1's featured image */
+        .blog-post-1 .post-featured-image img {
+             max-height: 350px; /* Or adjust as needed */
+             object-fit: cover; /* Ensure image covers the area nicely */
+        }
+
+        .post-meta { font-size: 0.9rem; color: var(--color-secondary); margin-bottom: var(--spacing-unit); display: flex; flex-wrap: wrap; gap: calc(var(--spacing-unit) * 1.2); align-items: center; }
+        .post-meta .category a { background-color: var(--color-primary); color: #fff; padding: 3px 10px; border-radius: calc(var(--border-radius) / 1.5); font-size: 0.8rem; font-weight: 500; text-transform: uppercase; transition: background-color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease; display: inline-block; }
+        .post-meta .category a:hover { background-color: var(--color-accent); text-decoration: none; transform: translateY(-2px); }
+        .post-title { font-size: 2.8rem; font-family: var(--font-serif); font-weight: 700; line-height: 1.25; margin-bottom: var(--spacing-unit); color: var(--color-text); transition: color var(--transition-speed) ease; }
+        .author-info { display: flex; align-items: center; gap: calc(var(--spacing-unit) * 0.75); margin-bottom: calc(var(--spacing-unit) * 2.5); font-size: 0.95rem; }
+        .author-info .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-border); }
+        .author-info .author-name { font-weight: 500; color: var(--color-text); transition: color var(--transition-speed-fast) ease; }
+
+        .content-body { font-family: var(--font-serif); font-size: 1.15rem; line-height: 1.8; color: var(--color-text); transition: color var(--transition-speed) ease; }
+        .content-body > * + * { margin-top: calc(var(--spacing-unit) * 1.8); }
+        .content-body h2, .content-body h3, .content-body h4 { font-family: var(--font-primary); font-weight: 700; line-height: 1.3; margin-top: calc(var(--spacing-unit) * 3); color: var(--color-text); transition: color var(--transition-speed) ease; }
+        .content-body h2[id] { font-size: 2rem; border-bottom: 2px solid var(--color-primary); padding-bottom: 5px; display: inline-block; }
+        .content-body h3[id] { font-size: 1.6rem; }
+        .content-body h4[id] { font-size: 1.3rem; color: var(--color-primary); }
+        .content-body h2:not([id]) { font-size: 2rem; border-bottom: 2px solid var(--color-primary); padding-bottom: 5px; display: inline-block; }
+        .content-body h3:not([id]) { font-size: 1.6rem; }
+        .content-body h4:not([id]) { font-size: 1.3rem; color: var(--color-primary); }
+
+        .content-body p, .content-body ul, .content-body ol, .content-body blockquote, .content-body figure, .content-body pre, .content-body section, .content-body table, .content-body iframe { transition: none; }
+        .content-body ul, .content-body ol { margin-left: calc(var(--spacing-unit) * 1.5); padding-left: var(--spacing-unit); }
+        .content-body li { margin-bottom: calc(var(--spacing-unit) * 0.5); }
+        .content-body blockquote { border-left: 5px solid var(--color-blockquote-border); padding-left: calc(var(--spacing-unit) * 1.5); margin-left: 0; font-style: italic; font-size: 1.2rem; color: var(--color-secondary); transition: border-color var(--transition-speed) ease, color var(--transition-speed) ease; }
+        .content-body code { font-family: var(--font-mono); background-color: var(--color-code-bg); padding: 3px 6px; border-radius: var(--border-radius); font-size: 0.9em; color: var(--color-text); transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease; }
+        body.dark-mode .content-body code { color: #f8f9fa; }
+        .content-body pre { background-color: var(--color-code-bg); padding: calc(var(--spacing-unit) * 1.5); border-radius: var(--border-radius); overflow-x: auto; position: relative; transition: background-color var(--transition-speed) ease; border: 1px solid var(--color-border); margin: var(--spacing-unit) 0; }
+        .content-body pre code { background-color: transparent; padding: 0; font-size: 0.95rem; line-height: 1.6; color: var(--color-text); transition: color var(--transition-speed) ease; display: block; }
+        body.dark-mode .content-body pre code { color: #f8f9fa; }
+        .copy-code-button { position: absolute; top: 12px; right: 12px; background-color: var(--color-secondary); color: #fff; border: none; padding: 6px 12px; border-radius: var(--border-radius); font-size: 0.85rem; cursor: pointer; opacity: 0; transition: opacity var(--transition-speed) ease, background-color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease; transform: translateY(5px); }
+        .content-body pre:hover .copy-code-button { opacity: 1; transform: translateY(0); }
+        .copy-code-button:hover { background-color: var(--color-primary); transform: scale(1.05) translateY(0); }
+        .copy-code-button.copied { background-color: var(--color-accent); transform: scale(1.05) translateY(0); }
+        .content-body figure { margin: calc(var(--spacing-unit) * 2) 0; } /* Add margin to figures */
+        .content-body figcaption { text-align: center; font-size: 0.9rem; color: var(--color-secondary); margin-top: calc(var(--spacing-unit) * 0.5); }
+
+        /* Post Tags, Social Share, Author Bio, Related Posts, Comments... */
+        .post-tags { margin-top: calc(var(--spacing-unit) * 3); padding-top: calc(var(--spacing-unit) * 1.5); border-top: 1px solid var(--color-border); transition: border-color var(--transition-speed) ease; }
+        .post-tags span { font-weight: 600; margin-right: var(--spacing-unit); color: var(--color-secondary); transition: color var(--transition-speed) ease; }
+        .post-tags a { display: inline-block; background-color: var(--color-code-bg); color: var(--color-secondary); padding: 5px 12px; border-radius: 15px; font-size: 0.9rem; margin-right: calc(var(--spacing-unit) / 2); margin-bottom: calc(var(--spacing-unit) / 2); transition: background-color var(--transition-speed-fast) ease, color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease; border: 1px solid var(--color-border); }
+        .post-tags a:hover { background-color: var(--color-primary); color: #fff; text-decoration: none; transform: translateY(-2px) scale(1.03); border-color: var(--color-primary); }
+
+        .social-share { margin-top: calc(var(--spacing-unit) * 3); padding: calc(var(--spacing-unit) * 2); border: 1px solid var(--color-border); border-radius: var(--border-radius); background-color: var(--color-code-bg); text-align: center; transition: border-color var(--transition-speed) ease, background-color var(--transition-speed) ease; }
+        .social-share h3 { margin-bottom: calc(var(--spacing-unit) * 1.5); font-size: 1.2rem; font-weight: 600; color: var(--color-text); transition: color var(--transition-speed) ease; }
+        .share-buttons a, .share-buttons button { display: inline-flex; align-items: center; justify-content: center; margin: 6px; padding: 10px 18px; border-radius: var(--border-radius); color: #fff; font-size: 0.95rem; font-weight: 500; text-decoration: none; border: none; cursor: pointer; transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; min-width: 110px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .share-buttons a:hover, .share-buttons button:hover { opacity: 0.9; transform: translateY(-3px) scale(1.02); text-decoration: none; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        .share-facebook { background-color: #1877F2; } .share-twitter { background-color: #1DA1F2; } .share-linkedin { background-color: #0A66C2; } .share-reddit { background-color: #FF4500; } .share-email { background-color: #777; } .share-copy { background-color: var(--color-secondary); }
+        .share-copy.copied { background-color: var(--color-accent) !important; }
+        #native-share-button { background-color: #0056b3; }
+
+        .author-bio { margin-top: calc(var(--spacing-unit) * 4); padding: calc(var(--spacing-unit) * 2); background-color: var(--color-code-bg); border-radius: var(--border-radius); display: flex; gap: calc(var(--spacing-unit) * 1.5); align-items: flex-start; transition: background-color var(--transition-speed) ease; border: 1px solid var(--color-border); }
+        .author-bio .avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid var(--color-bg); box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .author-bio-content h4 { margin-bottom: calc(var(--spacing-unit) / 1.5); font-size: 1.3rem; color: var(--color-text); transition: color var(--transition-speed) ease; }
+        /* Style for the added "Let's Connect" heading */
+        .author-bio-content h4.connect-heading {
+            font-size: 1.2rem; /* Slightly smaller than main name */
+            margin-top: calc(var(--spacing-unit) * 1.5); /* Add space above */
+            margin-bottom: calc(var(--spacing-unit) * 0.75);
+            color: var(--color-primary); /* Optional: use accent color */
+            font-weight: 600;
+        }
+        .author-bio-content p { font-size: 1rem; line-height: 1.6; color: var(--color-secondary); transition: color var(--transition-speed) ease; margin-bottom: var(--spacing-unit); }
+        .author-social-links { margin-top: calc(var(--spacing-unit) * 1.5); /* Ensure space before links */ }
+        .author-social-links a { margin-right: 12px; font-size: 1.3rem; color: var(--color-secondary); transition: color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease; display: inline-block; }
+        .author-social-links a:hover { color: var(--color-primary); transform: scale(1.1); }
+        .author-social-links a svg { width: 20px; height: 20px; vertical-align: middle; fill: currentColor; }
+
+        .related-posts { margin-top: calc(var(--spacing-unit) * 4); padding-top: calc(var(--spacing-unit) * 2.5); border-top: 1px solid var(--color-border); transition: border-color var(--transition-speed) ease; }
+        .related-posts h2 { text-align: center; margin-bottom: calc(var(--spacing-unit) * 2); font-size: 1.8rem; font-weight: 600; color: var(--color-text); transition: color var(--transition-speed) ease; }
+        .related-posts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: calc(var(--spacing-unit) * 1.5); }
+        /* Adjust grid for only one item (Next Post) */
+        .related-posts-grid.single-next {
+            grid-template-columns: 1fr; /* Full width */
+            max-width: 400px; /* Limit width */
+            margin: 0 auto; /* Center */
+        }
+        .related-post-card { border: 1px solid var(--color-border); border-radius: var(--border-radius); overflow: hidden; background-color: var(--color-bg); transition: border-color var(--transition-speed) ease, box-shadow 0.3s ease, transform 0.3s ease; display: flex; flex-direction: column; }
+        .related-post-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-color: var(--color-primary); transform: translateY(-5px); }
+        body.dark-mode .related-post-card { background-color: var(--color-code-bg); }
+        body.dark-mode .related-post-card:hover { box-shadow: 0 8px 25px rgba(255,255,255,0.08); }
+        .related-post-card a:first-child:focus-visible { outline-offset: -3px; }
+        .related-post-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-bottom: 1px solid var(--color-border); transition: transform 0.3s ease; margin: 0; }
+        .related-post-card:hover img { transform: scale(1.05); }
+        .related-post-card-content { padding: calc(var(--spacing-unit) * 1.2); flex-grow: 1; display: flex; flex-direction: column; }
+        .related-post-card h3 { font-size: 1.1rem; margin-bottom: calc(var(--spacing-unit) / 1.5); line-height: 1.4; flex-grow: 1; }
+        .related-post-card h3 a { color: var(--color-text); transition: color var(--transition-speed-fast) ease; }
+        .related-post-card h3 a:hover { color: var(--color-primary); text-decoration: none; }
+        .related-post-card .post-meta { font-size: 0.8rem; margin-top: var(--spacing-unit); margin-bottom: 0; gap: calc(var(--spacing-unit) / 1.5); color: var(--color-secondary); }
+
+        .comments-section { margin-top: calc(var(--spacing-unit) * 4); padding-top: calc(var(--spacing-unit) * 2.5); border-top: 1px solid var(--color-border); transition: border-color var(--transition-speed) ease; }
+        .comments-section h2 { margin-bottom: calc(var(--spacing-unit) * 1.8); font-size: 1.8rem; font-weight: 600; color: var(--color-text); transition: color var(--transition-speed) ease; }
+        .gh-comments-info { background-color: var(--color-illustration-bg); border: 1px dashed var(--color-secondary); padding: calc(var(--spacing-unit) * 1.5); margin: calc(var(--spacing-unit)*2) 0; border-radius: var(--border-radius); font-size: 0.95rem; line-height: 1.6; color: var(--color-secondary); }
+        .gh-comments-info p { margin-bottom: 1em; }
+        .gh-comments-info strong { color: var(--color-text); }
+        .gh-comments-info code { font-size: 0.85em; padding: 2px 5px; background-color: rgba(0,0,0,0.05); border-radius: 3px; }
+        body.dark-mode .gh-comments-info code { background-color: rgba(255,255,255,0.1); }
+        #comment-thread-container { margin-top: calc(var(--spacing-unit) * 2); }
+
+        /* 5. --- Footer --- */
+        .site-footer { background-color: var(--color-code-bg); color: var(--color-secondary); padding: calc(var(--spacing-unit) * 2.5) 0; margin-top: calc(var(--spacing-unit) * 4); font-size: 0.9rem; text-align: center; transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease; border-top: 1px solid var(--color-border); }
+        .site-footer .container { max-width: var(--main-wrapper-width); }
+        .site-footer a { color: var(--color-secondary); transition: color var(--transition-speed-fast) ease; }
+        .site-footer a:hover { color: var(--color-primary); }
+        .footer-links { margin-top: calc(var(--spacing-unit) / 1.5); }
+        .footer-links a { margin: 0 10px; }
+
+        /* 6. --- Utility & Interaction Styles --- */
+        #back-to-top { position: fixed; bottom: 25px; right: 25px; background-color: var(--color-primary); color: #fff; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.8rem; line-height: 50px; text-align: center; cursor: pointer; opacity: 0; visibility: hidden; transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease, background-color var(--transition-speed-fast) ease, transform 0.2s ease; z-index: 90; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        #back-to-top.visible { opacity: 0.8; visibility: visible; transform: scale(1); }
+        #back-to-top:hover { opacity: 1; background-color: var(--color-accent); transform: scale(1.1); }
+        #back-to-top:active { transform: scale(1); }
+
+        /* 7. --- Table of Contents Styling --- */
+        #toc-container { padding: calc(var(--spacing-unit) * 1); border-left: 1px solid var(--color-border); transition: border-color var(--transition-speed) ease; }
+        #toc-container h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: var(--spacing-unit); padding-bottom: calc(var(--spacing-unit) * 0.5); border-bottom: 1px solid var(--color-border); color: var(--color-text); }
+        #toc-list { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; line-height: 1.6; }
+        #toc-list li { margin-bottom: calc(var(--spacing-unit) * 0.5); }
+        #toc-list a { display: block; color: var(--color-secondary); padding: 4px 0; transition: color var(--transition-speed-fast), border-left-color var(--transition-speed-fast), transform var(--transition-speed-fast); border-left: 3px solid transparent; padding-left: calc(var(--spacing-unit) * 0.75); text-decoration: none; }
+        #toc-list a:hover { color: var(--color-primary); transform: translateX(3px); text-decoration: none; }
+        #toc-list a.active { color: var(--color-primary); font-weight: 600; border-left-color: var(--color-primary); }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 1024px) {
+            .content-wrapper { grid-template-columns: 1fr; max-width: var(--container-width); width: 90%; }
+            .toc-column { display: none; }
+            .site-header .container, .site-footer .container { max-width: var(--container-width); }
+            .post-featured-image img { max-width: 800px; }
+            .blog-post-1 .post-featured-image img { max-height: 300px; } /* Adjust height on smaller screens too */
+        }
+        @media (max-width: 768px) {
+            .post-title { font-size: 2.2rem; }
+            .content-body { font-size: 1.1rem; }
+            .content-body h2[id] { font-size: 1.8rem; }
+            .content-body h3[id] { font-size: 1.5rem; }
+            .author-bio { flex-direction: column; align-items: center; text-align: center; }
+            .author-bio .avatar { margin-bottom: var(--spacing-unit); }
+            .blog-post-1 .post-featured-image img { max-height: 250px; }
+        }
+         @media (max-width: 600px) {
+              .related-posts-grid.single-next { max-width: 100%; } /* Allow full width on smallest screens */
+         }
+    </style>
+</head>
+<body class="blog-post-1"> <!-- Added class for potential specific styling -->
+
+    <div id="progress-bar"></div>
+
+    <header class="site-header">
+        <div class="container">
+             <a href="bloghome.html" class="logo">Sivanesan's Blog</a>
+             <div class="header-actions">
+                 <input type="search" id="search-input" placeholder="Search posts..." aria-label="Search Input">
+                 <button id="search-toggle" aria-label="Toggle Search" title="Search">🔍</button>
+                 <button id="theme-toggle" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">🌓</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <!-- New Content Wrapper for Article + TOC -->
+        <div class="content-wrapper">
+
+            <a href="bloghome.html" class="back-to-blog">← Back to Home</a>
+
+            <!-- Article Column -->
+            <div class="article-column">
+                <article class="blog-post" itemscope itemtype="http://schema.org/BlogPosting">
+
+                    <!-- Featured Image -->
+                    <figure class="post-featured-image">
+                        <img src="assets/blog_cover_image/NN.png"
+                             alt="Conceptual image representing starting a journey with code and curiosity"
+                             itemprop="image"
+                             loading="eager">
+                    </figure>
+
+                    <!-- Post Meta -->
+                    <div class="post-meta">
+                        <span class="category"><a href="#category-self-development" itemprop="articleSection">Neural Network</a></span>
+                        <span class="category"><a href="#category-my-journey" itemprop="articleSection">Deep Learning</a></span>
+                        <span class="category"><a href="#category-blogging" itemprop="articleSection">Blogging</a></span>
+                        <span class="reading-time" title="Estimated reading time">⏱️ Calculating...</span>
+                        <time class="publication-date" datetime="2025-02-22" itemprop="datePublished">August 5, 2025</time>
+                    </div>
+
+                    <!-- Post Title -->
+                    <h1 class="post-title" itemprop="headline">Why Neural Networks Forget Like Humans—And How We Can Help Them Remember Smarter</h1>
+
+                    <!-- Author Info -->
+                    <div class="author-info" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                         <img src="assets/myself/sivanesan.png" alt="SivanesanAvatar" class="avatar" itemprop="image">
+                        <span class="author-name" itemprop="name">Sivanesan</span>
+                    </div>
+
+                    <!-- Content Body -->
+                    <div class="content-body" itemprop="articleBody">
+
+                        <p>Hi, I’m Sivanesan, a final-year B.Tech student in Artificial Intelligence and Data Science at Kumaraguru College of Technology. I’m deeply passionate about AI and how it’s shaping the future. This is my very first blog, and I’m thrilled to share my journey, experiences, and insights with you. Whether you're here for some tech talk or just curious about my story, I hope you'll stick around. Let’s get started!</p>
+
+                        <h2 id="section1">1. Introduction</h2>
+                            <p>Neural networks have revolutionized the field of artificial intelligence, powering everything from voice assistants to self-driving cars. At their core, these models learn patterns from data and make predictions based on that learning.</p>
+                            <p>However, unlike the human brain, neural networks struggle with one major flaw—<strong>catastrophic forgetting</strong>. This occurs when a model trained sequentially on multiple tasks forgets earlier tasks while learning new ones. This poses a serious challenge for <strong>continual learning</strong> systems expected to adapt without losing prior knowledge.</p>
+
+                        <h2 id="section2">2. What is Catastrophic Forgetting?</h2>
+                            
+                        <p>Just like how humans sometimes forget old memories when learning something new, neural networks can also forget previously learned tasks when trained on new ones. This is known as <strong>catastrophic forgetting</strong>.</p>
+                        <figure>
+                                <img src="assets/content_images/carto..png" alt="Diagram showing dual-network architecture for avoiding forgetting" loading="lazy">
+                                <figcaption>Follow Of Catastrophic Forgetting.</figcaption>
+                            </figure>
+                        <p><em>Example (Inspired by Anniyan):</em> Think of a neural network like Ambi from the Tamil movie <strong>Anniyan</strong>. Ambi is a strict rule-follower, but when his other personality, Anniyan, takes over, he forgets how he used to behave. Similarly, a model trained to recognize cats, when later trained to recognize birds, may forget how to recognize dogs—it overwrites the old with the new.</p>
+                            <p><strong>Why does it matter?</strong> In real-world systems—like virtual assistants or learning robots—we want them to learn new things <em>without</em> forgetting what they already knew. Catastrophic forgetting blocks this, making lifelong learning hard.</p>
+
+
+                        <h2 id="section3">3. Why Common Solutions Aren’t Enough</h2>
+                            <p>Researchers have proposed methods like:</p>
+                            <ul>
+                                <li><strong>EWC (Elastic Weight Consolidation):</strong> Slows changes to important weights.</li>
+                                <li><strong>Rehearsal Methods:</strong> Replays old task data while learning new ones.</li>
+                                <li><strong>Fine-Tuning:</strong> Gradual adjustment of weights to balance old and new tasks.</li>
+                            </ul>
+                            <p>But all these have issues:</p>
+                            <ul>
+                                <li>Rehearsal needs storing old data — which isn’t always privacy-friendly or practical.</li>
+                                <li>EWC and fine-tuning can be slow, computationally heavy, and not always effective.</li>
+                            </ul>
+
+                         <h2 id="section4">4. A Brain-Inspired Solution: Dual Networks + Memory Replay</h2>
+                            <p>Inspired by how the <strong>hippocampus</strong> and <strong>cortex</strong> in the brain work, we design a <strong>dual-network system</strong>:</p>
+                            <ul>
+                                <li><strong>Network A (New Learner):</strong> Learns new tasks quickly.</li>
+                                <li><strong>Network B (Memory Keeper):</strong> Retains compressed knowledge of older tasks.</li>
+                            </ul>
+                            <p><strong>How it works:</strong></p>
+                            <ol>
+                                <li>New data is sent to Network A for quick learning.</li>
+                                <li>Old knowledge from Network B is replayed during training—like mental flashbacks.</li>
+                            </ol>
+                            <p><em>Real-world analogy (again, from Anniyan):</em> Ambi = Network B (remembers old), Anniyan = Network A (learns new). Over time, they learn to coexist.</p>
+                            <figure>
+                                <img src="assets/content_images/dnn.png" alt="Diagram showing dual-network architecture for avoiding forgetting" loading="lazy">
+                                <figcaption>Dual-network architecture inspired by the human brain.</figcaption>
+                            </figure>
+                        <h2 id="section5">5. Benefits of This Approach</h2>
+                            <ul>
+                                <li><strong>No Need to Store Full Datasets:</strong> Compact memory replay from Network B reduces data storage needs.</li>
+                                <li><strong>Biologically Inspired = Better Generalization:</strong> Mimics fast and slow learning separation in the human brain.</li>
+                                <li><strong>Scalable:</strong> Ideal for edge AI, virtual assistants, robots, and other real-world applications.</li>
+                            </ul>
+
+                        <h2 id="section6">6. Conclusion</h2>
+                                <p><strong>Catastrophic forgetting</strong> is one of the biggest hurdles to building lifelong learning AI systems. But by drawing inspiration from the brain—and building dual-network architectures—we can help AI learn new things without wiping the old.</p>
+
+                                <h3>What’s Next?</h3>
+                                <ul>
+                                    <li>Integrating with large language models like GPT for multi-domain knowledge retention.</li>
+                                    <li>Adapting the system in real-time robotics environments.</li>
+                                    <li>Exploring efficient implementations on edge devices.</li>
+                                </ul>
+                    </div> <!-- /.content-body -->
+
+                     <!-- Post Tags -->
+                     <div class="post-tags" itemprop="keywords">
+                        <span>Tags:</span>
+                        <a href="#tag-neural-networks">Neural Networks</a>
+                        <a href="#tag-artificial-intelligence">Artificial Intelligence</a>
+                        <a href="#tag-catastrophic-forgetting">Catastrophic Forgetting</a>
+                        <a href="#tag-deep-learning">Deep Learning</a>
+                        <a href="#tag-technology">Technology</a>
+                    </div>
+
+
+                     <!-- Social Share Section -->
+                     <div class="social-share">
+                         <h3>Share This Post</h3>
+                         <div class="share-buttons">
+                             <a href="#" class="share-facebook" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">Facebook</a>
+                             <a href="#" class="share-twitter" target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter">Twitter</a>
+                             <a href="https://www.linkedin.com/shareArticle?mini=true&url=[YOUR_BLOG_POST_URL]&title=Starting%20My%20Blogging%20Journey%3A%20From%20Curiosity%20to%20Code" class="share-linkedin" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">LinkedIn</a>
+                             <a href="#" class="share-reddit" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit">Reddit</a>
+                             <a href="mailto:?subject=Check%20out%20Ranjith's%20first%20blog%20post!&body=Thought%20you%20might%20find%20this%20interesting%3A%0A%0A[YOUR_BLOG_POST_URL]" class="share-email" aria-label="Share via Email">Email</a>
+                             <button id="copy-link-button" class="share-copy" aria-label="Copy post link">Copy Link</button>
+                             <button id="native-share-button" aria-label="Share natively" style="display: none;">Share...</button>
+                        </div>
+                     </div>
+
+                     <!-- Author Bio - Integrated "Connect" content -->
+                     <section class="author-bio" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                         <img src="assets/myself/sivanesan.png" alt="SivanesanAvatar" class="avatar" itemprop="image">
+                         <div class="author-bio-content">
+                            <h4 itemprop="name">Sivanesan </h4>
+                            <p itemprop="description">Final-year B.Tech student in Artificial Intelligence and Data Science, passionate about brain-inspired AI, deep learning, and turning complex tech into real-world impact. Currently building innovative projects and preparing for my Master's journey.</p>
+
+                                <h4 class="connect-heading">Let's Connect & Grow Together</h4>
+                                <p>I love sharing ideas, learning from others, and building a community driven by curiosity and tech. Whether you're into AI, lifelong learning, or just passionate about making a difference—let’s connect and grow together!</p>
+                                <div class="author-social-links">
+                                 <a href="https://www.linkedin.com/in/sivanesan-b-871ba7264" target="_blank" rel="noopener me" aria-label="Sivanesanon LinkedIn" title="LinkedIn">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                 </a>
+                                 <a href="https://github.com/Sivanesanbalu" target="_blank" rel="noopener me" aria-label="Sivanesanon GitHub" title="GitHub">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                 </a>
+                                 
+                            </div>
+                         </div>
+                    </section>
+
+                    <!-- Related Posts Section -->
+                    <section class="related-posts">
+                        <h2>Next Post</h2> <!-- Changed heading as there's no previous -->
+                        <div class="related-posts-grid single-next"> <!-- Added class to center single item -->
+                            <!-- Previous Post Link REMOVED -->
+                             <!-- Next Post Link -->
+                             <div class="related-post-card">
+                                 <a href="blog2.html" aria-label="Read next post">
+                                     <!-- Use a relevant placeholder or actual thumbnail for blog 2 -->
+                                    <img src="assets/blogpost thumbnails/blog2.png" alt="Next Post Thumbnail Placeholder" loading="lazy">
+                                </a>
+                                 <div class="related-post-card-content">
+                                    <h3><a href="blog2.html">Next Post: Building My First Portfolio</a></h3>
+                                    <div class="post-meta">
+                                         <time datetime="2025-XX-XX">Future Date</time>
+                                        <!-- Reading time can be added here if static, or calculated by JS if Blog 2 page is loaded -->
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Comments Section -->
+                    <section id="comments" class="comments-section">
+                        <h2>Join the Discussion (<span id="comment-count">0</span>)</h2>
+                        <div class="gh-comments-info">
+                            <p><strong>Comments via GitHub Discussions:</strong> This blog uses <a href="https://giscus.app/" target="_blank" rel="noopener">Giscus</a>, which leverages GitHub Discussions for comments.</p>
+                            <p>You'll need a GitHub account to comment. Comments will appear in a dedicated Discussion category within the blog's repository.</p>
+                        </div>
+                        <div id="comment-thread-container">
+                            <script src="https://giscus.app/client.js"
+                                data-repo="Sivanesanbalu/BLOG-1"
+                                data-repo-id="R_kgDOPZWV1Q"
+                                data-category="General"
+                                data-category-id="DIC_kwDOPZWV1c4Ct2aw"
+                                data-mapping="pathname"
+                                data-strict="0"
+                                data-reactions-enabled="1"
+                                data-emit-metadata="0"
+                                data-input-position="bottom"
+                                data-theme="preferred_color_scheme"
+                                data-lang="en"
+                                crossorigin="anonymous"
+                                async>
+                        </script>
+                            <noscript>Please enable JavaScript to view the comments powered by Giscus.</noscript>
+                         </div>
+                    </section>
+
+                </article> <!-- /.blog-post -->
+            </div> <!-- /.article-column -->
+
+            <!-- Table of Contents Column -->
+            <aside class="toc-column">
+                <nav id="toc-container" aria-label="Table of Contents">
+                    <h3>Table of Contents</h3>
+                    <ol id="toc-list">
+                        <li><a href="#section1">1. Introduction</a></li>
+                        <li><a href="#section2">2. What is Catastrophic Forgetting?</a></li>
+                        <li><a href="#section3">3. Why Common Solutions Aren’t Enough</a></li>
+                        <li><a href="#section4">4. A Brain-Inspired Solution: Dual Networks + Memory Replay</a></li>
+                        <li><a href="#section5">5. Benefits of This Approach</a></li>
+                        <li><a href="#section6">6. Conclusion</a></li>
+                       
+                    </ol>
+                </nav>
+            </aside>
+<!-- /.toc-column -->
+
+        </div> <!-- /.content-wrapper -->
+    </main> <!-- /.main-content -->
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Sivanesan. Exploring AI and sharing the journey.</p>
+            <div class="footer-links">
+                 <a href="#privacy">Privacy Policy</a> |
+                 <a href="#terms">Terms of Use</a> |
+                 <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" aria-label="Back to top" title="Back to top" style="transform: scale(0);">↑</button>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- Theme Toggle ---
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme');
+        const sunIcon = '☀️';
+        const moonIcon = '🌓';
+        let isDarkMode = false;
+
+        const setTheme = (theme) => {
+            isDarkMode = theme === 'dark';
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            themeToggleButton.textContent = isDarkMode ? sunIcon : moonIcon;
+            themeToggleButton.setAttribute('aria-label', `Switch to ${isDarkMode ? 'Light' : 'Dark'} Mode`);
+            localStorage.setItem('theme', theme);
+
+            // Update Giscus theme if the iframe exists
+            const giscusFrame = document.querySelector('iframe.giscus-frame');
+            if (giscusFrame) {
+                giscusFrame.contentWindow.postMessage({ giscus: { setConfig: { theme: theme === 'dark' ? 'dark' : 'light' } } }, 'https://giscus.app');
+            }
+
+
+            if (isDarkMode) {
+                 document.body.style.setProperty('--color-bg-rgb', '18, 18, 18');
+                 document.body.style.setProperty('--color-primary-rgb', '77, 171, 247');
+            } else {
+                 document.body.style.setProperty('--color-bg-rgb', '255, 255, 255');
+                 document.body.style.setProperty('--color-primary-rgb', '13, 110, 253');
+            }
+        };
+
+        const initialTheme = currentTheme || (prefersDarkScheme.matches ? 'dark' : 'light');
+        setTheme(initialTheme);
+
+        themeToggleButton.addEventListener('click', () => {
+            setTheme(document.body.classList.contains('dark-mode') ? 'light' : 'dark');
+        });
+        prefersDarkScheme.addEventListener('change', (e) => { if (!localStorage.getItem('theme')) setTheme(e.matches ? 'dark' : 'light'); });
+
+
+         // --- Search Toggle ---
+         const searchToggleButton = document.getElementById('search-toggle');
+         const searchInput = document.getElementById('search-input');
+         searchToggleButton.addEventListener('click', () => { document.body.classList.toggle('search-active'); if(document.body.classList.contains('search-active')) searchInput.focus(); });
+
+        // --- Back to Top Button ---
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+             const isVisible = window.scrollY > 400;
+             backToTopButton.classList.toggle('visible', isVisible);
+             backToTopButton.style.transform = isVisible ? 'scale(1)' : 'scale(0)';
+        }, { passive: true });
+        backToTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+
+        // --- Reading Progress Bar ---
+        const progressBar = document.getElementById('progress-bar');
+         const updateProgressBar = () => {
+              const contentBody = document.querySelector('.content-body');
+              if (!contentBody) return;
+              const element = document.documentElement;
+              const body = document.body;
+              const scrollableHeight = Math.max( body.scrollHeight, body.offsetHeight,
+                                                element.clientHeight, element.scrollHeight, element.offsetHeight ) - window.innerHeight;
+              const scrolled = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
+              progressBar.style.width = `${Math.min(scrolled, 100)}%`;
+         };
+         window.addEventListener('scroll', updateProgressBar, { passive: true });
+         window.addEventListener('resize', updateProgressBar);
+         updateProgressBar();
+
+
+         // --- Copy Code Button (If any code blocks are added later) ---
+         document.querySelectorAll('.copy-code-button').forEach(button => {
+             const pre = button.closest('pre');
+             const code = pre?.querySelector('code');
+             if (!code || !navigator.clipboard) { button.style.display = 'none'; return; }
+             button.addEventListener('click', async () => {
+                 try {
+                     await navigator.clipboard.writeText(code.innerText);
+                     button.textContent = 'Copied!'; button.classList.add('copied');
+                     setTimeout(() => { button.textContent = 'Copy'; button.classList.remove('copied'); }, 2000);
+                 } catch (err) { console.error('Copy failed:', err); button.textContent = 'Error'; }
+             });
+         });
+
+        // --- Copy Link Button ---
+        const copyLinkButton = document.getElementById('copy-link-button');
+        if (copyLinkButton && navigator.clipboard) {
+            copyLinkButton.addEventListener('click', async () => {
+                 try {
+                     // Construct the URL dynamically for this page
+                     const postUrl = window.location.href;
+                     // Update share links dynamically (example for LinkedIn)
+                     const linkedInLink = document.querySelector('.share-linkedin');
+                     if(linkedInLink) linkedInLink.href = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(postUrl)}&title=${encodeURIComponent(document.title)}`;
+                     // Update other share links similarly...
+
+                     await navigator.clipboard.writeText(postUrl);
+                     copyLinkButton.textContent = 'Link Copied!'; copyLinkButton.classList.add('copied');
+                     setTimeout(() => { copyLinkButton.textContent = 'Copy Link'; copyLinkButton.classList.remove('copied'); }, 2000);
+                 } catch (err) { console.error('Copy link failed:', err); copyLinkButton.textContent = 'Error'; }
+            });
+        } else if (copyLinkButton) { copyLinkButton.style.display = 'none'; }
+
+
+        // --- Native Share API Button ---
+        const nativeShareButton = document.getElementById('native-share-button');
+        if (nativeShareButton && navigator.share) {
+             nativeShareButton.style.display = 'inline-flex';
+             nativeShareButton.addEventListener('click', async () => {
+                 try {
+                    const postTitle = document.querySelector('.post-title')?.innerText || document.title;
+                    const shareUrl = window.location.href;
+                    await navigator.share({
+                        title: postTitle,
+                        text: `Check out this post: ${postTitle}`,
+                        url: shareUrl
+                    });
+                 } catch (err) {
+                    if (err.name !== 'AbortError') { console.error('Share failed:', err); }
+                 }
+             });
+        } else if(nativeShareButton) { nativeShareButton.style.display = 'none'; }
+
+
+        // --- Table of Contents (TOC) Active State Highlighting ---
+        const tocLinks = document.querySelectorAll('#toc-list a');
+        const sections = [];
+        tocLinks.forEach(link => {
+            const sectionId = link.getAttribute('href')?.substring(1);
+            if (sectionId) {
+                const section = document.getElementById(sectionId);
+                if (section) sections.push(section);
+                else console.warn(`TOC link points to non-existent section: #${sectionId}`);
+            }
+        });
+
+        if (tocLinks.length > 0 && sections.length > 0) {
+             const headerHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 65;
+             const topMarginOffset = headerHeight + (1.5 * 16); // header + 1.5rem in pixels (assuming 1rem=16px)
+
+             const observerOptions = {
+                 root: null,
+                 rootMargin: `-${topMarginOffset}px 0px -60% 0px`, // Adjusted for calculated header height + gap
+                 threshold: 0
+             };
+
+             const activateTocLink = (id) => {
+                 tocLinks.forEach(link => {
+                     link.classList.remove('active');
+                     if (link.getAttribute('href') === `#${id}`) {
+                         link.classList.add('active');
+                         // link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' }); // Might be jerky
+                     }
+                 });
+             };
+
+            let lastActiveLink = null; // Keep track of the last activated link
+
+             const observerCallback = (entries) => {
+                 let topVisibleSectionId = null;
+                 let minTop = Infinity;
+
+                 entries.forEach(entry => {
+                     const rect = entry.boundingClientRect;
+                     // Check if it's intersecting OR if its bottom edge is below the trigger margin top
+                     if (entry.isIntersecting || rect.bottom > topMarginOffset) {
+                         if (rect.top < minTop) {
+                             minTop = rect.top;
+                             topVisibleSectionId = entry.target.id;
+                         }
+                     }
+                 });
+
+                 if (topVisibleSectionId) {
+                     activateTocLink(topVisibleSectionId);
+                     lastActiveLink = topVisibleSectionId; // Update last active link
+                 } else if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 5) {
+                     // If scrolled to the very bottom, keep the last section active
+                     if (lastActiveLink) {
+                         activateTocLink(lastActiveLink);
+                     } else if (sections.length > 0) {
+                         // Fallback: activate the last section if no prior active link
+                         activateTocLink(sections[sections.length - 1].id);
+                     }
+                 } else if (window.scrollY === 0) {
+                     // If scrolled to the top, activate the first link
+                     if (sections.length > 0) {
+                        activateTocLink(sections[0].id);
+                        lastActiveLink = sections[0].id;
+                     }
+                 }
+                 // Optional: Add logic for when scrolling *up* past the top section
+             };
+
+             const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+             sections.forEach(section => scrollObserver.observe(section));
+
+        } else {
+            console.log("TOC or Sections not found for active state highlighting.");
+        }
+
+        // --- Dynamic Reading Time Calculation ---
+        try {
+            const contentBody = document.querySelector('.content-body');
+            const readingTimeSpan = document.querySelector('.reading-time');
+            if (contentBody && readingTimeSpan) {
+                 const text = contentBody.innerText || contentBody.textContent;
+                 const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+                 const wordsPerMinute = 200;
+                 const minutes = Math.max(1, Math.ceil(wordCount / wordsPerMinute)); // Ensure at least 1 min
+                 readingTimeSpan.innerHTML = `⏱️ ~${minutes} min read`;
+                 readingTimeSpan.title = `Estimated reading time: ${minutes} minutes (${wordCount} words)`;
+            }
+        } catch (e) {
+            console.error("Could not calculate reading time:", e);
+            const readingTimeSpan = document.querySelector('.reading-time');
+            if(readingTimeSpan) readingTimeSpan.innerHTML = `⏱️ Reading time N/A`;
+        }
+
+         // --- Giscus Comment Count ---
+         const commentCountSpan = document.getElementById('comment-count');
+         if (commentCountSpan) {
+             window.addEventListener('message', event => {
+                 if (event.origin !== 'https://giscus.app') return;
+                 if (event.data && event.data.giscus && event.data.giscus.discussion) {
+                     const commentCount = event.data.giscus.discussion.totalCommentCount;
+                     commentCountSpan.textContent = commentCount;
+                 }
+             });
+         }
+
+
+    }); // End DOMContentLoaded
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sivanesan Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --primary: #0A192F;
+            --primary-rgb: 10, 25, 47;
+            --secondary: #64FFDA;
+            --accent: #112240;
+            --text: #8892B0;
+            --text-bright: #CCD6F6;
+            --bg-light: #0A192F;
+            --card-bg: #112240;
+            --gradient: linear-gradient(135deg, #64FFDA, #48BEFF);
+        }
+
+        :root[data-theme="light"] {
+            --primary: #f0f0f0;
+            --primary-rgb: 255, 255, 255;
+            --secondary: #007BFF;
+            --accent: #F8F9FA;
+            --text: #4A5568;
+            --text-bright: #2D3748;
+            --bg-light: #FFFFFF;
+            --card-bg: #F8F9FA;
+            --gradient: linear-gradient(135deg, #007BFF, #00E5FF);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        body {
+            background: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient);
+            z-index: 1001;
+            transition: width 0.2s ease;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            background: white;
+            padding: 20px 0;
+            border-radius: 0 15px 15px 0;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .sidebar a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            margin: 10px auto;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .sidebar a:hover::before {
+            opacity: 1;
+        }
+
+        .sidebar a:hover img {
+            filter: brightness(0) invert(1);
+            transform: scale(1.1);
+        }
+
+        .sidebar a img {
+            width: 20px;
+            height: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .main-content {
+            margin-left: 80px;
+            padding: 0 40px;
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            background: var(--secondary);
+            border-radius: 50%;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Animation Background */
+        .animation-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .grid-line {
+            position: absolute;
+            background: var(--secondary);
+            opacity: 0.1;
+        }
+
+        .vertical {
+            width: 1px;
+            height: 100%;
+            top: 0;
+        }
+
+        .horizontal {
+            height: 1px;
+            width: 100%;
+            left: 0;
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            border-radius: 10px;
+            /* background: rgba(var(--primary-rgb), 0.85);
+            border: 1px solid rgba(100, 255, 218, 0.1); */
+            padding: 2rem;
+        }
+
+        .header-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-bright);
+            opacity: 0;
+        }
+
+        .header-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+            opacity: 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .floating-nav {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            border-radius: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .floating-nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            margin: 0 15px;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .floating-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .floating-nav a:hover::after {
+            width: 100%;
+        }
+
+        section {
+            padding: 100px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            background: rgba(var(--bg-rgb), 0.8);
+            /* backdrop-filter: blur(5px); */
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-left: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            color: var(--text-bright);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 30px;
+            background: var(--gradient);
+            border-radius: 3px;
+            background: var(--secondary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .project-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform: translateY(30px);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            /* backdrop-filter: blur(10px);
+            background: var(--card-bg); */
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--secondary);
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .experience-timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 50px;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -50px;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--accent);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -56px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid var(--accent);
+        }
+
+        .papers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .paper-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            background: var(--card-bg);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .paper-card:hover {
+            border-color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                padding: 0 20px;
+            }
+
+            .sidebar {
+                bottom: 0;
+                top: auto;
+                transform: none;
+                width: 100%;
+                height: 60px;
+                display: flex;
+                justify-content: center;
+                border-radius: 15px 15px 0 0;
+            }
+
+            .sidebar a {
+                margin: 0 10px;
+            }
+
+            .floating-nav {
+                display: none;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        :root {
+        --bg-light: #f8f9fa;
+        --text-dark: #2d3436;
+        --card-bg: white;
+        --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-light: #1a1a1a;
+            --text-dark: #ffffff;
+            --card-bg: #2d2d2d;
+            --shadow: rgba(255, 255, 255, 0.1);
+            --sidebar-bg: #2d2d2d;
+            --nav-bg: rgba(45, 45, 45, 0.9);
+            --nav-shadow: rgba(255, 255, 255, 0.1)
+        }
+    
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            background: var(--card-bg);
+            padding: 20px 0;
+            border-radius: 0 15px 15px 0;
+            box-shadow: 2px 0 20px var(--shadow);
+            z-index: 100;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .floating-nav {
+            position: fixed;
+            top: 30px;
+            right: 80px;
+            background: var(--nav-bg);
+            padding: 15px 30px;
+            border-radius: 30px;
+            box-shadow: 0 5px 20px var(--shadow);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .floating-nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            margin: 0 15px;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        /* Update existing styles to use variables */
+        body {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Pop-up styling */
+        .popup-message {
+            position: fixed;
+            margin-top: 18%;
+            margin-bottom: 70%;
+            margin-left: 50%;
+            margin-right: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none; /* Hidden by default */
+            z-index: 1001;
+            width: 300px;
+            text-align: center;
+        }
+
+        .popup-content {
+            position: relative;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .popup-ok {
+            background-color: #4ca5af;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .popup-ok:hover {
+            background-color: #4592a0;
+        }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            top: 35px;
+            right: 25px;
+            background: var(--card-bg);
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px var(--shadow);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle img {
+            width: 20px;
+            height: 20px;
+            transition: filter 0.3s ease;
+        }
+
+        :root[data-theme="dark"] .theme-toggle img {
+            filter: invert(1);
+        }
+
+        @media (max-width: 768px) {
+            .theme-toggle {
+                top: 20px;
+                left: 20px;
+            }
+        }
+
+        .sidebar, .floating-nav {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #networkCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        :root[data-theme="light"] #networkCanvas {
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="networkCanvas"></canvas>
+    <div class="content-wrapper">
+    <div id="popup-message" class="popup-message">
+        <div class="popup-content">
+            <span id="popup-close" class="popup-close">&times;</span>
+            <h2>Theme Recommendation</h2><br>
+            <p>Dark theme would be better for viewing. Would you like to enable it?</p>
+            <button id="popup-ok" class="popup-ok">Okay</button>
+        </div>
+    </div>
+
+    <div class="progress-bar"></div>
+    
+    <div class="sidebar">
+        <a href="mailto:apsiva69@gmail.com" title="Email">
+            <img src="assets/images/email.png" alt="Email">
+        </a>
+        
+        <a href="https://www.linkedin.com/in/sivanesan-b-871ba7264/" title="LinkedIn">
+            <img src="assets/images/linkedin.png" alt="LinkedIn">
+        </a>
+        <a href="https://github.com/Sivanesanbalu" title="GitHub">
+            <img src="assets/images/github.png" alt="GitHub">
+        </a>
+        <a href="https://medium.com/@apsiva69" title="Medium">
+            <img src="assets/images/medium.png" alt="Medium">
+        </a>
+        <a href="https://www.hackerrank.com/profile/apsiva69" title="HackerRank">
+            <img src="assets/images/hackerrank.png" alt="HackerRank">
+        </a>
+    </div>
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+        <img src="assets/images/moon.png" alt="Theme" id="theme-icon">
+    </button>
+
+    <nav class="floating-nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#papers">Papers</a>
+    </nav>
+
+    <div class="main-content">
+        <header id="home">
+            <div class="header-content">
+                <h1 class="header-title">Sivanesan </h1>
+                <h2 class="header-subtitle">On a Journey to Become an ML/AI Expert</h2>
+                <p>AI Enthusiast | Building & Tuning Intelligent Models</p>
+            </div>
+        </header>
+
+        <section id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I am a passionate developer dedicated to leveraging Artificial Intelligence and Machine Learning to solve real-world challenges. As a final-year Artificial Intelligence and Data Science student at Kumaraguru College of Technology, I focus on creating innovative solutions that combine advanced technology with thoughtful design. I am particularly eager to work on projects involving Large Language Models (LLMs), Natural Language Processing (NLP), and Computer Vision (CV), where I can apply my skills to build impactful, intelligent systems.</p>
+                    <p>With a strong foundation in machine learning frameworks like PyTorch and hands-on experience with tools such as LangChain and Hugging Face Transformers, I thrive at the intersection of design and development. My goal is to build innovative, reliable, and accessible AI solutions. I am particularly focused on developing low-carbon, low-storage models with high accuracy, and am currently exploring optimizations using efficient architectures like the Qwen model.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3 class="project-title">AI Interviewer - Smart Voice-Based Interview Platform</h3>
+                        <p>A cutting-edge AI-first platform designed to simulate real-time, voice-based mock interviews using Large Language Models like GPT and Gemini Pro. This platform provides a realistic interview experience with instant AI-generated feedback, helping users improve their communication and technical skills.</p>
+                        <ul>
+                            <li>Integrated Vapi.ai for live voice interactions and seamless real-time communication.</li>
+                            <li>Enabled secure login and personalized user dashboards with performance tracking.</li>
+                            <li>Developed an admin portal for monitoring sessions, analytics, and user management.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">ROVISA – AI Chatbot with Topic Flow & Typing Effect</h3>
+                    <p>A conversational AI chatbot designed to simulate human-like interactions using topic continuity and engaging UI features like typing animations. ROVISA helps users get structured responses across various domains in a natural, flowing dialogue style.</p>
+                    <ul>
+                        <li>Implemented topic flow management to maintain context across multi-turn conversations.</li>
+                        <li>Integrated OpenAI GPT-based models to generate dynamic and context-aware replies.</li>
+                        <li>Designed a user-friendly frontend with animated typing effects for a natural chat experience.</li>
+                    </ul>
+                </div>
+
+                <div class="project-content">
+                <h3 class="project-title">Offline Voice Assistant (CSV + RAG + Qwen + Whisper Compatible)</h3>
+                <p>An intelligent offline voice assistant designed for low-resource environments, capable of understanding user speech, retrieving relevant answers from a CSV-based knowledge base, and responding naturally using advanced AI models.</p>
+                <ul>
+                    <li>Used Whisper model for accurate offline speech-to-text conversion.</li>
+                    <li>Integrated Retrieval-Augmented Generation (RAG) to fetch context-specific answers from structured CSV data.</li>
+                    <li>Deployed the lightweight Qwen model to generate precise and low-latency responses.</li>
+                    <li>Built to run entirely offline—ensuring privacy, low power consumption, and high efficiency in real-world use cases.</li>
+                </ul>
+            </div>
+
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-title">Experience</h2>
+            <div class="experience-timeline">
+
+                <div class="timeline-item">
+                    <h3>Innovation Engineer Trainee</h3>
+                    <h4>Forge Innovation & Venture Lab</h4>
+                    <p>January 2025 – July 2025</p>
+                    <ul>
+                        <li>Worked on solving real-world problems through rapid prototyping and design thinking.</li>
+                        <li>Collaborated with interdisciplinary teams to build scalable and innovative tech products.</li>
+                        <li>Gained hands-on exposure to startup culture, product development cycles, and venture creation.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Intern – Next Generation Data Networking</h3>
+                    <h4>BSNL (Bharat Sanchar Nigam Limited)</h4>
+                    <p>August 2022 – September 2022</p>
+                    <ul>
+                        <li>Explored fiber optic systems, broadband architecture, and network switching technologies.</li>
+                        <li>Observed real-time telecom infrastructure and data transmission processes.</li>
+                        <li>Gained foundational knowledge of next-gen networking in a large-scale telecom environment.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section id="papers">
+            <h2 class="section-title">Research Papers</h2>
+            <div class="papers-grid">
+                <div class="paper-card">
+                    <h3>Eco-Transformers: Carbon-Efficient and Accelerated Inference through Self-Pruning and Activation Freezing in Large Language Models</h3>
+                    <p>Published in IEEE – Focused on optimizing LLMs by reducing computational overhead using self-pruning techniques and activation freezing, achieving low-carbon and high-efficiency inference without compromising accuracy.</p>
+                </div>
+
+                
+            </div>
+        </section>
+    </div>
+
+    <div class="animation-background" id="animationBackground"></div>
+
+
+    <script>
+
+        // Three.js Neural Network Animation
+        let scene, camera, renderer;
+        let neurons = [];
+        let connections = [];
+        let activationWaves = [];
+
+        class Neuron {
+            constructor(x, y, z) {
+                const geometry = new THREE.SphereGeometry(0.2, 32, 32);
+                const material = new THREE.MeshPhysicalMaterial({
+                    color: 0x64FFDA,
+                    emissive: 0x64FFDA,
+                    emissiveIntensity: 0.2,
+                    roughness: 0.2,
+                    metalness: 0.8,
+                    clearcoat: 1.0,
+                    clearcoatRoughness: 0.1
+                });
+                this.mesh = new THREE.Mesh(geometry, material);
+                this.mesh.position.set(x, y, z);
+                this.connections = [];
+                this.baseEmissive = 0.2;
+                this.activated = false;
+                
+                // Add subtle oscillation
+                this.initialY = y;
+                this.oscillationOffset = Math.random() * Math.PI * 2;
+            }
+
+            update(time) {
+                // Subtle floating motion
+                this.mesh.position.y = this.initialY + Math.sin(time * 0.001 + this.oscillationOffset) * 0.1;
+            }
+
+            activate() {
+                if (!this.activated) {
+                    this.activated = true;
+                    const timeline = gsap.timeline();
+                    
+                    timeline.to(this.mesh.material, {
+                        emissiveIntensity: 1,
+                        duration: 0.3
+                    }).to(this.mesh.scale, {
+                        x: 1.3,
+                        y: 1.3,
+                        z: 1.3,
+                        duration: 0.3,
+                        yoyo: true,
+                        repeat: 1
+                    }).to(this.mesh.material, {
+                        emissiveIntensity: this.baseEmissive,
+                        duration: 0.3,
+                        onComplete: () => {
+                            this.activated = false;
+                        }
+                    });
+                }
+            }
+        }
+
+        class Connection {
+            constructor(start, end) {
+                const curve = new THREE.CatmullRomCurve3([
+                    start.mesh.position,
+                    new THREE.Vector3(
+                        (start.mesh.position.x + end.mesh.position.x) / 2,
+                        (start.mesh.position.y + end.mesh.position.y) / 2 + (Math.random() - 0.5),
+                        (start.mesh.position.z + end.mesh.position.z) / 2 + (Math.random() - 0.5)
+                    ),
+                    end.mesh.position
+                ]);
+                
+                const points = curve.getPoints(50);
+                const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                const material = new THREE.LineBasicMaterial({
+                    color: 0x64FFDA,
+                    transparent: true,
+                    opacity: 0.3
+                });
+                this.line = new THREE.Line(geometry, material);
+                this.start = start;
+                this.end = end;
+                this.curve = curve;
+            }
+
+            pulse() {
+                const wave = new ActivationWave(this);
+                activationWaves.push(wave);
+            }
+        }
+
+        class ActivationWave {
+            constructor(connection) {
+                this.connection = connection;
+                this.progress = 0;
+                this.speed = 0.03;
+                const geometry = new THREE.SphereGeometry(0.08, 16, 16);
+                const material = new THREE.MeshPhysicalMaterial({
+                    color: 0x64FFDA,
+                    emissive: 0x64FFDA,
+                    emissiveIntensity: 1,
+                    transparent: true,
+                    opacity: 0.8
+                });
+                this.mesh = new THREE.Mesh(geometry, material);
+                scene.add(this.mesh);
+                
+                // Add trail effect
+                this.trail = [];
+                for (let i = 0; i < 5; i++) {
+                    const trailMesh = new THREE.Mesh(
+                        new THREE.SphereGeometry(0.05 - i * 0.01, 8, 8),
+                        material.clone()
+                    );
+                    trailMesh.material.opacity = 0.4 - i * 0.08;
+                    this.trail.push(trailMesh);
+                    scene.add(trailMesh);
+                }
+            }
+
+            update() {
+                this.progress += this.speed;
+                if (this.progress >= 1) {
+                    scene.remove(this.mesh);
+                    this.trail.forEach(mesh => scene.remove(mesh));
+                    return true;
+                }
+
+                const pos = this.connection.curve.getPoint(this.progress);
+                this.mesh.position.copy(pos);
+                
+                // Update trail positions
+                this.trail.forEach((mesh, i) => {
+                    const trailPos = this.connection.curve.getPoint(Math.max(0, this.progress - (i + 1) * 0.05));
+                    mesh.position.copy(trailPos);
+                });
+                
+                return false;
+            }
+        }
+
+        function init() {
+            // Scene setup
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(
+                75,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                1000
+            );
+            renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('networkCanvas'),
+                alpha: true
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Enhanced lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+            scene.add(ambientLight);
+            
+            const pointLight1 = new THREE.PointLight(0x64FFDA, 1);
+            pointLight1.position.set(5, 5, 5);
+            scene.add(pointLight1);
+            
+            const pointLight2 = new THREE.PointLight(0x48BEFF, 1);
+            pointLight2.position.set(-5, -5, -5);
+            scene.add(pointLight2);
+
+            createNeuralNetwork();
+            camera.position.z = 15;
+            animate();
+        }
+
+        function createNeuralNetwork() {
+            const layers = 5;
+            const neuronsPerLayer = 6;
+            const layerDistance = 4;
+
+            // Create neurons
+            for (let layer = 0; layer < layers; layer++) {
+                for (let i = 0; i < neuronsPerLayer; i++) {
+                    const x = layer * layerDistance - (layers * layerDistance) / 2;
+                    const y = i * 2 - (neuronsPerLayer * 2) / 2;
+                    const z = Math.sin(layer * 0.5) * 2;
+                    
+                    const neuron = new Neuron(x, y, z);
+                    neurons.push(neuron);
+                    scene.add(neuron.mesh);
+
+                    // Connect to previous layer
+                    if (layer > 0) {
+                        const prevLayerNeurons = neurons.slice(
+                            -(neuronsPerLayer + i + 1),
+                            -i - 1
+                        );
+                        prevLayerNeurons.forEach(prevNeuron => {
+                            if (Math.random() > 0.5) {
+                                const connection = new Connection(prevNeuron, neuron);
+                                connections.push(connection);
+                                scene.add(connection.line);
+                                prevNeuron.connections.push(connection);
+                            }
+                        });
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate network
+            scene.rotation.y += 0.001;
+            
+            // Update activation waves
+            activationWaves = activationWaves.filter(wave => !wave.update());
+
+            renderer.render(scene, camera);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const time = Date.now();
+            
+            // Update neurons
+            neurons.forEach(neuron => neuron.update(time));
+            
+            // Rotate network with smooth oscillation
+            scene.rotation.y = Math.sin(time * 0.0001) * 0.1 + time * 0.0001;
+            scene.rotation.x = Math.sin(time * 0.01) * 0.002;
+            
+            // Update waves
+            activationWaves = activationWaves.filter(wave => !wave.update());
+            
+            renderer.render(scene, camera);
+        }
+
+        // Handle scroll events
+        let lastScrollPosition = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const scrollingDown = currentScroll > lastScrollPosition;
+            
+            // Activate neurons based on scroll direction
+            const layerToActivate = Math.floor((currentScroll / document.body.scrollHeight) * neurons.length);
+            
+            if (scrollingDown) {
+                // Forward propagation
+                const activeNeurons = neurons.filter((n, i) => i === layerToActivate);
+                activeNeurons.forEach(neuron => {
+                    neuron.activate();
+                    neuron.connections.forEach(conn => conn.pulse());
+                });
+            } else {
+                // Backward propagation
+                const activeNeurons = neurons.filter((n, i) => i === neurons.length - layerToActivate - 1);
+                activeNeurons.forEach(neuron => {
+                    neuron.activate();
+                    neuron.connections.forEach(conn => conn.pulse());
+                });
+            }
+            
+            lastScrollPosition = currentScroll;
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Initialize
+        init();
+        
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Progress bar animation
+        window.addEventListener('scroll', () => {
+            const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (window.pageYOffset / totalScroll) * 100;
+            document.querySelector('.progress-bar').style.width = `${progress}%`;
+        });
+
+        // Initial animations
+        gsap.to('.header-title', {
+            opacity: 1,
+            duration: 1,
+            delay: 0.5
+        });
+
+        gsap.to('.header-subtitle', {
+            opacity: 1,
+            duration: 1,
+            delay: 0.8
+        });
+
+        gsap.to('.floating-nav', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 1
+        });
+
+        // Scroll animations for sections
+        gsap.utils.toArray('.section-title').forEach(title => {
+            gsap.to(title, {
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top bottom-=100',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.8
+            });
+        });
+
+        // About section animation
+        gsap.to('.about-text', {
+            scrollTrigger: {
+                trigger: '.about-text',
+                start: 'top bottom-=100',
+            },
+            opacity: 1,
+            x: 0,
+            duration: 0.8
+        });
+
+        // Project cards animation
+        gsap.utils.toArray('.project-card').forEach((card, i) => {
+            gsap.to(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top bottom-=50',
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                delay: i * 0.2
+            });
+        });
+
+        // Experience timeline animation
+        gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+            gsap.to(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top bottom-=100',
+                },
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                delay: i * 0.3
+            });
+        });
+
+        // Papers animation
+        gsap.utils.toArray('.paper-card').forEach((card, i) => {
+            gsap.to(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top bottom-=50',
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                delay: i * 0.2
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const navHeight = document.querySelector('.floating-nav').offsetHeight;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        // Theme toggle functionality
+        const toggle = document.querySelector('.theme-toggle');
+        const root = document.documentElement;
+        const themeIcon = document.getElementById('theme-icon');
+
+        // Pop-up elements
+        const popupMessage = document.getElementById('popup-message');
+        const popupClose = document.getElementById('popup-close');
+        const popupOk = document.getElementById('popup-ok');
+
+        // Check for saved theme preference or default to 'light'
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        root.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        // Show the pop-up when the page loads
+        window.onload = function() {
+            popupMessage.style.display = 'block'; // Show the pop-up
+        };
+
+        toggle.addEventListener('click', () => {
+            const newTheme = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            root.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.src = `assets/images/${theme === 'light' ? 'moon' : 'sun'}.png`;
+        }
+
+        // Close the pop-up when the close button is clicked
+        popupClose.addEventListener('click', () => {
+            popupMessage.style.display = 'none';
+        });
+
+        // Activate dark mode when "Okay" button is clicked
+        popupOk.addEventListener('click', () => {
+            const newTheme = 'dark'; // Set to dark mode
+            root.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+            popupMessage.style.display = 'none'; // Hide the pop-up after clicking okay
+        });
+    </script>
+</body>
+</html>
