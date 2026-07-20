@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sivanesan Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --primary: #0A192F;
+            --primary-rgb: 10, 25, 47;
+            --secondary: #64FFDA;
+            --accent: #112240;
+            --text: #8892B0;
+            --text-bright: #CCD6F6;
+            --bg-light: #0A192F;
+            --card-bg: #112240;
+            --gradient: linear-gradient(135deg, #64FFDA, #48BEFF);
+        }
+
+        :root[data-theme="light"] {
+            --primary: #f0f0f0;
+            --primary-rgb: 255, 255, 255;
+            --secondary: #007BFF;
+            --accent: #F8F9FA;
+            --text: #4A5568;
+            --text-bright: #2D3748;
+            --bg-light: #FFFFFF;
+            --card-bg: #F8F9FA;
+            --gradient: linear-gradient(135deg, #007BFF, #00E5FF);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        body {
+            background: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient);
+            z-index: 1001;
+            transition: width 0.2s ease;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            background: white;
+            padding: 20px 0;
+            border-radius: 0 15px 15px 0;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .sidebar a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            margin: 10px auto;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .sidebar a:hover::before {
+            opacity: 1;
+        }
+
+        .sidebar a:hover img {
+            filter: brightness(0) invert(1);
+            transform: scale(1.1);
+        }
+
+        .sidebar a img {
+            width: 20px;
+            height: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .main-content {
+            margin-left: 80px;
+            padding: 0 40px;
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            background: var(--secondary);
+            border-radius: 50%;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Animation Background */
+        .animation-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .grid-line {
+            position: absolute;
+            background: var(--secondary);
+            opacity: 0.1;
+        }
+
+        .vertical {
+            width: 1px;
+            height: 100%;
+            top: 0;
+        }
+
+        .horizontal {
+            height: 1px;
+            width: 100%;
+            left: 0;
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .header-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-bright);
+            opacity: 0;
+        }
+
+        .header-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+            opacity: 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .floating-nav {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            border-radius: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .floating-nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            margin: 0 15px;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .floating-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .floating-nav a:hover::after {
+            width: 100%;
+        }
+
+        section {
+            padding: 100px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            background: rgba(var(--bg-rgb), 0.8);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-left: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            color: var(--text-bright);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 30px;
+            border-radius: 3px;
+            background: var(--secondary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .about-visual-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .avatar-glass-frame {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 1 / 1;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(100, 255, 218, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            padding: 15px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease;
+        }
+
+        :root[data-theme="light"] .avatar-glass-frame {
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 123, 255, 0.15);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+        }
+
+        .avatar-glass-frame:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--secondary);
+        }
+
+        .avatar-img-premium {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+            filter: brightness(0.95) contrast(1.05);
+            transition: filter 0.3s ease;
+        }
+
+        .avatar-glass-frame:hover .avatar-img-premium {
+            filter: brightness(1.02) contrast(1.05);
+        }
+
+        .glow-backlight {
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.15) 0%, transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+            animation: pulseGlow 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.15); opacity: 1; }
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .project-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--secondary);
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .experience-timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 50px;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -50px;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--accent);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -56px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid var(--accent);
+        }
+
+        .papers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .paper-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            background: var(--card-bg);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .paper-card:hover {
+            border-color: var(--secondary);
+        }
+
+        .contact-card-glass {
+            background-color: rgba(17, 34, 64, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(100, 255, 218, 0.15);
+            border-radius: 20px;
+            padding: 60px 40px;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #contact .contact-pitch {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            line-height: 1.25;
+            font-weight: 700;
+            margin-bottom: 35px;
+            letter-spacing: -0.02em;
+            color: var(--text-bright);
+        }
+
+        #contact .highlight {
+            color: var(--secondary);
+        }
+
+        #contact .sub-pitch {
+            display: block;
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text);
+            font-weight: 400;
+            margin-top: 10px;
+        }
+
+        #contact .contact-cta-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 38px;
+            background: var(--gradient);
+            color: #0A192F;
+            border: none;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 45px;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), box-shadow 0.4s ease;
+            box-shadow: 0 8px 24px rgba(100, 255, 218, 0.2);
+        }
+
+        #contact .contact-cta-email:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(100, 255, 218, 0.4);
+            color: #000;
+        }
+
+        .social-block {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            width: 80%;
+            padding-top: 30px;
+        }
+        
+        html.light-theme .social-block {
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        #contact .contact-social-prompt {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .social-icon-list {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .social-icon-list a {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            padding: 12px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon-list a img {
+            width: 22px;
+            height: 22px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon-list a:hover {
+            transform: translateY(-4px);
+            border-color: var(--secondary);
+            background: rgba(100, 255, 218, 0.05);
+        }
+
+        .site-footer {
+            border-top: 1px solid rgba(100, 255, 218, 0.1);
+            padding: 50px 8vw;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            align-items: center;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .footer-brand {
+            font-weight: 700;
+            color: var(--text-bright);
+        }
+
+        .copyright {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .craft-tag {
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .experiment-card {
+            background: rgba(17, 34, 64, 0.6);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .experiment-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            background: rgba(72, 190, 255, 0.15);
+            color: #48BEFF;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .experiment-text {
+            font-size: 0.88rem;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .view-all-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .view-all-button:hover {
+            background: var(--secondary);
+            color: #0A192F;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .avatar-glass-frame {
+                max-width: 320px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+            }
+            .experiment-card {
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                padding: 0 20px;
+            }
+
+            .sidebar {
+                bottom: 0;
+                top: auto;
+                transform: none;
+                width: 100%;
+                height: 60px;
+                display: flex;
+                justify-content: center;
+                border-radius: 15px 15px 0 0;
+            }
+
+            .sidebar a {
+                margin: 0 10px;
+            }
+
+            .floating-nav {
+                display: none;
+            }
+        }
+        :root {
+        --bg-light: #f8f9fa;
+        --text-dark: #2d3436;
+        --card-bg: white;
+        --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-light: #1a1a1a;
+            --text-dark: #ffffff;
+            --card-bg: #2d2d2d;
+            --shadow: rgba(255, 255, 255, 0.1);
+            --sidebar-bg: #2d2d2d;
+            --nav-bg: rgba(45, 45, 45, 0.9);
+            --nav-shadow: rgba(255, 255, 255, 0.1)
+        }
+    
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            background: var(--card-bg);
+            padding: 20px 0;
+            border-radius: 0 15px 15px 0;
+            box-shadow: 2px 0 20px var(--shadow);
+            z-index: 100;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .floating-nav {
+            position: fixed;
+            top: 30px;
+            right: 80px;
+            background: var(--nav-bg);
+            padding: 15px 30px;
+            border-radius: 30px;
+            box-shadow: 0 5px 20px var(--shadow);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .floating-nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            margin: 0 15px;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        body {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .popup-message {
+            position: fixed;
+            margin-top: 18%;
+            margin-bottom: 70%;
+            margin-left: 50%;
+            margin-right: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none; 
+            z-index: 1001;
+            width: 300px;
+            text-align: center;
+        }
+
+        .popup-content {
+            position: relative;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .popup-ok {
+            background-color: #4ca5af;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .popup-ok:hover {
+            background-color: #4592a0;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 35px;
+            right: 25px;
+            background: var(--card-bg);
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px var(--shadow);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle img {
+            width: 20px;
+            height: 20px;
+            transition: filter 0.3s ease;
+        }
+
+        :root[data-theme="dark"] .theme-toggle img {
+            filter: invert(1);
+        }
+
+        @media (max-width: 768px) {
+            .theme-toggle {
+                top: 20px;
+                left: 20px;
+            }
+        }
+
+        .sidebar, .floating-nav {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #networkCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: auto;
+            opacity: 0.75;
+            mix-blend-mode: screen;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="networkCanvas"></canvas>
+    <div class="content-wrapper">
+    <div id="popup-message" class="popup-message">
+        <div class="popup-content">
+            <span id="popup-close" class="popup-close">&times;</span>
+            <h2>Theme Recommendation</h2><br>
+            <p>Dark theme would be better for viewing. Would you like to enable it?</p>
+            <button id="popup-ok" class="popup-ok">Okay</button>
+        </div>
+    </div>
+
+    <div class="progress-bar"></div>
+    
+    <div class="sidebar">
+        <a href="mailto:apsiva69@gmail.com" title="Email">
+            <img src="assets/images/email.png" alt="Email">
+        </a>
+        <a href="https://www.linkedin.com/in/sivanesan-b-871ba7264/" title="LinkedIn">
+            <img src="assets/images/linkedin.png" alt="LinkedIn">
+        </a>
+        <a href="https://github.com/Sivanesanbalu" title="GitHub">
+            <img src="assets/images/github.png" alt="GitHub">
+        </a>
+        <a href="https://medium.com/@apsiva69" title="Medium">
+            <img src="assets/images/medium.png" alt="Medium">
+        </a>
+        <a href="https://www.hackerrank.com/profile/apsiva69" title="HackerRank">
+            <img src="assets/images/hackerrank.png" alt="HackerRank">
+        </a>
+    </div>
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+        <img src="assets/images/moon.png" alt="Theme" id="theme-icon">
+    </button>
+
+    <nav class="floating-nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#papers">Papers</a>
+    </nav>
+
+    <div class="main-content">
+        <header id="home">
+            <div class="header-content">
+                <h1 class="header-title">Sivanesan </h1>
+                <h2 class="header-subtitle">On a Journey to Become an ML/AI Expert</h2>
+                <p>AI Enthusiast | Building & Tuning Intelligent Models</p>
+            </div>
+        </header>
+
+        <section id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I am an Artificial Intelligence Engineer specializing in designing and building intelligent, production-ready AI applications that solve real-world business problems. My expertise spans Large Language Models (LLMs), AI Agents, Computer Vision, Natural Language Processing (NLP), Machine Learning, and Retrieval-Augmented Generation (RAG), with a strong focus on transforming research into scalable, practical solutions.
+                    </p>
+                    <p>
+                        I have hands-on experience developing end-to-end AI systems using Python, PyTorch, TensorFlow, Hugging Face Transformers, LangChain, FastAPI, Docker, and modern cloud technologies. From model development and fine-tuning to deployment and optimization, I enjoy building complete AI products that deliver measurable impact while maintaining high performance, reliability, and scalability.
+                    </p>
+                    <p>
+                        My work extends beyond traditional machine learning into efficient AI engineering, including model optimization, intelligent automation, AI-powered applications, and sustainable computing. As an IEEE-published researcher, I have also explored energy-efficient AI systems, focusing on reducing computational cost while maintaining high model performance for real-world deployment.
+                    </p>
+                    <p>
+                        I am passionate about solving complex engineering challenges, continuously learning emerging AI technologies, and building innovative products that combine strong technical foundations with intuitive user experiences. My goal is to contribute to organizations developing next-generation AI systems that create meaningful value at scale.
+                    </p>
+                </div>
+                <div class="about-visual-showcase">
+                    <div class="avatar-glass-frame">
+                        <div class="glow-backlight"></div>
+                        <img src="assets/images/avatar.jpg" alt="Sivanesan Portrait" class="avatar-img-premium">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3 class="project-title">AI Interviewer - Smart Voice-Based Interview Platform</h3>
+                        <p>A cutting-edge AI-first platform designed to simulate real-time, voice-based mock interviews using Large Language Models like GPT and Gemini Pro. This platform provides a realistic interview experience with instant AI-generated feedback, helping users improve their communication and technical skills.</p>
+                        <ul>
+                            <li>Integrated Vapi.ai for live voice interactions and seamless real-time communication.</li>
+                            <li>Enabled secure login and personalized user dashboards with performance tracking.</li>
+                            <li>Developed an admin portal for monitoring sessions, analytics, and user management.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3 class="project-title">ROVISA – AI Chatbot with Topic Flow & Typing Effect</h3>
+                        <p>A conversational AI chatbot designed to simulate human-like interactions using topic continuity and engaging UI features like typing animations. ROVISA helps users get structured responses across various domains in a natural, flowing dialogue style.</p>
+                        <ul>
+                            <li>Implemented topic flow management to maintain context across multi-turn conversations.</li>
+                            <li>Integrated OpenAI GPT-based models to generate dynamic and context-aware replies.</li>
+                            <li>Designed a user-friendly frontend with animated typing effects for a natural chat experience.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3 class="project-title">Offline Voice Assistant (CSV + RAG + Qwen + Whisper Compatible)</h3>
+                        <p>An intelligent offline voice assistant designed for low-resource environments, capable of understanding user speech, retrieving relevant answers from a CSV-based knowledge base, and responding naturally using advanced AI models.</p>
+                        <ul>
+                            <li>Used Whisper model for accurate offline speech-to-text conversion.</li>
+                            <li>Integrated Retrieval-Augmented Generation (RAG) to fetch context-specific answers from structured CSV data.</li>
+                            <li>Deployed the lightweight Qwen model to generate precise and low-latency responses.</li>
+                            <li>Built to run entirely offline—ensuring privacy, low power consumption, and high efficiency in real-world use cases.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-title">Experience</h2>
+            <div class="experience-timeline">
+                <div class="timeline-item">
+                    <h3>Innovation Engineer Trainee</h3>
+                    <h4>Forge Innovation & Venture Lab</h4>
+                    <p>January 2025 – July 2025</p>
+                    <ul>
+                        <li>Worked on solving real-world problems through rapid prototyping and design thinking.</li>
+                        <li>Collaborated with interdisciplinary teams to build scalable and innovative tech products.</li>
+                        <li>Gained hands-on exposure to startup culture, product development cycles, and venture creation.</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h3>Intern – Next Generation Data Networking</h3>
+                    <h4>BSNL (Bharat Sanchar Nigam Limited)</h4>
+                    <p>August 2022 – September 2022</p>
+                    <ul>
+                        <li>Explored fiber optic systems, broadband architecture, and network switching technologies.</li>
+                        <li>Observed real-time telecom infrastructure and data transmission processes.</li>
+                        <li>Gained foundational knowledge of next-gen networking in a large-scale telecom environment.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="papers">
+            <h2 class="section-title">Research Papers</h2>
+            <div class="papers-grid">
+                <div class="paper-card">
+                    <h3>Eco-Transformers: Carbon-Efficient and Accelerated Inference through Self-Pruning and Activation Freezing in Large Language Models</h3>
+                    <p>Published in IEEE – Focused on optimizing LLMs by reducing computational overhead using self-pruning techniques and activation freezing, achieving low-carbon and high-efficiency inference without compromising accuracy.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="page-section">
+            <div class="contact-container">
+                <div class="contact-card-glass">
+                    <h2 class="contact-pitch">
+                        Have an idea? A challenge? <br>Or just want to talk <span class="highlight">tech</span>? <br>
+                        <span class="sub-pitch">Let's build something amazing together.</span>
+                    </h2>
+                    <a href="mailto:apsiva69@gmail.com" class="contact-cta-email">
+                        <span>Drop Me a Line</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M1.946 9.315c-.522-.174-.527-.455.01-.634l20.587-6.862c.522-.174.747.079.577.612l-6.858 20.58c-.177.531-.457.53-.632-.012l-3.935-11.808-11.808-3.934z"/></svg>
+                    </a>
+                    <div class="social-block">
+                        <p class="contact-social-prompt">Connect across the ecosystem</p>
+                        <div class="social-icon-list">
+                            <a href="https://www.linkedin.com/in/sivanesan-b-871ba7264/" target="_blank" title="LinkedIn"><img src="assets/images/linkedin.png" alt="LinkedIn"></a>
+                            <a href="https://github.com/Sivanesanbalu" target="_blank" title="GitHub"><img src="assets/images/github.png" alt="GitHub"></a>
+                            <a href="https://medium.com/@apsiva69" target="_blank" title="Medium"><img src="assets/images/medium.png" alt="Medium"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-grid">
+                <div class="footer-left-block">
+                    <p class="copyright">&copy; <span id="currentYear"></span> <span class="footer-brand">Sivanesan</span>. All Rights Reserved.</p>
+                    <p class="craft-tag">Designed & Built with Passion and Engineering Precision.</p>
+                </div>
+                <div class="footer-right-block">
+                    <div class="experiment-card">
+                        <span class="experiment-badge">Next-Gen Experiment</span>
+                        <p class="experiment-text">Explore a fully production-optimized interactive space below.</p>
+                        <a href="komala.html" class="view-all-button">
+                            <span>Launch Experience</span>
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="animation-background" id="animationBackground"></div>
+
+    <script>
+        // --- Professional UI/UX Three.js Neural Network System ---
+        let scene, camera, renderer;
+        let neurons = [];
+        let connections = [];
+        let activationWaves = [];
+        let particleSystem;
+        const mouse = new THREE.Vector2(0, 0);
+
+        const THEME_COLORS = {
+            cyan: 0x64FFDA,
+            blue: 0x48BEFF,
+            darkAccent: 0x112240,
+            white: 0xCCD6F6
+        };
+
+        window.addEventListener("mousemove", (e) => {
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        class Neuron {
+            constructor(x, y, z, type = 'hidden') {
+                this.type = type;
+                this.baseColor = type === 'input' ? THEME_COLORS.blue : type === 'output' ? THEME_COLORS.white : THEME_COLORS.cyan;
+                
+                const size = type === 'hidden' ? 0.18 : 0.24;
+                const geometry = new THREE.SphereGeometry(size, 32, 32);
+                
+                this.material = new THREE.MeshPhysicalMaterial({
+                    color: this.baseColor,
+                    emissive: this.baseColor,
+                    emissiveIntensity: 0.5, // Increased base glow
+                    roughness: 0.1,
+                    metalness: 0.8,
+                    clearcoat: 1.0,
+                    clearcoatRoughness: 0.05,
+                    transmission: 0.3, 
+                    thickness: 0.5
+                });
+                
+                this.mesh = new THREE.Mesh(geometry, this.material);
+                this.mesh.position.set(x, y, z);
+                
+                this.connections = [];
+                this.baseEmissive = 0.5;
+                this.activated = false;
+                
+                this.initialY = y;
+                this.initialX = x;
+                this.oscillationOffset = Math.random() * Math.PI * 2;
+            }
+
+            update(time) {
+                this.mesh.position.y = this.initialY + Math.sin(time * 0.0008 + this.oscillationOffset) * 0.18;
+                this.mesh.position.x = this.initialX + Math.cos(time * 0.0005 + this.oscillationOffset) * 0.08;
+            }
+
+            activate() {
+                if (!this.activated) {
+                    this.activated = true;
+                    const timeline = gsap.timeline();
+                    
+                    timeline.to(this.material, {
+                        emissiveIntensity: 2.0, // Double intensity glow
+                        duration: 0.2
+                    }).to(this.mesh.scale, {
+                        x: 1.5, y: 1.5, z: 1.5,
+                        duration: 0.25,
+                        yoyo: true,
+                        repeat: 1,
+                        ease: "power2.out"
+                    }).to(this.material, {
+                        emissiveIntensity: this.baseEmissive,
+                        duration: 0.4,
+                        onComplete: () => { this.activated = false; }
+                    });
+                }
+            }
+        }
+
+        class Connection {
+            constructor(start, end) {
+                this.start = start;
+                this.end = end;
+                
+                const midX = (start.mesh.position.x + end.mesh.position.x) / 2;
+                const midY = (start.mesh.position.y + end.mesh.position.y) / 2;
+                const midZ = (start.mesh.position.z + end.mesh.position.z) / 2;
+                
+                this.controlPoint = new THREE.Vector3(
+                    midX + (Math.random() - 0.5) * 1.5,
+                    midY + (Math.random() - 0.5) * 2.0,
+                    midZ + (Math.random() - 0.5) * 1.5
+                );
+
+                this.updateGeometry();
+
+                this.material = new THREE.LineBasicMaterial({
+                    color: start.type === 'input' ? THEME_COLORS.blue : THEME_COLORS.cyan,
+                    transparent: true,
+                    opacity: 0.12, // Reduced thin lines opacity
+                    linewidth: 2
+                });
+                
+                this.line = new THREE.Line(this.geometry, this.material);
+            }
+
+            updateGeometry() {
+                this.curve = new THREE.QuadraticBezierCurve3(
+                    this.start.mesh.position,
+                    this.controlPoint,
+                    this.end.mesh.position
+                );
+                const points = this.curve.getPoints(30);
+                this.geometry = new THREE.BufferGeometry().setFromPoints(points);
+                if (this.line) this.line.geometry = this.geometry;
+            }
+
+            pulse() {
+                const wave = new ActivationWave(this);
+                activationWaves.push(wave);
+            }
+        }
+
+        class ActivationWave {
+            constructor(connection) {
+                this.connection = connection;
+                this.progress = 0;
+                this.speed = Math.random() * 0.015 + 0.025;
+                
+                const geom = new THREE.SphereGeometry(0.06, 16, 16);
+                const mat = new THREE.MeshBasicMaterial({
+                    color: connection.start.type === 'input' ? THEME_COLORS.blue : THEME_COLORS.white,
+                    transparent: true,
+                    opacity: 0.9
+                });
+                
+                this.mesh = new THREE.Mesh(geom, mat);
+                scene.add(this.mesh);
+                
+                this.trail = [];
+                this.trailLength = 6;
+                for (let i = 0; i < this.trailLength; i++) {
+                    const trailMesh = new THREE.Mesh(
+                        new THREE.SphereGeometry(0.045 - i * 0.006, 8, 8),
+                        mat.clone()
+                    );
+                    trailMesh.material.opacity = 0.5 - (i * 0.08);
+                    this.trail.push(trailMesh);
+                    scene.add(trailMesh);
+                }
+            }
+
+            update() {
+                this.progress += this.speed;
+                if (this.progress >= 1) {
+                    scene.remove(this.mesh);
+                    this.trail.forEach(m => scene.remove(m));
+                    return true;
+                }
+
+                const currentPos = this.connection.curve.getPoint(this.progress);
+                this.mesh.position.copy(currentPos);
+                
+                this.trail.forEach((mesh, index) => {
+                    const trailProgress = Math.max(0, this.progress - (index + 1) * 0.03);
+                    const trailPos = this.connection.curve.getPoint(trailProgress);
+                    mesh.position.copy(trailPos);
+                });
+                
+                return false;
+            }
+        }
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            
+            renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('networkCanvas'),
+                alpha: true,
+                antialias: true
+            });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+            scene.add(ambientLight);
+            
+            const dirLight = new THREE.DirectionalLight(THEME_COLORS.cyan, 1.5);
+            dirLight.position.set(10, 20, 10);
+            scene.add(dirLight);
+            
+            const blueLight = new THREE.PointLight(THEME_COLORS.blue, 2, 30);
+            blueLight.position.set(-8, 5, -5);
+            scene.add(blueLight);
+
+            createDeepNeuralNetwork();
+            createAIParticles();
+            
+            camera.position.z = window.innerWidth < 768 ? 16 : 13;
+            
+            // Continuous AI pulse loops
+            setInterval(() => {
+                if (neurons.length > 0) {
+                    const randomNeuron = neurons[Math.floor(Math.random() * neurons.length)];
+                    randomNeuron.activate();
+                    randomNeuron.connections.forEach(c => c.pulse());
+                }
+            }, 700);
+
+            animate();
+        }
+
+        function createDeepNeuralNetwork() {
+            // Highly dense AI network config configuration
+            const layersConfig = [5, 8, 10, 8, 5]; 
+            const totalLayers = layersConfig.length;
+            const horizontalSpacing = 3.6;
+
+            let layerNeuronsMap = [];
+
+            for (let l = 0; l < totalLayers; l++) {
+                const layerType = l === 0 ? 'input' : l === totalLayers - 1 ? 'output' : 'hidden';
+                const neuronsInCount = layersConfig[l];
+                const xPos = l * horizontalSpacing - ((totalLayers - 1) * horizontalSpacing) / 2;
+                
+                let currentLayerNeurons = [];
+
+                for (let i = 0; i < neuronsInCount; i++) {
+                    const yPos = (i - (neuronsInCount - 1) / 2) * 1.5;
+                    const zPos = (Math.sin(i * 0.7) + Math.cos(l * 0.5)) * 1.2;
+                    
+                    const neuron = new Neuron(xPos, yPos, zPos, layerType);
+                    neurons.push(neuron);
+                    currentLayerNeurons.push(neuron);
+                    scene.add(neuron.mesh);
+                }
+                layerNeuronsMap.push(currentLayerNeurons);
+            }
+
+            for (let l = 0; l < totalLayers - 1; l++) {
+                const currentLayer = layerNeuronsMap[l];
+                const nextLayer = layerNeuronsMap[l + 1];
+                
+                currentLayer.forEach(currNeuron => {
+                    nextLayer.forEach(nextNeuron => {
+                        // Dense interconnected dynamic calculations array pathing mapping
+                        if (Math.random() > 0.25) { 
+                            const connection = new Connection(currNeuron, nextNeuron);
+                            connections.push(connection);
+                            scene.add(connection.line);
+                            currNeuron.connections.push(connection);
+                        }
+                    });
+                });
+            }
+        }
+
+        function createAIParticles() {
+            const particleCount = 200;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                positions[i] = (Math.random() - 0.5) * 30;
+                positions[i + 1] = (Math.random() - 0.5) * 20;
+                positions[i + 2] = (Math.random() - 0.5) * 20;
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            const material = new THREE.PointsMaterial({
+                color: THEME_COLORS.cyan,
+                size: 0.05,
+                transparent: true,
+                opacity: 0.4
+            });
+
+            particleSystem = new THREE.Points(geometry, material);
+            scene.add(particleSystem);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const time = Date.now();
+            
+            neurons.forEach(neuron => neuron.update(time));
+            
+            // Slow elegant ambient camera floating mechanics
+            camera.position.x = THREE.MathUtils.lerp(camera.position.x, Math.sin(time * 0.00015) * 0.8, 0.05);
+            camera.position.y = THREE.MathUtils.lerp(camera.position.y, Math.cos(time * 0.00012) * 0.4, 0.05);
+            camera.lookAt(scene.position);
+
+            // Smooth parallax interaction loop matrix alignment tracking mouse movements
+            scene.rotation.y += (mouse.x * 0.2 - scene.rotation.y) * 0.02;
+            scene.rotation.x += (mouse.y * 0.08 - scene.rotation.x) * 0.02;
+            
+            if (particleSystem) {
+                particleSystem.rotation.y = time * 0.00002;
+            }
+
+            activationWaves = activationWaves.filter(wave => !wave.update());
+            
+            renderer.render(scene, camera);
+        }
+
+        // Handle scroll events
+        let lastScrollPosition = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const scrollingDown = currentScroll > lastScrollPosition;
+            
+            const layerToActivate = Math.floor((currentScroll / document.body.scrollHeight) * neurons.length);
+            
+            if (scrollingDown) {
+                const activeNeurons = neurons.filter((n, i) => i === layerToActivate);
+                activeNeurons.forEach(neuron => {
+                    neuron.activate();
+                    neuron.connections.forEach(conn => conn.pulse());
+                });
+            } else {
+                const activeNeurons = neurons.filter((n, i) => i === neurons.length - layerToActivate - 1);
+                activeNeurons.forEach(neuron => {
+                    neuron.activate();
+                    neuron.connections.forEach(conn => conn.pulse());
+                });
+            }
+            
+            lastScrollPosition = currentScroll;
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        init();
+        
+        gsap.registerPlugin(ScrollTrigger);
+
+        window.addEventListener('scroll', () => {
+            const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (window.pageYOffset / totalScroll) * 100;
+            document.querySelector('.progress-bar').style.width = `${progress}%`;
+        });
+
+        gsap.to('.header-title', { opacity: 1, duration: 1, delay: 0.5 });
+        gsap.to('.header-subtitle', { opacity: 1, duration: 1, delay: 0.8 });
+        gsap.to('.floating-nav', { opacity: 1, y: 0, duration: 1, delay: 1 });
+
+        gsap.utils.toArray('.section-title').forEach(title => {
+            gsap.to(title, {
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top bottom-=100',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.8
+            });
+        });
+
+        gsap.to('.about-text', {
+            scrollTrigger: { trigger: '.about-text', start: 'top bottom-=100' },
+            opacity: 1,
+            x: 0,
+            duration: 0.8
+        });
+
+        gsap.to('.about-visual-showcase', {
+            scrollTrigger: { trigger: '.about-visual-showcase', start: 'top bottom-=100' },
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            delay: 0.2
+        });
+
+        gsap.utils.toArray('.project-card').forEach((card, i) => {
+            gsap.to(card, {
+                scrollTrigger: { trigger: card, start: 'top bottom-=50' },
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                delay: i * 0.2
+            });
+        });
+
+        gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+            gsap.to(item, {
+                scrollTrigger: { trigger: item, start: 'top bottom-=100' },
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                delay: i * 0.3
+            });
+        });
+
+        gsap.utils.toArray('.paper-card').forEach((card, i) => {
+            gsap.to(card, {
+                scrollTrigger: { trigger: card, start: 'top bottom-=50' },
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                delay: i * 0.2
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const navHeight = document.querySelector('.floating-nav').offsetHeight;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+                
+                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            });
+        });
+
+        const toggle = document.querySelector('.theme-toggle');
+        const root = document.documentElement;
+        const themeIcon = document.getElementById('theme-icon');
+
+        const popupMessage = document.getElementById('popup-message');
+        const popupClose = document.getElementById('popup-close');
+        const popupOk = document.getElementById('popup-ok');
+
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        root.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        window.onload = function() {
+            popupMessage.style.display = 'block';
+        };
+
+        toggle.addEventListener('click', () => {
+            const newTheme = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            root.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.src = `assets/images/${theme === 'light' ? 'moon' : 'sun'}.png`;
+        }
+
+        popupClose.addEventListener('click', () => {
+            popupMessage.style.display = 'none';
+        });
+
+        popupOk.addEventListener('click', () => {
+            const newTheme = 'dark';
+            root.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+            popupMessage.style.display = 'none';
+        });
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

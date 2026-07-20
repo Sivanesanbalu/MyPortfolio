@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>
+   Blog | Sivanesan
+  </title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+   :root {
+      /* Light Theme (Default) */
+      --primary-color: #1a1a1a;
+      --secondary-color: #f8f9fa; /* Off-white background */
+      --accent-color: #007bff;
+      --text-color: #212529; /* Slightly darker text for better contrast */
+      --text-muted-color: #6c757d;
+      --card-background: #ffffff; /* Pure white cards */
+      --border-color: #dee2e6; /* Adjusted border */
+      --hover-color: #0056b3;
+      --tag-background: #e9ecef;
+      --tag-text: #495057;
+      --tag-active-background: var(--accent-color);
+      --tag-active-text: #fff;
+      --tag-highlight-background: #cfe2ff;
+      --tag-highlight-text: #004085;
+      --search-highlight-bg: #fff3cd;
+      --search-highlight-text: #664d03;
+      --shadow-color: rgba(0,0,0,0.05);
+      --shadow-hover-color: rgba(0,0,0,0.08);
+      --sidebar-border: 2px solid var(--accent-color);
+      --sidebar-border-accent: var(--hover-color);
+      --link-hover-bg: rgba(0, 123, 255, 0.05);
+      --archive-count-bg: var(--tag-background);
+      --archive-count-text: var(--tag-text);
+      --archive-count-hover-bg: var(--accent-color);
+      --archive-count-hover-text: #fff;
+      --scrollbar-thumb: var(--border-color);
+      --home-button-bg: rgba(0, 123, 255, 0.05);
+      --home-button-border: rgba(0, 123, 255, 0.1);
+      --home-button-hover-bg: rgba(0, 123, 255, 0.1);
+      --theme-toggle-bg: #eee;
+      --theme-toggle-hover-bg: #ddd;
+      --search-icon-color: '%236c757d'; /* URL encoded #6c757d */
+    }
+
+    body.dark-mode {
+      /* Dark Theme */
+      --primary-color: #e9ecef; /* Light text on dark */
+      --secondary-color: #121212; /* Very dark background */
+      --accent-color: #3b82f6; /* Brighter blue for dark mode */
+      --text-color: #ced4da; /* Lighter text */
+      --text-muted-color: #adb5bd; /* Lighter muted text */
+      --card-background: #1e1e1e; /* Dark card background */
+      --border-color: #343a40; /* Darker border */
+      --hover-color: #60a5fa; /* Lighter blue hover */
+      --tag-background: #343a40; /* Dark tag bg */
+      --tag-text: #ced4da; /* Light tag text */
+      --tag-active-background: var(--accent-color);
+      --tag-active-text: #fff;
+      --tag-highlight-background: #032b5a; /* Dark highlight */
+      --tag-highlight-text: #a6d1ff;
+      --search-highlight-bg: #4d421f; /* Darker yellow */
+      --search-highlight-text: #fff3cd;
+      --shadow-color: rgba(255,255,255,0.03); /* Subtle light shadow on dark */
+      --shadow-hover-color: rgba(255,255,255,0.05);
+      --sidebar-border: 2px solid var(--accent-color);
+      --sidebar-border-accent: var(--hover-color);
+      --link-hover-bg: rgba(59, 130, 246, 0.1); /* Darker hover bg */
+      --archive-count-bg: var(--tag-background);
+      --archive-count-text: var(--tag-text);
+      --archive-count-hover-bg: var(--accent-color);
+      --archive-count-hover-text: #fff;
+      --scrollbar-thumb: #495057; /* Darker scrollbar */
+      --home-button-bg: rgba(59, 130, 246, 0.1);
+      --home-button-border: rgba(59, 130, 246, 0.2);
+      --home-button-hover-bg: rgba(59, 130, 246, 0.2);
+      --theme-toggle-bg: #333;
+      --theme-toggle-hover-bg: #444;
+      --search-icon-color: '%23adb5bd'; /* URL encoded #adb5bd */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      line-height: 1.7;
+      color: var(--text-color);
+      background-color: var(--secondary-color);
+      margin: 0 auto;
+      padding: 15px 25px; /* Reduced top/bottom padding */
+      display: grid;
+      grid-template-columns: 1fr minmax(280px, 320px);
+      gap: 2.5rem;
+      max-width: 1300px;
+      transition: background-color 0.3s ease, color 0.3s ease; /* Theme transition */
+    }
+    .main-content {
+       opacity: 1;
+       transition: opacity 0.3s ease-in-out;
+    }
+    .blog-header {
+      text-align: center;
+      margin: 1rem 0 2.5rem; /* Reduced top/bottom margin */
+      grid-column: 1 / -1;
+      position: relative;
+    }
+    .header-controls {
+      position: absolute;
+      left: 0;
+      top: 20px; /* Adjusted top position slightly */
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .blog-header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 0.15rem; /* Reduced margin */
+      color: var(--primary-color);
+    }
+    .blog-header h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem; /* Reduced margin */
+      color: var(--text-muted-color);
+    }
+    .blog-header p {
+        font-size: 1rem;
+        color: var(--text-muted-color);
+        margin-top: 0.2rem; /* Added slight top margin */
+    }
+    .home-button {
+      /* position: absolute; */ /* Positioned by parent .header-controls */
+      /* left: 0; */
+      /* top: 0; */
+      text-decoration: none;
+      color: var(--accent-color);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 500;
+      transition: color 0.25s ease, transform 0.25s ease, background-color 0.25s ease;
+      padding: 8px 12px;
+      border-radius: 20px;
+      background-color: var(--home-button-bg);
+      border: 1px solid var(--home-button-border);
+    }
+    .home-button:hover {
+      color: var(--hover-color);
+      background-color: var(--home-button-hover-bg);
+      transform: translateX(-3px);
+    }
+
+    #themeToggle {
+        background: var(--theme-toggle-bg);
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        padding: 8px 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1rem; /* Adjust icon size */
+        line-height: 1;
+        transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.1s ease;
+        display: flex; /* Center icon */
+        align-items: center;
+        justify-content: center;
+        width: 36px; /* Fixed size */
+        height: 36px; /* Fixed size */
+    }
+
+    #themeToggle:hover {
+        background: var(--theme-toggle-hover-bg);
+        transform: scale(1.05);
+    }
+
+    .search-section {
+      margin-bottom: 1.5rem; /* Reduced margin */
+      position: relative;
+    }
+    #searchInput {
+      width: 100%;
+      padding: 14px 20px;
+      padding-left: 45px;
+      border: 1px solid var(--border-color);
+      border-radius: 30px;
+      font-size: 1rem;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.3s ease, color 0.3s ease;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="{var(--search-icon-color)}" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>') no-repeat 15px center;
+      background-size: 16px 16px;
+      background-color: var(--card-background);
+      color: var(--text-color);
+    }
+     /* Dynamic Search Icon Color Update - Requires JS or more complex CSS */
+    body.dark-mode #searchInput {
+       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23adb5bd" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
+    }
+    body:not(.dark-mode) #searchInput {
+       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%236c757d" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
+    }
+
+    #searchInput:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color) 15%, transparent);
+    }
+
+    .filter-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start; /* Changed from center */
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .filter-tags {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-tags .tag {
+      background: var(--tag-background);
+      color: var(--tag-text);
+      padding: 6px 15px;
+      border-radius: 18px;
+      font-size: 0.9em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.25s ease, color 0.25s ease, transform 0.1s ease-out, border-color 0.25s ease;
+      border: 1px solid transparent;
+    }
+    .filter-tags .tag:hover {
+      background-color: color-mix(in srgb, var(--tag-background) 80%, var(--text-color) 10%);
+      transform: translateY(-2px);
+    }
+    .filter-tags .tag.active {
+      background: var(--tag-active-background);
+      color: var(--tag-active-text);
+      border-color: var(--hover-color);
+      font-weight: 600;
+    }
+
+    #filterStatus {
+        font-size: 0.9em;
+        color: var(--text-muted-color);
+        font-style: italic;
+        white-space: nowrap;
+        /* margin-top: 0.5rem; */ /* Removed extra margin causing gap */
+    }
+
+    #blogPosts {
+      display: grid;
+      gap: 1.75rem; /* Slightly reduced gap */
+    }
+
+    .post-card {
+      background: var(--card-background);
+      margin-bottom: 0;
+      padding: 1.75rem; /* Slightly reduced padding */
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px var(--shadow-color);
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease, border-color 0.3s ease;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .post-card.hidden {
+        opacity: 0;
+        transform: scale(0.95);
+        height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-bottom: 0; /* Overrides grid gap technically */
+        border: none;
+        overflow: hidden;
+        /* Ensure transition includes all properties changed */
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out, height 0.3s ease-out, padding 0.3s ease-out, margin 0.3s ease-out, border 0.3s ease-out;
+    }
+
+
+    .post-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px var(--shadow-hover-color);
+    }
+    .post-meta {
+      display: flex;
+      gap: 8px; /* Reduced gap */
+      align-items: center;
+      color: var(--text-muted-color);
+      font-size: 0.85em;
+      margin-bottom: 0.5rem; /* Reduced margin */
+      font-weight: 500;
+    }
+    .post-meta span:first-child::before {
+        content: '📅';
+        margin-right: 4px; /* Reduced space */
+        opacity: 0.7;
+    }
+     .post-meta span:last-child::before {
+        content: '⏱️';
+        margin-right: 4px; /* Reduced space */
+        opacity: 0.7;
+    }
+    .post-card h2 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 0.4rem; /* Reduced margin */
+        color: var(--primary-color);
+    }
+    .post-card h2 a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.2s ease;
+    }
+    .post-card h2 a:hover {
+        color: var(--accent-color);
+    }
+
+    .post-tags { /* Tags within the post card */
+      display: flex;
+      gap: 8px;
+      margin: 0.75rem 0; /* Reduced margin */
+      flex-wrap: wrap;
+    }
+    .post-tags .tag {
+      background: var(--tag-background);
+      color: var(--tag-text);
+      padding: 3px 10px;
+      border-radius: 15px;
+      font-size: 0.8em;
+      font-weight: 500;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      cursor: default;
+      border: 1px solid transparent; /* Added for consistency */
+    }
+    .post-tags .tag.highlighted {
+        background-color: var(--tag-highlight-background);
+        color: var(--tag-highlight-text);
+        font-weight: 600;
+        border: 1px solid color-mix(in srgb, var(--tag-highlight-text) 30%, transparent);
+    }
+
+    .post-excerpt {
+      margin: 0.75rem 0 1rem; /* Reduced margin */
+      color: var(--text-color);
+      line-height: 1.7; /* Slightly reduced */
+      font-size: 0.95rem;
+    }
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 9px 20px; /* Slightly reduced padding */
+      background: var(--accent-color);
+      color: #fff; /* Ensure contrast */
+      text-decoration: none;
+      border-radius: 25px;
+      margin-top: 0.75rem; /* Reduced margin */
+      font-weight: 500;
+      transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .read-more .arrow {
+        transition: transform 0.25s ease;
+    }
+    .read-more:hover {
+      background: var(--hover-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px color-mix(in srgb, var(--accent-color) 30%, transparent);
+    }
+    .read-more:hover .arrow {
+       transform: translateX(4px);
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      padding: 1.5rem;
+      background: var(--card-background);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      height: fit-content;
+      position: sticky;
+      top: 15px; /* Match body top padding */
+      box-shadow: 0 4px 12px var(--shadow-color);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    .sidebar h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: var(--sidebar-border);
+      color: var(--primary-color);
+      position: relative;
+    }
+     .sidebar h3::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 50px;
+        height: 2px;
+        background-color: var(--sidebar-border-accent);
+        transition: background-color 0.3s ease;
+     }
+
+    .archives-list {
+      list-style: none;
+      max-height: 400px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-thumb) transparent;
+    }
+    .archives-list::-webkit-scrollbar {
+      width: 5px;
+    }
+    .archives-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .archives-list::-webkit-scrollbar-thumb {
+      background-color: var(--scrollbar-thumb);
+      border-radius: 10px;
+    }
+
+    .archives-list li {
+      margin-bottom: 0.2rem; /* Reduced margin */
+    }
+    .archives-list a {
+      color: var(--text-muted-color);
+      text-decoration: none;
+      transition: color 0.25s ease, background-color 0.25s ease, padding-left 0.25s ease, border-color 0.25s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0.8rem; /* Reduced padding */
+      border-radius: 6px;
+      font-size: 0.9rem;
+      border-left: 3px solid transparent;
+    }
+    .archives-list a:hover {
+      color: var(--accent-color);
+      background-color: var(--link-hover-bg);
+      padding-left: 1.2rem;
+      border-left-color: var(--accent-color);
+    }
+    .archives-list a .post-count {
+        font-size: 0.8em;
+        background-color: var(--archive-count-bg);
+        color: var(--archive-count-text);
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-weight: 500;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+     .archives-list a:hover .post-count {
+        background-color: var(--archive-count-hover-bg);
+        color: var(--archive-count-hover-text);
+     }
+
+    /* Search highlighting */
+    .search-highlight {
+        background-color: var(--search-highlight-bg);
+        color: var(--search-highlight-text);
+        padding: 0.1em;
+        border-radius: 3px;
+        font-weight: 600;
+    }
+
+
+    @media (max-width: 992px) {
+      body {
+        grid-template-columns: 1fr;
+        padding: 15px;
+        gap: 2rem;
+      }
+      .sidebar {
+        position: static;
+        margin-top: 2rem;
+      }
+       .header-controls {
+         position: static; /* Reset positioning */
+         justify-content: center; /* Center controls on mobile */
+         margin-bottom: 1rem; /* Add space below */
+       }
+       .blog-header {
+        margin: 0 0 1.5rem; /* Remove top margin, reduce bottom */
+        padding-top: 1rem; /* Add padding if header-controls are static */
+       }
+       .blog-header h1 { font-size: 2.2rem; }
+       .blog-header h2 { font-size: 1.3rem; }
+    }
+     @media (max-width: 576px) {
+        body {
+           padding: 10px;
+        }
+        .blog-header h1 { font-size: 1.8rem; }
+        .blog-header h2 { font-size: 1.1rem; }
+        .post-card { padding: 1.25rem; }
+        .post-card h2 { font-size: 1.4rem; }
+        .filter-controls {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.8rem; /* Reduced gap */
+        }
+        #filterStatus {
+            align-self: flex-start;
+            /* margin-top: 0.5rem; */ /* Removed */
+            white-space: normal; /* Allow wrapping */
+        }
+        .header-controls {
+            gap: 0.5rem; /* Reduce gap */
+        }
+     }
+  </style>
+ </head>
+ <body>
+  <header class="blog-header">
+   <div class="header-controls">
+    <a class="home-button" href="index.html">
+     <svg fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" fill-rule="evenodd">
+      </path>
+     </svg>
+     Back to Portfolio
+    </a>
+    <button aria-label="Toggle theme" id="themeToggle">
+     🌙
+    </button>
+   </div>
+   <h1>
+    SIVANESAN
+   </h1>
+   <h2>
+    My Thoughts & Experiments
+   </h2>
+   <p>
+    Weekly insights on Progress, Development, and Learning
+   </p>
+  </header>
+  <div class="main-content">
+   <!-- Search Section -->
+   <section class="search-section">
+    <input id="searchInput" placeholder="Search title, tags, description, date..." type="text">
+   </section>
+   <!-- Filter Controls -->
+   <div class="filter-controls">
+    <div class="filter-tags">
+     <span class="tag active" data-filter="all">
+      All
+     </span>
+     <span class="tag" data-filter="ai discussion">
+      AI discussion
+     </span>
+     <span class="tag" data-filter="deep learning">
+      Deep Learning
+     </span>
+     <span class="tag" data-filter="my journey">
+      My Journey
+     </span>
+     <span class="tag" data-filter="self development">
+      Self Development
+     </span>
+     <span class="tag" data-filter="design">
+      Design
+     </span>
+     <span class="tag" data-filter="projects">
+      Projects
+     </span>
+     <span class="tag" data-filter="blogging">
+      Blogging
+     </span>
+     <span class="tag" data-filter="portfolio">
+      Portfolio
+     </span>
+     
+    </div>
+    <div id="filterStatus">
+    </div>
+   </div>
+   <main id="blogPosts">
+
+
+    <!-- #################### Post 2 #################### -->
+    <article class="post-card" data-date="Aug 6, 2025" data-tags="AI, Blogging, Portfolio" id="post2">
+     <div class="post-meta">
+      <span>
+       August 6, 2025
+      </span>
+      <span>
+       &bull;
+      </span>
+      <span>
+       5 min read
+      </span>
+     </div>
+     <h2>
+      <a href="blog2.html">
+       AI Models That Build Themselves: The Rise of Neural Architecture Search (NAS)
+      </a>
+     </h2>
+     <div class="post-tags">
+      <span class="tag" data-tag="portfolio">
+       Portfolio
+      </span>
+      <span class="tag" data-tag="design">
+       NSA
+      </span>
+      <span class="tag" data-tag="blogging">
+       AI
+      </span>
+     </div>
+     <p class="post-excerpt">
+      Hey there! I’m Sivanesan, and I’m excited to share a game-changing concept in AI—Neural Architecture Search (NAS). Imagine an AI so smart, it can design even better versions of itself—just like Chitti 2.0 from Enthiran! In this post, I’ll walk you through how NAS works, why it matters, and how it's transforming the future of deep learning. Whether you're an AI newbie or a tech enthusiast, this one's for you. Let's dive in!</p>
+
+     <a class="read-more" href="blog2.html">
+      Continue Reading
+      <span class="arrow">
+       &rarr;
+      </span>
+     </a>
+    </article>
+    <!-- #################### Post 1 ##################### -->
+    <article class="post-card" data-date="Aug 5, 2025" data-tags="Self development, Blogging, My Journey" id="post1">
+     <div class="post-meta">
+      <span>
+       Aug 5, 2025
+      </span>
+      <span>
+       &bull;
+      </span>
+      <span>
+       5-10 min read
+      </span>
+     </div>
+     <h2>
+      <a href="blog1.html">
+       Why Neural Networks Forget Like Humans—And How We Can Help Them Remember Smarter
+      </a>
+     </h2>
+     <div class="post-tags">
+      <span class="tag" data-tag="Deep Learning">
+       Deep Learning
+      </span>
+      <span class="tag" data-tag="AI">
+       AI
+      </span>
+      <span class="tag" data-tag="blogging">
+       Blogging
+      </span>
+     </div>
+     <p class="post-excerpt">
+      Hi, I&rsquo;m Sivanesan, a recent final year Artificial Intelligence And Data Science student at Kumaraguru College of Technology. I&rsquo;m passionate about AI, computers I&rsquo;m excited to kick off this blog to share my journey with you. Whether you&rsquo;re here for tech talk or just curious about my story, I hope you&rsquo;ll stick around. Let&rsquo;s get started!
+     </p>
+     <a class="read-more" href="blog1.html">
+      Continue Reading
+      <span class="arrow">
+       &rarr;
+      </span>
+     </a>
+    </article>
+   </main>
+  </div>
+  <!-- Sidebar with Modern Archives -->
+  <aside class="sidebar">
+   <h3>
+    Archives
+   </h3>
+   <ul class="archives-list">
+    <!-- Populated by JavaScript -->
+   </ul>
+  </aside>
+  <script>
+   document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('searchInput');
+      const blogPostsContainer = document.getElementById('blogPosts');
+      const allPosts = Array.from(blogPostsContainer.querySelectorAll('.post-card'));
+      const filterTags = document.querySelectorAll('.filter-tags .tag');
+      const filterStatus = document.getElementById('filterStatus');
+      const archivesList = document.querySelector('.archives-list');
+      const themeToggle = document.getElementById('themeToggle');
+
+      let currentFilter = 'all';
+      let currentSearchTerm = '';
+      let originalPostHTML = new Map(); // Store original HTML for highlighting reset
+
+      // --- Store original HTML for search highlight reset ---
+      allPosts.forEach(post => {
+          originalPostHTML.set(post, {
+              title: post.querySelector('h2 a').innerHTML,
+              excerpt: post.querySelector('.post-excerpt').innerHTML
+          });
+      });
+
+      // --- Theme Toggle Logic ---
+      const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+      const currentTheme = localStorage.getItem('theme');
+
+      function setTheme(theme) {
+          if (theme === 'dark') {
+              document.body.classList.add('dark-mode');
+              themeToggle.textContent = '☀️'; // Sun icon
+              themeToggle.setAttribute('aria-label', 'Switch to light theme');
+              localStorage.setItem('theme', 'dark');
+          } else {
+              document.body.classList.remove('dark-mode');
+              themeToggle.textContent = '🌙'; // Moon icon
+              themeToggle.setAttribute('aria-label', 'Switch to dark theme');
+              localStorage.setItem('theme', 'light');
+          }
+      }
+
+      // Initial Theme Setting
+      if (currentTheme) {
+          setTheme(currentTheme);
+      } else if (prefersDarkScheme.matches) {
+          setTheme('dark'); // Set based on OS preference if no explicit choice saved
+      } else {
+          setTheme('light'); // Default to light
+      }
+
+      themeToggle.addEventListener('click', () => {
+          const isDarkMode = document.body.classList.contains('dark-mode');
+          setTheme(isDarkMode ? 'light' : 'dark');
+      });
+
+      // Listen for OS theme changes (optional but good practice)
+      prefersDarkScheme.addEventListener('change', (e) => {
+          // Only change if no theme is explicitly saved in localStorage
+          if (!localStorage.getItem('theme')) {
+              setTheme(e.matches ? 'dark' : 'light');
+          }
+      });
+
+
+      // --- Helper Functions ---
+      function normalizeText(text) {
+          return text.toLowerCase().trim();
+      }
+
+      function highlightText(element, term) {
+          if (!term || !element) return;
+          const postCard = element.closest('.post-card');
+          if (!postCard) return; // Ensure element is within a post card
+
+          const originalContent = originalPostHTML.get(postCard);
+          const contentKey = element.matches('h2 a') ? 'title' : 'excerpt'; // Determine which original content to use
+
+          let innerHTML = originalContent ? originalContent[contentKey] : element.innerHTML; // Use stored original
+
+          // Remove previous highlights to prevent nesting issues and use original HTML
+          innerHTML = innerHTML.replace(/<mark class="search-highlight">([\s\S]*?)<\/mark>/gi, '$1');
+
+
+          if (term) {
+                try {
+                  // Escape special regex characters in the search term
+                  const escapedTerm = term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                  // Case-insensitive replacement using RegExp
+                  const regex = new RegExp(`(${escapedTerm})`, 'gi');
+                   // Only replace if the term is found to avoid unnecessary changes
+                  if (innerHTML.match(regex)) {
+                     innerHTML = innerHTML.replace(regex, '<mark class="search-highlight">$1</mark>');
+                  }
+                } catch (e) {
+                    console.error("Regex error during highlight:", e);
+                    // Fallback or do nothing if regex fails
+                }
+          }
+          element.innerHTML = innerHTML;
+      }
+
+      function clearHighlights(postCard) {
+          const originalContent = originalPostHTML.get(postCard);
+          if (originalContent) {
+              const titleElement = postCard.querySelector('h2 a');
+              const excerptElement = postCard.querySelector('.post-excerpt');
+              if (titleElement) titleElement.innerHTML = originalContent.title;
+              if (excerptElement) excerptElement.innerHTML = originalContent.excerpt;
+          } else {
+              // Fallback if original HTML wasn't stored correctly
+              postCard.querySelectorAll('.search-highlight').forEach(mark => {
+                   if (mark.parentNode) { // Check if mark has a parent before trying to replace
+                       mark.outerHTML = mark.innerHTML; // Replace mark with its content
+                   }
+              });
+          }
+      }
+
+      // --- Filtering and Searching Logic ---
+      function filterAndSearchPosts() {
+        const searchTerm = normalizeText(currentSearchTerm);
+        let visiblePostCount = 0;
+
+        // Use requestAnimationFrame for smoother visual updates during filtering/searching
+        requestAnimationFrame(() => {
+            allPosts.forEach(post => {
+                // 1. Reset highlights and visibility
+                clearHighlights(post); // Clear search highlights first
+                post.querySelectorAll('.post-tags .tag.highlighted').forEach(t => t.classList.remove('highlighted'));
+                post.classList.add('hidden'); // Use class for smooth transition
+
+                // 2. Check Filter
+                const postTags = normalizeText(post.dataset.tags || '');
+                const filterMatch = currentFilter === 'all' || postTags.split(', ').includes(currentFilter);
+
+                if (!filterMatch) {
+                    return; // Skip to next post if filter doesn't match
+                }
+
+                // 3. Check Search Term (if any)
+                let searchMatch = !searchTerm; // If no search term, it's a match
+                let matchedInTitle = false;
+                let matchedInExcerpt = false;
+                let matchedInTags = false;
+                let matchedInDate = false;
+
+                if (searchTerm) {
+                    const titleText = normalizeText(post.querySelector('h2 a')?.textContent || '');
+                    const excerptText = normalizeText(post.querySelector('.post-excerpt')?.textContent || '');
+                    const dateText = normalizeText(post.dataset.date || '');
+
+                    matchedInTitle = titleText.includes(searchTerm);
+                    matchedInExcerpt = excerptText.includes(searchTerm);
+                    matchedInTags = postTags.includes(searchTerm);
+                    matchedInDate = dateText.includes(searchTerm);
+
+                    searchMatch = matchedInTitle || matchedInExcerpt || matchedInTags || matchedInDate;
+                }
+
+                // 4. Show post if both filter and search match
+                if (filterMatch && searchMatch) {
+                    post.classList.remove('hidden');
+                    visiblePostCount++;
+
+                    // 5. Highlight active filter tag within the post card
+                    if (currentFilter !== 'all') {
+                        post.querySelector(`.post-tags .tag[data-tag="${currentFilter}"]`)?.classList.add('highlighted');
+                    }
+
+                    // 6. Highlight search term within the post card (if searching)
+                    if (searchTerm) {
+                       highlightText(post.querySelector('h2 a'), searchTerm);
+                       highlightText(post.querySelector('.post-excerpt'), searchTerm);
+                       // We don't highlight tags/date with <mark> currently, but search considers them
+                    }
+                }
+            });
+
+            // 7. Update status message after processing all posts
+            let statusText = '';
+            if (searchTerm) {
+              statusText = `${visiblePostCount} post${visiblePostCount !== 1 ? 's' : ''} found`;
+              if (currentFilter !== 'all') {
+                statusText += ` matching "${currentFilter}" & "${searchTerm}".`;
+              } else {
+                 statusText += ` matching "${searchTerm}".`;
+              }
+            } else {
+              if (currentFilter === 'all') {
+                statusText = `Showing all ${allPosts.length} posts.`;
+              } else {
+                statusText = `Showing ${visiblePostCount} post${visiblePostCount !== 1 ? 's' : ''} tagged with "${currentFilter}".`;
+              }
+            }
+            filterStatus.textContent = statusText;
+        }); // End requestAnimationFrame
+      }
+
+      // Debounce search input for performance
+       let searchTimeout;
+       searchInput.addEventListener('input', function(e) {
+            clearTimeout(searchTimeout);
+            currentSearchTerm = e.target.value;
+            searchTimeout = setTimeout(() => {
+                 filterAndSearchPosts();
+            }, 250); // Wait 250ms after user stops typing
+       });
+
+
+      filterTags.forEach(tag => {
+        tag.addEventListener('click', function() {
+          filterTags.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          currentFilter = this.dataset.filter;
+          filterAndSearchPosts(); // Filter immediately on tag click
+        });
+      });
+
+      // --- Archives Generation ---
+      function populateArchives() {
+        const archives = {}; // { "Month Year": { count: N, firstPostId: '...' } }
+
+        allPosts.forEach(post => {
+          const dateStr = post.dataset.date;
+          if (dateStr) {
+            try {
+              const date = new Date(dateStr);
+              const monthYear = date.toLocaleString('default', { month: 'long', year: 'numeric' });
+              if (monthYear && monthYear !== 'Invalid Date') {
+                 const monthYearId = monthYear.replace(/[^a-zA-Z0-9]/g, ''); // Simple ID generation
+                 if (!archives[monthYear]) {
+                    archives[monthYear] = { count: 0, firstPostId: post.id || monthYearId };
+                    // Ensure post has an ID for linking
+                    if (!post.id) {
+                        post.id = monthYearId;
+                    }
+                 }
+                 archives[monthYear].count++;
+                 post.dataset.archiveId = monthYearId; // Store for potential future use
+              }
+            } catch (e) {
+                console.warn(`Could not parse date: ${dateStr}`);
+            }
+          }
+        });
+
+        const sortedMonths = Object.keys(archives).sort((a, b) => new Date(b) - new Date(a));
+
+        archivesList.innerHTML = ''; // Clear existing list
+        sortedMonths.forEach(monthYear => {
+          const data = archives[monthYear];
+          const count = data.count;
+          const listItem = document.createElement('li');
+          const link = document.createElement('a');
+
+          link.href = `#${data.firstPostId}`; // Link to first post ID of that month
+          link.innerHTML = `
+            <span>${monthYear}</span>
+            <span class="post-count">${count} post${count !== 1 ? 's' : ''}</span>
+          `;
+          listItem.appendChild(link);
+          archivesList.appendChild(listItem);
+        });
+      }
+
+      // --- Initial Setup ---
+      populateArchives();
+      filterAndSearchPosts(); // Initial display and count
+    });
+  </script>
+ </body>
+</html>
