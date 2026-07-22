@@ -240,7 +240,64 @@ href="https://api.fontshare.com/v2/css?f[]=jetbrains-mono@400&display=swap">
         .section-subtitle { font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--color-text-secondary); max-width: 600px; font-weight: 300; }
 
         #hero { justify-content: center; text-align: left; }
-        
+        .hero-content{
+    position: relative;
+}
+
+.availability-badge{
+    position: absolute;
+    top: -30;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px 18px;
+
+    border-radius: 999px;
+
+    background: rgba(0,240,255,.08);
+    border: 1px solid rgba(0,240,255,.25);
+
+    color: #00f0ff;
+    font-weight: 600;
+    backdrop-filter: blur(12px);
+
+    z-index: 30;
+}
+
+.status-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#00ff6a;
+
+    box-shadow:
+    0 0 8px #00ff6a,
+    0 0 18px #00ff6a;
+
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+opacity:1;
+}
+
+50%{
+transform:scale(1.4);
+opacity:.6;
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
         .hero-greeting { font-size: clamp(1.2rem, 3vw, 1.5rem); color: var(--color-accent-secondary); margin-bottom: 10px; font-weight: 500; letter-spacing: 0.05em; display: block; opacity: 0; transform: translateY(20px); animation: fadeInSlideUp 0.5s var(--easing-cubic) 0.2s forwards; }
         .hero-name { font-size: clamp(2.0rem, 8vw, 5rem); font-weight: 700; color: var(--color-text-primary); line-height: 1; margin-bottom: 20px; letter-spacing: -0.03em; display: block; }
         .hero-name .char { display: inline-block; opacity: 0; transform: translateY(30px) rotate(10deg); animation: letterReveal 0.8s var(--easing-elastic) forwards; }
@@ -296,7 +353,61 @@ href="https://api.fontshare.com/v2/css?f[]=jetbrains-mono@400&display=swap">
 
         .hero-cta { display: inline-block; padding: 15px 35px; background: linear-gradient(45deg, var(--color-accent-primary), var(--color-accent-secondary)); color: var(--color-background-deep); border: none; border-radius: var(--border-radius-medium); text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: transform var(--transition-duration-medium) var(--easing-elastic), box-shadow var(--transition-duration-medium) var(--easing-cubic), color var(--transition-duration-medium); box-shadow: 0 5px 20px rgba(0, 240, 255, 0.2), 0 5px 20px rgba(255, 96, 192, 0.2); opacity: 0; transform: translateY(20px) scale(0.9); animation: fadeInSlideUpScale 0.6s var(--easing-cubic) 1.5s forwards; }
         .hero-cta:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 30px rgba(0, 240, 255, 0.4), 0 10px 30px rgba(255, 96, 192, 0.4); }
-        
+        .hero-buttons{
+    display:flex;
+    gap:20px;
+    margin-top:35px;
+    flex-wrap:wrap;
+}
+
+.hero-btn{
+    padding:15px 28px;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.35s;
+    border:1px solid transparent;
+}
+
+.hero-btn.primary{
+
+    background:linear-gradient(90deg,#00f0ff,#5b7cff);
+
+    color:white;
+
+    box-shadow:0 10px 30px rgba(0,240,255,.25);
+
+}
+
+.hero-btn.primary:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 18px 40px rgba(0,240,255,.45);
+
+}
+
+.hero-btn.secondary{
+
+    border:1px solid rgba(255,255,255,.2);
+
+    color:white;
+
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(12px);
+
+}
+
+.hero-btn.secondary:hover{
+
+    background:#00f0ff;
+
+    color:#111;
+
+    transform:translateY(-4px);
+
+}
         @keyframes fadeInSlideUp { to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInSlideUpScale { to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes letterReveal { 0% { opacity: 0; transform: translateY(30px) rotate(10deg) scale(0.8); } 100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); } }
@@ -361,17 +472,76 @@ href="https://api.fontshare.com/v2/css?f[]=jetbrains-mono@400&display=swap">
         .projects-list-container {
             margin-top: 30px;
         }
-        .project-entry {
-            padding: 20px 0; 
-            margin-bottom: 40px; 
-            border-bottom: 1px solid rgba(var(--color-text-muted-rgb-values), 0.2);
-            opacity: 0; 
-            transform: translateY(30px); 
-            transition: opacity var(--transition-duration-medium) var(--easing-cubic),
-                        transform var(--transition-duration-medium) var(--easing-cubic),
-                        border-color var(--transition-duration-medium);
-            will-change: opacity, transform;
-        }
+        
+        .project-entry{
+
+background:rgba(255,255,255,.04);
+
+border:1px solid rgba(255,255,255,.08);
+
+border-radius:24px;
+
+padding:35px;
+
+margin-bottom:40px;
+
+backdrop-filter:blur(18px);
+
+transition:.4s;
+
+overflow:hidden;
+
+position:relative;
+
+
+}
+
+.project-entry:hover{
+
+transform:translateY(-12px);
+
+border-color:#00f0ff;
+
+box-shadow:
+
+0 20px 60px rgba(0,240,255,.18);
+
+}
+.project-entry::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+left:-120%;
+
+width:80%;
+
+height:100%;
+
+background:linear-gradient(
+
+90deg,
+
+transparent,
+
+rgba(255,255,255,.12),
+
+transparent
+
+);
+
+transition:1s;
+
+}
+
+.project-entry:hover::before{
+
+left:130%;
+
+}
         .project-entry.is-visible { 
             opacity: 1;
             transform: translateY(0);
@@ -946,6 +1116,7 @@ href="https://api.fontshare.com/v2/css?f[]=jetbrains-mono@400&display=swap">
 
         .reveal-on-scroll { opacity: 0; transition: opacity var(--transition-duration-slow) var(--easing-cubic), transform var(--transition-duration-slow) var(--easing-cubic); }
         .reveal-on-scroll.is-visible { opacity: 1; transform: none !important; }
+        
     </style>
     <script type="importmap">
 {
@@ -1007,6 +1178,11 @@ href="https://api.fontshare.com/v2/css?f[]=jetbrains-mono@400&display=swap">
             <!-- LEFT -->
             <div class="hero-left">
 
+                <div class="availability-badge">
+                    <span class="status-dot"></span>
+                    Available for AI / ML Opportunities
+                </div>
+
                 <span class="hero-greeting">Hello, I'm</span>
 
                 <h1 class="hero-name" data-text="Sivanesan B">
@@ -1023,6 +1199,21 @@ href="https://api.fontshare.com/v2/css?f[]=jetbrains-mono@400&display=swap">
                     <strong>PyTorch, LangChain, RAG,
                     Fine-Tuning, and Model Deployment.</strong>
                 </p>
+
+                <div class="hero-buttons">
+
+                    <a href="assets/resume/Sivanesan_B.pdf"
+                    class="hero-btn primary"
+                    download>
+                        📄 Download Resume
+                    </a>
+
+                    <a href="#projects"
+                    class="hero-btn secondary">
+                        🚀 View Projects
+                    </a>
+
+                </div>
 
             </div>
 
