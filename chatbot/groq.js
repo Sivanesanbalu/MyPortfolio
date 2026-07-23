@@ -394,34 +394,27 @@ IMPORTANT RULES
 7. Recommend TestPilot AI as the flagship project unless the user asks about another project specifically.
 `;
 
-    const response = await fetch(
-        "https://api.groq.com/openai/v1/chat/completions",
-        {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${CONFIG.API_KEY}`,
-                "Content-Type": "application/json"
+    const response = await fetch("/.netlify/functions/chat", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        messages: [
+            {
+                role: "system",
+                content: portfolioContext
             },
-            body: JSON.stringify({
-                model: CONFIG.MODEL,
-                temperature: 0.3,
-                max_tokens: 1024,
-                messages: [
-                    {
-                        role: "system",
-                        content: portfolioContext
-                    },
-                    ...messages
-                ]
-            })
-        }
-    );
+            ...messages
+        ]
+    })
+});
 
-    if (!response.ok) {
-        throw new Error("Groq API Error");
-    }
+const data = await response.json();
 
-    const data = await response.json();
+if (!response.ok) {
+    throw new Error(data.error || "AI Server Error");
+}
 
-    return data.choices[0].message.content;
+return data.choices[0].message.content;
 }
