@@ -1,5 +1,5 @@
 exports.handler = async (event) => {
-  // Handle CORS preflight
+  // Handle CORS
   if (event.httpMethod === "OPTIONS") {
     return {
       statusCode: 200,
@@ -12,6 +12,20 @@ exports.handler = async (event) => {
     };
   }
 
+  // Only allow POST
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        error: "Method Not Allowed"
+      })
+    };
+  }
+
   try {
     if (!process.env.GROQ_API_KEY) {
       return {
@@ -21,12 +35,13 @@ exports.handler = async (event) => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          error: "GROQ_API_KEY is not configured in Netlify."
+          error: "GROQ_API_KEY is not configured."
         })
       };
     }
 
-    const { messages } = JSON.parse(event.body);
+    const body = JSON.parse(event.body || "{}");
+    const messages = body.messages || [];
 
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
@@ -47,19 +62,8 @@ exports.handler = async (event) => {
 
     const data = await response.json();
 
-    if (!response.ok) {
-      return {
-        statusCode: response.status,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      };
-    }
-
     return {
-      statusCode: 200,
+      statusCode: response.status,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json"
