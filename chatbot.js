@@ -5,8 +5,8 @@
 
 const SIVA_KNOWLEDGE_BASE = {
   name: "Sivanesan B",
-  title: "GenAI Executive & AI/ML Engineer",
-  location: "Coimbatore, India",
+  title: "AI/ML Engineer & Forward Deployed Engineer (FDE)",
+  location: "Coimbatore, Tamil Nadu, India",
   email: "apsiva69@gmail.com",
   phone: "+91-8438692752",
   github: "https://github.com/Sivanesanbalu",
@@ -25,63 +25,60 @@ const SIVA_KNOWLEDGE_BASE = {
 
   experience: [
     {
-      role: "GenAI Executive & Prompt Engineer",
+      role: "GenAI Executive & Forward Deployed Engineer (FDE)",
       company: "Nunes Instruments",
       period: "Aug 2026 – Present",
-      details: "Developing LLM-based business automation applications, multi-agent workflows, and prompt engineering pipelines for structured extraction from unstructured enterprise data."
-    },
-    {
-      role: "AI Coder (Graduate Apprentice)",
-      company: "Madhu Jayanti International Pvt. Ltd.",
-      period: "Jul 2026 – Aug 2026",
-      details: "Built operational report automations using openpyxl, processed real-time IoT machine data, and created shift-end email/WhatsApp notification pipelines."
+      details: "Develop and integrate LLM-powered applications, AI agents, and Retrieval-Augmented Generation (RAG) workflows to automate business processes. Engineer AI-driven document processing, information extraction, and classification workflows using prompt engineering and REST API integration. Built a Flask-based WhatsApp business-intelligence dashboard that turns chat exports into searchable insights, and automated ERP-based Excel reporting in Python, replacing manual daily report preparation."
     },
     {
       role: "Innovation Engineer Trainee",
       company: "Forge Innovation & Ventures",
       period: "Jan 2025 – Jul 2025",
-      details: "Built an offline voice-driven inventory assistant with Whisper STT and quantized Qwen LLM with FAISS RAG, slashing stock-lookup time by 45% across 3 warehouse pilots."
-    },
-    {
-      role: "Data Networking & Infrastructure Intern",
-      company: "BSNL (Bharat Sanchar Nigam Limited)",
-      period: "Jun 2022 – Jul 2022",
-      details: "Observed live telecom routing, optical fiber networks, and low-latency network performance across enterprise nodes."
+      details: "Developed an offline voice-enabled AI inventory assistant using Whisper STT and a quantized local LLM, integrating FAISS semantic search with on-device inference for context-aware stock retrieval without internet, reducing lookup times by 45% across pilot deployments."
     }
   ],
 
   projects: [
     {
-      name: "WhatsApp Product & Price Intelligence",
-      tech: "Python, GenAI, LLMs, Prompt Engineering, SQLite, Flask, WhatsApp Export",
-      summary: "Autonomous system analyzing unstructured WhatsApp chats to extract product names, prices, and quotation details into structured database archives."
+      name: "NUNES AI Live Call Translator (Tamil ↔ Hindi)",
+      tech: "Kotlin, Jetpack Compose, Plivo Voice API, Sarvam AI, Node.js, TypeScript, Fastify, WebSocket, PostgreSQL",
+      summary: "AI-powered real-time Tamil↔Hindi voice call translation application. Applied Forward Deployed Engineering principles to design and implement a bidirectional speech processing pipeline (STT→Translation→TTS), integrating live transcripts, contact sync, and call history management."
+    },
+    {
+      name: "AI Book Scanner APK",
+      tech: "Flutter, Firebase, FastAPI, PyTorch, ConvNeXt, FAISS, VLM, LLM",
+      summary: "Mobile app with 92% detection accuracy across 1,000+ test images using fine-tuned ConvNeXt and a FastAPI inference service designed for 100+ concurrent users with FAISS semantic retrieval."
+    },
+    {
+      name: "WhatsApp BI & Automated ERP Reporting",
+      tech: "Python, Flask, Prompt Engineering, SQLite, REST APIs, openpyxl",
+      summary: "Flask-based WhatsApp business intelligence dashboard turning chat exports into searchable insights and automated daily ERP Excel report preparation in Python."
+    },
+    {
+      name: "Offline Voice AI Inventory Assistant",
+      tech: "Python, Whisper STT, Quantized LLM, FAISS, RAG, On-Device Inference",
+      summary: "100% offline, privacy-first voice assistant running on local hardware for warehouse inventory queries without internet (slashing stock lookup by 45%)."
     },
     {
       name: "TestPilot AI",
-      tech: "Python, LangChain, Groq, PostgreSQL, AI Agents",
-      summary: "Production-ready autonomous AI software test engineer performing UI, API, accessibility, and security testing with automated root cause analysis."
-    },
-    {
-      name: "AI Book Scanner",
-      tech: "Flutter, Firebase, FastAPI, PyTorch, ConvNeXt, FAISS, Vision LLM",
-      summary: "Mobile app with 92% detection accuracy across 1000+ test images using fine-tuned ConvNeXt and FastAPI serving 100+ concurrent users with semantic search."
+      tech: "Python, LangChain, LangGraph, Groq, PostgreSQL, AI Agents",
+      summary: "Autonomous AI software test engineer performing automated UI, API, accessibility, and security testing with root cause diagnosis."
     },
     {
       name: "AI Recruiter",
-      tech: "Next.js, JavaScript, OpenRouter API, Supabase, BlazeFace, Vapi",
-      summary: "Voice interview platform conducting dynamic interviews, evaluated across 50+ sessions, reducing screening time by 70% with 30 FPS <50ms CV proctoring."
-    },
-    {
-      name: "Offline Voice Assistant",
-      tech: "Python, Whisper, FAISS, RAG, Quantized Qwen",
-      summary: "100% offline, privacy-first voice assistant running on local hardware for warehouse inventory queries."
+      tech: "Next.js, Vapi AI, OpenRouter API, Supabase, BlazeFace, WebRTC",
+      summary: "Voice interview platform conducting dynamic interviews evaluated across 50+ sessions, reducing screening time by 70% with 30 FPS <50ms CV proctoring."
     }
   ],
 
   skills: {
-    ai_ml: ["Large Language Models (LLMs)", "Vision LLMs (VLMs)", "AI Agents", "LangChain & LangGraph", "RAG Pipelines", "PyTorch", "Hugging Face", "LoRA / QLoRA", "Computer Vision (OpenCV, ConvNeXt)"],
-    dev_cloud: ["Python", "TypeScript", "FastAPI", "Flask", "Docker", "PostgreSQL", "Supabase", "Firebase", "Google Cloud", "Git/GitHub"],
-    certifications: ["IBM AI Engineering Professional Certificate", "AWS AI & ML Scholars (Udacity)", "Tata GenAI Job Simulation (Forage)"]
+    programming: ["Python", "SQL", "TypeScript", "Kotlin", "Dart/Flutter"],
+    ai_ml: ["Machine Learning", "Deep Learning", "Generative AI", "Agentic AI", "LLMs", "VLMs", "Retrieval-Augmented Generation (RAG)", "AI Agents", "Voice AI", "Computer Vision", "NLP", "LLM Evaluation"],
+    fde: ["AI Solution Development", "Business Requirements", "System Integration", "REST APIs", "AI Workflow Automation", "ERP Automation", "Model Deployment"],
+    frameworks: ["PyTorch", "TensorFlow", "Hugging Face Transformers", "LangChain", "LangGraph", "FastAPI", "Flask", "OpenAI API", "Pandas", "NumPy", "scikit-learn"],
+    llm_engineering: ["Prompt Engineering", "Fine-tuning", "LoRA", "QLoRA", "Embeddings", "Model Optimization", "Quantization", "FAISS", "ChromaDB", "Semantic Search"],
+    cloud_devops: ["Docker", "Google Cloud", "AWS", "Firebase", "Supabase", "PostgreSQL", "SQLite", "Hugging Face Hub", "Git", "GitHub"],
+    certifications: ["IBM AI Engineering Professional Certificate", "AWS AI & ML Scholars (Udacity)"]
   }
 };
 
@@ -204,37 +201,47 @@ document.addEventListener('DOMContentLoaded', () => {
   function generateSmartAnswer(query) {
     const q = query.toLowerCase();
 
+    // Live Call Translator / Voice AI
+    if (q.includes('call') || q.includes('translat') || q.includes('tamil') || q.includes('hindi') || q.includes('sarvam') || q.includes('plivo') || q.includes('kotlin') || q.includes('voip')) {
+      return `🎙️ **NUNES AI Live Call Translator (Tamil ↔ Hindi)**\n\nSivanesan developed a real-time voice call translation Android application and backend service:\n\n• **Speech Pipeline:** Real-time bidirectional STT → Translation → TTS with Sarvam AI & Plivo Voice API.\n• **Tech Stack:** Kotlin, Jetpack Compose, Plivo, Sarvam AI, Node.js, TypeScript, Fastify WebSocket streaming, and PostgreSQL.\n• **Features:** Low-latency translated audio routing, live call transcripts, contact sync, and call history tracking.\n• **GitHub:** [github.com/Sivanesanbalu/Live_Phone_Call_Translate](https://github.com/Sivanesanbalu/Live_Phone_Call_Translate)`;
+    }
+
+    // Forward Deployed Engineering (FDE)
+    if (q.includes('fde') || q.includes('forward deployed') || q.includes('deployment') || q.includes('integration') || q.includes('automation')) {
+      return `⚡ **Forward Deployed Engineering (FDE) Expertise**\n\nSivanesan currently works as a **GenAI Executive & Forward Deployed Engineer (FDE) at Nunes Instruments**:\n\n• Translating complex business workflows into production AI applications.\n• Built WhatsApp BI dashboard + automated Python ERP Excel reporting, replacing manual daily report preparation.\n• Built real-time multilingual voice translation systems and document extraction pipelines with REST APIs & WebSockets.`;
+    }
+
     // Research / Eco-Transformers
-    if (q.includes('eco') || q.includes('transformer') || q.includes('paper') || q.includes('research') || q.includes('ieee') || q.includes('publication')) {
-      return `📄 **Eco-Transformers Research (IEEE Published)**\n\nSivanesan authored **"Eco-Transformers: Carbon-Efficient and Accelerated Inference through Self-Pruning and Activation Freezing in LLMs"** at ICNGCS-2025.\n\n• **Impact:** 58% reduction in CO2 emissions & 56% faster inference across Falcon-RW, GPT-Neo, OPT, and GPT2-XL.\n• **Award:** Best Final Year Project Award (KCT AI & DS).\n• **DOI:** [10.1109/ICNGCS64900.2025.11183217](https://doi.org/10.1109/ICNGCS64900.2025.11183217).`;
+    if (q.includes('eco') || q.includes('transformer') || q.includes('paper') || q.includes('research') || q.includes('ieee') || q.includes('publication') || q.includes('co2')) {
+      return `📄 **Eco-Transformers Research (IEEE Published)**\n\nSivanesan authored **"Eco-Transformers: Carbon-Efficient and Accelerated Inference through Self-Pruning and Activation Freezing in LLMs"** at IEEE ICNGCS-2025.\n\n• **Impact:** 58% reduction in CO2 emissions & 56% faster inference across Falcon-RW-1B, GPT-Neo-1.3B, OPT-1.3B, and GPT2-XL.\n• **Award:** Best Final Year Project Award (KCT AI & DS).\n• **DOI:** [10.1109/ICNGCS64900.2025.11183217](https://doi.org/10.1109/ICNGCS64900.2025.11183217).`;
     }
 
     // Projects
-    if (q.includes('project') || q.includes('creations') || q.includes('built') || q.includes('scanner') || q.includes('recruiter') || q.includes('testpilot') || q.includes('whatsapp')) {
-      return `🚀 **Sivanesan's Top AI Projects:**\n\n1. **WhatsApp Price & Product Intelligence** – Enterprise GenAI pipeline extracting product/pricing from chats into SQLite.\n2. **TestPilot AI** – Autonomous QA Agent testing APIs, UI, accessibility & security.\n3. **AI Book Scanner** – ConvNeXt vision model (92% accuracy across 1000+ images) + FastAPI + FAISS.\n4. **AI Recruiter** – Voice interview platform with Vapi, OpenRouter, and BlazeFace proctoring (<50ms).\n5. **Offline Voice Assistant** – Whisper STT + quantized Qwen LLM for warehouse inventory (zero internet).`;
+    if (q.includes('project') || q.includes('creations') || q.includes('built') || q.includes('scanner') || q.includes('recruiter') || q.includes('testpilot') || q.includes('whatsapp') || q.includes('inventory')) {
+      return `🚀 **Sivanesan's Featured Projects:**\n\n1. **NUNES AI Live Call Translator** – Real-time Tamil↔Hindi bidirectional voice translation using Kotlin, Plivo & Sarvam AI.\n2. **AI Book Scanner** – ConvNeXt vision model (92% accuracy on 1000+ images) with FastAPI (100+ concurrent users) & FAISS.\n3. **WhatsApp BI & Automated ERP Reporting** – Flask dashboard + Python ERP Excel automation for Nunes Instruments.\n4. **Offline Voice Inventory Assistant** – Whisper STT + quantized local LLM for warehouse queries without internet (slashed lookup by 45%).\n5. **TestPilot AI** – Autonomous QA Agent for UI, API, accessibility & security tests.\n6. **AI Recruiter** – Voice interview platform with Vapi AI & BlazeFace proctoring (<50ms).`;
     }
 
     // Experience / Jobs
-    if (q.includes('experience') || q.includes('work') || q.includes('job') || q.includes('career') || q.includes('nunes') || q.includes('forge') || q.includes('madhu')) {
-      return `💼 **Experience & Roles:**\n\n• **GenAI Executive & Prompt Engineer** at *Nunes Instruments* (Aug 2026 – Present)\n• **AI Coder (Graduate Apprentice)** at *Madhu Jayanti International* (Jul 2026 – Aug 2026)\n• **Innovation Engineer Trainee** at *Forge Innovation & Ventures* (Jan 2025 – Jul 2025)\n• **Data Networking Intern** at *BSNL* (Jun 2022 – Jul 2022)`;
+    if (q.includes('experience') || q.includes('work') || q.includes('job') || q.includes('career') || q.includes('nunes') || q.includes('forge')) {
+      return `💼 **Professional Journey:**\n\n• **GenAI Executive & Forward Deployed Engineer (FDE)** at *Nunes Instruments* (Aug 2026 – Present)\n  - Developing LLM applications, RAG workflows, WhatsApp BI & automated ERP reporting.\n• **Innovation Engineer Trainee** at *Forge Innovation & Ventures* (Jan 2025 – Jul 2025)\n  - Built offline voice-enabled inventory assistant with Whisper STT & quantized LLM (45% faster stock retrieval).`;
     }
 
     // Skills / Tech stack
     if (q.includes('skill') || q.includes('tech') || q.includes('python') || q.includes('stack') || q.includes('framework') || q.includes('tools')) {
-      return `🛠 **Core Technical Stack:**\n\n• **AI / GenAI:** LLMs, VLMs, AI Agents, LangChain, LangGraph, RAG, PyTorch, LoRA/QLoRA, Hugging Face, FAISS.\n• **Languages:** Python, TypeScript, SQL, C++.\n• **Backend & Cloud:** FastAPI, Flask, Docker, Supabase, Firebase, GCP, PostgreSQL.\n• **Computer Vision:** OpenCV, ConvNeXt, BlazeFace.`;
+      return `🛠 **Core Technical Stack:**\n\n• **AI & ML:** Generative AI, Agentic AI, LLMs, VLMs, RAG, AI Agents, Voice AI, Computer Vision, NLP, LLM Evaluation.\n• **Forward Deployed:** AI Solution Development, Business Requirements, System Integration, REST APIs, AI Workflow Automation, ERP Automation.\n• **Frameworks:** PyTorch, TensorFlow, Transformers, LangChain, LangGraph, FastAPI, Flask, OpenAI API, Pandas, NumPy.\n• **Languages:** Python, SQL, TypeScript, Kotlin, Flutter/Dart.\n• **Cloud & Data:** Docker, GCP, AWS, Supabase, Firebase, PostgreSQL, SQLite, FAISS, ChromaDB.`;
     }
 
     // Contact & Hiring
     if (q.includes('contact') || q.includes('email') || q.includes('hire') || q.includes('resume') || q.includes('phone') || q.includes('call') || q.includes('interview')) {
-      return `📬 **Get in Touch with Sivanesan:**\n\n• **Email:** [apsiva69@gmail.com](mailto:apsiva69@gmail.com)\n• **Phone:** +91-8438692752\n• **Location:** Coimbatore, India\n• **LinkedIn:** [linkedin.com/in/sivanesan-b-871ba7264](https://www.linkedin.com/in/sivanesan-b-871ba7264)\n• **GitHub:** [github.com/Sivanesanbalu](https://github.com/Sivanesanbalu)\n\nYou can also download his updated resume directly from the hero section!`;
+      return `📬 **Get in Touch with Sivanesan:**\n\n• **Email:** [apsiva69@gmail.com](mailto:apsiva69@gmail.com)\n• **Phone:** +91-8438692752\n• **Location:** Coimbatore, India\n• **LinkedIn:** [linkedin.com/in/sivanesan-b-871ba7264](https://www.linkedin.com/in/sivanesan-b-871ba7264)\n• **GitHub:** [github.com/Sivanesanbalu](https://github.com/Sivanesanbalu)\n\nYou can download his updated resume directly using the button in the header and hero sections!`;
     }
 
     // Education
-    if (q.includes('education') || q.includes('college') || q.includes('degree') || q.includes('kct') || q.includes('kumaraguru')) {
-      return `🎓 **Education:**\n\n• **B.Tech in Artificial Intelligence & Data Science**\nKumaraguru College of Technology (2023 – 2026) | CGPA: 8.02/10\n\n• **Diploma in Computer Engineering**\nTamilnadu Government Polytechnic College (2020 – 2023) | CGPA: 8.0/10`;
+    if (q.includes('education') || q.includes('college') || q.includes('degree') || q.includes('kct') || q.includes('kumaraguru') || q.includes('polytechnic')) {
+      return `🎓 **Education:**\n\n• **B.Tech in Artificial Intelligence & Data Science (Lateral Entry)**\nKumaraguru College of Technology (2023 – 2026) | CGPA: 8.02/10\n*Honored with Best Final Year Project Award*\n\n• **Diploma in Computer Engineering**\nTamilnadu Government Polytechnic College (2020 – 2023) | CGPA: 8.0/10`;
     }
 
     // Default polite response
-    return `Hello! I'm Sivanesan's AI Portfolio Assistant. I can tell you about his:\n• **Eco-Transformers research paper (IEEE)**\n• **AI Agents & LLM projects** (TestPilot AI, WhatsApp Intelligence, Voice AI)\n• **Work experience** at Nunes Instruments & Forge Labs\n• **Tech stack & skills**\n• **Contact & resume details**\n\nWhat would you like to explore?`;
+    return `Hello! I'm Sivanesan's AI Assistant. I can tell you all about his:\n• **NUNES AI Live Call Translator (Tamil ↔ Hindi)**\n• **Eco-Transformers IEEE publication (58% CO2 cut)**\n• **Forward Deployed Engineering work at Nunes Instruments**\n• **Offline Voice AI & ConvNeXt Book Scanner**\n• **Technical skills, education & contact details**\n\nWhat would you like to explore?`;
   }
 });

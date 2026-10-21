@@ -145,11 +145,11 @@ function initTypewriter() {
   if (!element) return;
 
   const roles = [
-    'GenAI Executive & Prompt Engineer',
-    'IEEE-Published AI Researcher',
-    'Autonomous AI Agent Architect',
-    'LLM & Computer Vision Specialist',
-    'Full-Stack AI Application Developer'
+    'AI/ML Engineer & Forward Deployed Engineer (FDE)',
+    'Generative AI & Agentic Systems Architect',
+    'IEEE-Published LLM Researcher (58% CO2 Cut)',
+    'Multilingual Voice AI & Real-Time Translation Specialist',
+    'Computer Vision & VLM Application Developer'
   ];
 
   let roleIdx = 0;
