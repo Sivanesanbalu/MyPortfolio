@@ -62,11 +62,13 @@
 </head>
 <body>
 
-  <!-- Background Canvas & Ambient Orbs -->
-  <canvas id="neural-canvas"></canvas>
-  <div class="ambient-glow glow-1"></div>
-  <div class="ambient-glow glow-2"></div>
-  <div class="ambient-glow glow-3"></div>
+  <!-- Fullscreen 3D WebGL Particle Universe & Cyber Overlays -->
+  <canvas id="webgl-bg-canvas" class="webgl-bg-canvas"></canvas>
+  <div class="cyber-grid-bg"></div>
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+  <canvas id="neural-canvas" style="display:none;"></canvas>
 
   <!-- Custom Interactive Cursor -->
   <div id="custom-cursor" class="custom-cursor"></div>
@@ -105,6 +107,11 @@
         <span>Resume</span>
         <i class="fa-solid fa-arrow-up-right-from-square"></i>
       </a>
+
+      <!-- Mobile Menu Toggle -->
+      <button id="nav-toggle" class="btn-icon mobile-menu-btn" title="Toggle Navigation Menu" aria-label="Toggle navigation menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </div>
   </header>
 
@@ -890,6 +897,31 @@
           <a href="https://sivanesanbalu.netlify.app" target="_blank" class="social-icon-btn" title="Live Netlify Portfolio">
             <i class="fa-solid fa-globe"></i>
           </a>
+        </div>
+
+        <!-- Interactive Cyber Terminal -->
+        <div class="cyber-terminal">
+          <div class="terminal-topbar">
+            <span class="term-dot red"></span>
+            <span class="term-dot yellow"></span>
+            <span class="term-dot green"></span>
+            <span>siva@fde-core:~ (zsh)</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="term-prompt">siva@workstation:~$</span> <span class="term-cmd">curl -s https://sivanesanbalu.netlify.app/api/status | jq</span></div>
+            <div style="color: var(--text-secondary); margin-top: 0.35rem;">
+              {<br>
+              &nbsp;&nbsp;<span style="color: var(--accent-cyan);">"engineer"</span>: <span style="color: #a5f3fc;">"Sivanesan B"</span>,<br>
+              &nbsp;&nbsp;<span style="color: var(--accent-cyan);">"specialization"</span>: <span style="color: #a5f3fc;">"AI/ML Engineer &amp; Forward Deployed Engineer (FDE)"</span>,<br>
+              &nbsp;&nbsp;<span style="color: var(--accent-cyan);">"research_impact"</span>: <span style="color: var(--accent-emerald);">"58% CO2 cut | 56% faster inference (IEEE ICNGCS 2025)"</span>,<br>
+              &nbsp;&nbsp;<span style="color: var(--accent-cyan);">"flagship_system"</span>: <span style="color: #a5f3fc;">"Tamil↔Hindi Real-Time Live Call Speech Translator (VoIP + Sarvam AI)"</span>,<br>
+              &nbsp;&nbsp;<span style="color: var(--accent-cyan);">"status"</span>: <span style="color: var(--accent-emerald);">"OPEN_TO_FORWARD_DEPLOYED_AI_ROLES"</span>,<br>
+              &nbsp;&nbsp;<span style="color: var(--accent-cyan);">"contact"</span>: { <span style="color: #a5f3fc;">"email"</span>: <span style="color: var(--accent-amber);">"apsiva69@gmail.com"</span>, <span style="color: #a5f3fc;">"phone"</span>: <span style="color: var(--accent-amber);">"+91-8438692752"</span> }<br>
+              }
+            </div>
+            <div style="margin-top: 0.65rem;"><span class="term-prompt">siva@workstation:~$</span> <span class="term-cmd">ping -c 1 hire.sivanesan.ai</span></div>
+            <div style="color: var(--accent-emerald); font-size: 0.8rem; margin-top: 0.2rem;">64 bytes from hire.sivanesan.ai: icmp_seq=1 ttl=64 time=0.042 ms &bull; READY TO DEPLOY</div>
+          </div>
         </div>
       </div>
     </div>

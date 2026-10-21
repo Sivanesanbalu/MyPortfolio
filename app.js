@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectFilter();
   initBibtexCopy();
   initNavbarScroll();
+  initMobileNav();
   initStatsCounter();
   initCommandPalette();
 });
@@ -446,6 +447,45 @@ function initNavbarScroll() {
       nav.classList.add('scrolled');
     } else {
       nav.classList.remove('scrolled');
+    }
+  });
+}
+
+function initMobileNav() {
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  if (!navToggle || !navLinks) return;
+
+  navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navLinks.classList.toggle('open');
+    const icon = navToggle.querySelector('i');
+    if (icon) {
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-xmark');
+    }
+    if (typeof playClickSound === 'function') playClickSound(520);
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      const icon = navToggle.querySelector('i');
+      if (icon) {
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-xmark');
+      }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.navbar')) {
+      navLinks.classList.remove('open');
+      const icon = navToggle.querySelector('i');
+      if (icon) {
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-xmark');
+      }
     }
   });
 }
