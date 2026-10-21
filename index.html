@@ -171,28 +171,51 @@
           </div>
         </div>
 
-        <!-- Hero Avatar & Orbiting Badges -->
+        <!-- Hero 3D Holographic Stage -->
         <div class="hero-visual">
-          <div class="avatar-wrapper">
-            <img src="assets/profile.png" alt="Sivanesan B - AI Engineer" class="avatar-img" onerror="this.src='assets/myself/sivanesan.png'">
+          <div class="hero-3d-stage-wrapper">
+            <div id="hero-3d-avatar-stage" class="hero-3d-stage" title="Click to spin in 3D &bull; Move cursor to tilt">
+              <!-- Three.js 3D Avatar Holo-Pod mounts here -->
+              <div class="avatar-wrapper" style="opacity: 0.15; pointer-events: none;">
+                <img src="assets/avatar/shiva_stand.jpg" alt="Sivanesan B - AI Engineer" class="avatar-img" onerror="this.src='assets/profile.png'">
+              </div>
+            </div>
+            
+            <div class="holo-pedestal"></div>
+
+            <!-- Interactive 3D Avatar Mode Switcher -->
+            <div class="avatar-mode-switch">
+              <button class="mode-btn active" data-avatar="stand" title="Switch to 3D Cyber Animated Avatar">
+                <i class="fa-solid fa-cube"></i>
+                <span>3D Cyber Avatar</span>
+              </button>
+              <button class="mode-btn" data-avatar="real" title="Switch to Official Portrait">
+                <i class="fa-solid fa-user-astronaut"></i>
+                <span>Real Portrait</span>
+              </button>
+              <button class="mode-btn" data-avatar="talk" title="Switch to Multilingual Voice AI Mode">
+                <i class="fa-solid fa-microphone-lines"></i>
+                <span>Voice AI Mode</span>
+              </button>
+            </div>
           </div>
 
-          <!-- Floating Badges -->
+          <!-- Orbiting 3D Floating Badges -->
           <div class="floating-chip chip-1">
             <img src="https://cdn.simpleicons.org/pytorch/EE4C2C" alt="PyTorch">
             <span>PyTorch</span>
           </div>
           <div class="floating-chip chip-2">
-            <img src="https://cdn.simpleicons.org/langchain/00A67E" alt="LangChain">
-            <span>LangChain</span>
+            <i class="fa-solid fa-phone" style="color:var(--accent-cyan);"></i>
+            <span>Sarvam &amp; Plivo</span>
           </div>
           <div class="floating-chip chip-3">
-            <img src="https://cdn.simpleicons.org/fastapi/009688" alt="FastAPI">
-            <span>FastAPI</span>
+            <img src="https://cdn.simpleicons.org/langchain/00A67E" alt="LangGraph">
+            <span>LangGraph</span>
           </div>
           <div class="floating-chip chip-4">
-            <img src="https://cdn.simpleicons.org/huggingface/FFD21E" alt="Hugging Face">
-            <span>Transformers</span>
+            <i class="fa-solid fa-leaf" style="color:var(--accent-emerald);"></i>
+            <span>Eco-Transformers</span>
           </div>
         </div>
       </div>
@@ -923,7 +946,9 @@
   <!-- Toast Notification Container -->
   <div id="toast-notification" class="toast-msg"></div>
 
-  <!-- JavaScript -->
+  <!-- JavaScript & 3D WebGL Engine -->
+  <script src="three.min.js"></script>
+  <script src="three-portfolio.js"></script>
   <script src="app.js"></script>
   <script src="chatbot.js"></script>
 </body>

@@ -508,19 +508,212 @@ body.hovering .custom-cursor {
   font-weight: 600;
   color: var(--text-primary);
   animation: floatChip 5s ease-in-out infinite alternate;
+  z-index: 10;
 }
 .floating-chip img, .floating-chip svg {
   width: 20px;
   height: 20px;
 }
-.chip-1 { top: 10%; left: -25px; animation-delay: 0s; }
-.chip-2 { bottom: 15%; left: -30px; animation-delay: -2s; }
-.chip-3 { top: 25%; right: -25px; animation-delay: -3.5s; }
-.chip-4 { bottom: 5%; right: 10px; animation-delay: -1.2s; }
+.chip-1 { top: 5%; left: -25px; animation-delay: 0s; }
+.chip-2 { bottom: 20%; left: -30px; animation-delay: -2s; }
+.chip-3 { top: 15%; right: -25px; animation-delay: -3.5s; }
+.chip-4 { bottom: 12%; right: -15px; animation-delay: -1.2s; }
 
 @keyframes floatChip {
   0% { transform: translateY(0); }
   100% { transform: translateY(-10px); }
+}
+
+/* ==========================================================================
+   3D HOLOGRAPHIC STAGE & WEBGL EXPERIENCES
+   ========================================================================== */
+
+.webgl-bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -2;
+  opacity: 0.95;
+}
+
+.hero-3d-stage-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-3d-stage {
+  position: relative;
+  width: 380px;
+  height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 0 45px rgba(0, 240, 255, 0.35));
+  transition: filter 0.3s ease;
+}
+
+.hero-3d-stage:active {
+  cursor: grabbing;
+}
+
+.hero-3d-stage.holo-glitch {
+  animation: holoGlitchAnim 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes holoGlitchAnim {
+  0% { transform: scale(1) skew(0deg); filter: drop-shadow(0 0 60px #00f0ff); }
+  20% { transform: scale(1.04) skew(-3deg); filter: drop-shadow(0 0 80px #ec4899); opacity: 0.8; }
+  40% { transform: scale(0.98) skew(3deg); filter: drop-shadow(0 0 70px #8b5cf6); }
+  60% { transform: scale(1.02) skew(-1deg); opacity: 0.9; }
+  80% { transform: scale(0.99) skew(1deg); }
+  100% { transform: scale(1) skew(0deg); filter: drop-shadow(0 0 45px rgba(0, 240, 255, 0.35)); }
+}
+
+.holo-pedestal {
+  position: absolute;
+  bottom: 5px;
+  width: 260px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.4) 0%, rgba(139, 92, 246, 0.15) 50%, transparent 70%);
+  filter: blur(8px);
+  pointer-events: none;
+  animation: pulsePedestal 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulsePedestal {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+.avatar-mode-switch {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  padding: 0.35rem 0.45rem;
+  border-radius: var(--radius-full);
+  margin-top: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.mode-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all var(--transition-fast);
+}
+
+.mode-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mode-btn.active {
+  background: var(--gradient-brand);
+  color: #050608;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+/* 3D CYBER HUD */
+.cyber-hud {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.hud-box {
+  background: rgba(10, 11, 16, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.05);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.hud-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.3rem;
+}
+
+.hud-blink {
+  color: var(--accent-cyan);
+  animation: blinkHud 1.2s infinite;
+}
+
+@keyframes blinkHud {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+.hud-title {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.hud-metric {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.hud-label {
+  color: var(--text-muted);
+}
+
+.hud-val {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.text-cyan {
+  color: var(--accent-cyan) !important;
+}
+
+@media (max-width: 992px) {
+  .cyber-hud {
+    display: none;
+  }
+  .hero-3d-stage {
+    width: 320px;
+    height: 380px;
+  }
 }
 
 /* Section Common Styling */
