@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const triggerBtn = document.getElementById('chatbot-toggle');
   const chatWindow = document.getElementById('chatbot-window');
+  const speechBubble = document.querySelector('.ai-bot-speech-bubble');
   const closeBtn = document.getElementById('chat-close');
   const sendBtn = document.getElementById('chat-send');
   const chatInput = document.getElementById('chat-input');
@@ -96,12 +97,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!triggerBtn || !chatWindow) return;
 
-  triggerBtn.addEventListener('click', () => {
+  const toggleChat = () => {
     chatWindow.classList.toggle('open');
     if (chatWindow.classList.contains('open')) {
       chatInput.focus();
     }
-  });
+  };
+
+  triggerBtn.addEventListener('click', toggleChat);
+  if (speechBubble) {
+    speechBubble.addEventListener('click', toggleChat);
+  }
 
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
