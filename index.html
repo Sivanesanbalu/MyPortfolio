@@ -879,16 +879,21 @@
     </div>
   </footer>
 
-  <!-- AI Chatbot Floating Dock -->
-  <button id="chatbot-toggle" class="chatbot-trigger-btn" aria-label="Open AI Assistant">
-    <div class="chatbot-pulse-ring"></div>
-    <i class="fa-solid fa-robot" style="font-size: 1.5rem;"></i>
-  </button>
+  <!-- AI Chatbot Floating Dock with Animated Lottie Bot -->
+  <div class="ai-bot-wrapper">
+    <div class="ai-bot-speech-bubble" onclick="document.getElementById('chatbot-toggle').click()">
+      <span>Ask Siva AI 👋</span>
+    </div>
+    <button id="chatbot-toggle" class="chatbot-trigger-btn" aria-label="Open AI Assistant" title="Chat with Siva AI">
+      <div class="chatbot-pulse-ring"></div>
+      <div id="lottie-robot-trigger" class="lottie-robot-container"></div>
+    </button>
+  </div>
 
   <div id="chatbot-window" class="chatbot-window">
     <div class="chat-header">
       <div class="chat-agent-info">
-        <div class="chat-avatar"><i class="fa-solid fa-sparkles"></i></div>
+        <div id="lottie-robot-header" class="chat-avatar-lottie"></div>
         <div>
           <div class="chat-title">Siva AI Assistant</div>
           <div class="chat-status">● Online & Ready</div>
@@ -923,7 +928,9 @@
   <!-- Toast Notification Container -->
   <div id="toast-notification" class="toast-msg"></div>
 
-  <!-- JavaScript -->
+  <!-- Lottie Player & Animated Robot Asset -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <script src="assets/robot-lottie.js"></script>
   <script src="app.js"></script>
   <script src="chatbot.js"></script>
 </body>

@@ -83,6 +83,9 @@ const SIVA_KNOWLEDGE_BASE = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize Animated Lottie AI Bot
+  initLottieBot();
+
   const triggerBtn = document.getElementById('chatbot-toggle');
   const chatWindow = document.getElementById('chatbot-window');
   const closeBtn = document.getElementById('chat-close');
@@ -243,5 +246,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Default polite response
     return `Hello! I'm Sivanesan's AI Assistant. I can tell you all about his:\n• **NUNES AI Live Call Translator (Tamil ↔ Hindi)**\n• **Eco-Transformers IEEE publication (58% CO2 cut)**\n• **Forward Deployed Engineering work at Nunes Instruments**\n• **Offline Voice AI & ConvNeXt Book Scanner**\n• **Technical skills, education & contact details**\n\nWhat would you like to explore?`;
+  }
+
+  function initLottieBot() {
+    function startAnimation() {
+      if (typeof lottie === 'undefined' || !window.ROBOT_LOTTIE_DATA) {
+        setTimeout(startAnimation, 120);
+        return;
+      }
+
+      const triggerContainer = document.getElementById('lottie-robot-trigger');
+      if (triggerContainer && !triggerContainer.hasChildNodes()) {
+        lottie.loadAnimation({
+          container: triggerContainer,
+          renderer: 'svg',
+          loop: true,
+          autoplay: true,
+          animationData: window.ROBOT_LOTTIE_DATA
+        });
+      }
+
+      const headerContainer = document.getElementById('lottie-robot-header');
+      if (headerContainer && !headerContainer.hasChildNodes()) {
+        lottie.loadAnimation({
+          container: headerContainer,
+          renderer: 'svg',
+          loop: true,
+          autoplay: true,
+          animationData: window.ROBOT_LOTTIE_DATA
+        });
+      }
+    }
+
+    startAnimation();
   }
 });
