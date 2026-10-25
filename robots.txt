@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sivanesanbalu.netlify.app/sitemap.xml
+Sitemap: https://sivanesan.tech/sitemap.xml

@@ -22,7 +22,7 @@ const SIVA_RESUME_KNOWLEDGE = {
   phone: "+91-8438692752",
   github: "https://github.com/Sivanesanbalu",
   linkedin: "https://www.linkedin.com/in/sivanesan-b-871ba7264",
-  portfolio: "https://sivanesanbalu.netlify.app",
+  portfolio: "https://sivanesan.tech",
   resumeUrl: "assets/Sivanesan_B.pdf",
 
   profileSummary: `AI/ML Engineer with hands-on experience in Machine Learning, Deep Learning, Generative AI, Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), Agentic AI, and AI agent development. Currently working as a GenAI Executive & Forward Deployed Engineer at Nunes Instruments, building AI-powered applications and business automation solutions. IEEE-published researcher in carbon-efficient LLM inference (58% CO2 reduction, 56% faster inference), with experience in model optimization, computer vision, NLP, and end-to-end AI application development.`,
