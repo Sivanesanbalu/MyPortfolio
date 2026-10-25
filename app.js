@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initVoiceSimulator();
   initBenchmarkExplorer();
   initModals();
+  initMoreReposToggle();
 });
 
 // ==========================================
@@ -296,5 +297,36 @@ function initModals() {
 
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeResumeModal();
+  });
+}
+
+// ==========================================
+// 6. TOGGLE EXPANDABLE TOP 10 REPOSITORIES
+// ==========================================
+function initMoreReposToggle() {
+  const toggleBtn = document.getElementById('toggle-more-repos-btn');
+  const container = document.getElementById('more-repos-container');
+
+  if (!toggleBtn || !container) return;
+
+  toggleBtn.addEventListener('click', () => {
+    const isHidden = container.style.display === 'none' || container.style.display === '';
+
+    if (isHidden) {
+      container.style.display = 'grid';
+      toggleBtn.innerHTML = `
+        <i class="fa-brands fa-github" style="color: var(--accent-cyan);"></i>
+        <span>Show Less Repositories</span>
+        <i class="fa-solid fa-chevron-up" style="font-size: 0.8rem; margin-left: 0.5rem;"></i>
+      `;
+    } else {
+      container.style.display = 'none';
+      toggleBtn.innerHTML = `
+        <i class="fa-brands fa-github" style="color: var(--accent-cyan);"></i>
+        <span>Explore 7 More Engineering Repositories (Top 10)</span>
+        <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 0.5rem;"></i>
+      `;
+      toggleBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   });
 }
