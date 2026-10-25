@@ -8,7 +8,16 @@ const SIVA_RESUME_KNOWLEDGE = {
   name: "Sivanesan B",
   title: "AI/ML Engineer & Forward Deployed Engineer (FDE)",
   location: "Coimbatore, Tamil Nadu, India",
-  availability: "Open to Full-time Onsite, Hybrid, and Remote Opportunities Worldwide",
+  availability: "Immediate Joining (Ready to start immediately / 0 days notice)",
+  currentLocation: "Coimbatore, Tamil Nadu, India",
+  relocationLocations: ["Coimbatore", "Chennai", "Bengaluru (Bangalore)", "Hyderabad", "Remote (Worldwide)"],
+  targetRoles: [
+    "Forward Deployed Engineer (FDE)",
+    "Generative AI Engineer (GenAI)",
+    "AI/ML Engineer",
+    "LLM & Agentic AI Specialist",
+    "Full-Stack AI Engineer"
+  ],
   email: "apsiva69@gmail.com",
   phone: "+91-8438692752",
   github: "https://github.com/Sivanesanbalu",
@@ -321,14 +330,120 @@ document.addEventListener('DOMContentLoaded', () => {
       q.includes('help')
     ) {
       return `👋 **Hello! I'm Siva AI Assistant.**\n\n` +
-        `I am trained on Sivanesan's complete resume, research publications, and engineering background. Here are some things you can ask me:\n\n` +
-        `• *"Why should we hire Sivanesan as an FDE?"*\n` +
-        `• *"Tell me about the Eco-Transformers IEEE paper (58% CO2 cut)"*\n` +
-        `• *"Explain the NUNES AI Live Call Translator"*\n` +
-        `• *"What does he do at Nunes Instruments?"*\n` +
-        `• *"What is his education and CGPA?"*\n` +
-        `• *"How can I contact him or download his resume?"*\n\n` +
-        `What would you like to explore?`;
+        `I am trained on Sivanesan's resume, IEEE research, and production code.\n\n` +
+        `💼 **For Recruiters & Hiring Managers:**\n` +
+        `• **Availability:** ⚡ **Immediate Joining** (0 days notice)\n` +
+        `• **Locations:** Coimbatore | Open to relocate to **Chennai, Bengaluru, Hyderabad** | Remote\n` +
+        `• **Focus Roles:** **Forward Deployed Engineer (FDE)**, **GenAI Engineer**, **AI/ML Engineer**\n\n` +
+        `You can ask me anything about his background, or tap any quick suggestion above!`;
+    }
+
+    // 0A. IMMEDIATE JOINING & NOTICE PERIOD (RECRUITER PRIORITY)
+    if (
+      q.includes('immediate') ||
+      q.includes('notice') ||
+      q.includes('when can he join') ||
+      q.includes('joining date') ||
+      q.includes('start date') ||
+      q.includes('join immediately') ||
+      q.includes('join right away') ||
+      q.includes('availability')
+    ) {
+      return `⚡ **Immediate Joining & Availability:**\n\n` +
+        `• **Notice Period:** **IMMEDIATE JOINING (0 Days Notice)**\n` +
+        `• **Status:** Sivanesan is available to join and start working on Day 1 without any transition delay.\n` +
+        `• **Locations:** Coimbatore | Open to immediate relocation to **Chennai, Bengaluru (Bangalore), Hyderabad** | Or **Remote**.\n` +
+        `• **Target Roles:** AI-related roles (Forward Deployed Engineer, GenAI, AI/ML, Agentic AI).\n\n` +
+        `📞 *Ready to extend an offer or schedule a screening?* Call/WhatsApp him directly at [+91-8438692752](tel:+918438692752) or email [apsiva69@gmail.com](mailto:apsiva69@gmail.com).`;
+    }
+
+    // 0B. LOCATION & RELOCATION (COIMBATORE, CHENNAI, BENGALURU, HYDERABAD, REMOTE)
+    if (
+      q.includes('location') ||
+      q.includes('relocat') ||
+      q.includes('chennai') ||
+      q.includes('bangalore') ||
+      q.includes('bengaluru') ||
+      q.includes('hyderabad') ||
+      q.includes('coimbatore') ||
+      q.includes('city') ||
+      q.includes('cities') ||
+      q.includes('where is he') ||
+      q.includes('remote')
+    ) {
+      return `📍 **Location & Relocation Flexibility:**\n\n` +
+        `• **Current Location:** Coimbatore, Tamil Nadu, India.\n` +
+        `• **Immediate Relocation Available To:**\n` +
+        `  - 🏙️ **Chennai**\n` +
+        `  - 🏙️ **Bengaluru (Bangalore)**\n` +
+        `  - 🏙️ **Hyderabad**\n` +
+        `  - 🏙️ **Coimbatore** (Local)\n` +
+        `• **Remote Work:** 100% equipped for full-time remote opportunities across Indian and global time zones (US, UK, Europe, APAC).\n` +
+        `• **Joining Time:** **Immediate Joining** (0 days notice).`;
+    }
+
+    // 0C. TARGET AI ROLES (FDE, GENAI, AI/ML, LLM)
+    if (
+      q.includes('target role') ||
+      q.includes('ai related') ||
+      q.includes('what roles') ||
+      q.includes('role is he looking for') ||
+      q.includes('positions') ||
+      q.includes('ai roles') ||
+      q.includes('looking for') ||
+      (q.includes('role') && (q.includes('open') || q.includes('target') || q.includes('interest') || q.includes('apply')))
+    ) {
+      return `🎯 **Target AI Roles for Sivanesan B:**\n\n` +
+        `Sivanesan is targeting **AI-related engineering roles** where he can apply his research rigor and production deployment skills:\n\n` +
+        `1. **Forward Deployed Engineer (FDE)** – Integrating enterprise AI, automating business workflows (ERP, WhatsApp BI, Voice VoIP).\n` +
+        `2. **Generative AI Engineer (GenAI)** – Designing RAG architectures, LLM agents, prompt optimization, and fine-tuning (LoRA/QLoRA).\n` +
+        `3. **AI/ML Engineer** – Developing PyTorch/TensorFlow models, model optimization (58% CO2 cut), and edge deployment.\n` +
+        `4. **LLM & Agentic AI Specialist** – Building autonomous agents using LangChain, LangGraph, and vector databases (FAISS, ChromaDB).\n` +
+        `5. **Full-Stack AI Developer** – FastAPI/Fastify APIs + WebSockets + Kotlin/Flutter mobile apps.\n\n` +
+        `⚡ *Availability:* **Immediate Joining** in Coimbatore, Chennai, Bengaluru, Hyderabad, or Remote.`;
+    }
+
+    // 0D. RECRUITER MESSAGE & INTERVIEW INVITE (Takes priority over general screening)
+    if (
+      q.includes('message') ||
+      q.includes('interview') ||
+      q.includes('schedule') ||
+      q.includes('invite') ||
+      q.includes('book call') ||
+      q.includes('send invite')
+    ) {
+      return `✉️ **Message Sivanesan & Schedule an Interview:**\n\n` +
+        `You can connect with Sivanesan right away:\n\n` +
+        `• 📧 **Email with Pre-filled Interview Request:**\n` +
+        `  [Click to Email apsiva69@gmail.com](mailto:apsiva69@gmail.com?subject=Interview%20Invitation%20for%20Sivanesan%20B%20-%20AI%20Role&body=Hi%20Sivanesan,%0D%0A%0D%0AWe%20reviewed%20your%20portfolio%20and%20resume%20and%20would%20love%20to%20schedule%20a%20screening%20call%20with%20you%20for%20an%20AI%20role.%0D%0A%0D%0ACompany:%20%0D%0ARole:%20%0D%0APreferred%20Time:%20%0D%0A%0D%0ABest%20regards,)\n\n` +
+        `• 💬 **Direct WhatsApp Message:**\n` +
+        `  [Chat on WhatsApp (+91-8438692752)](https://wa.me/918438692752?text=Hi%20Sivanesan,%20I%20reviewed%20your%20portfolio%20and%20would%20like%20to%20connect%20with%20you%20regarding%20an%20AI%20engineering%20opportunity.)\n\n` +
+        `• 📞 **Direct Phone Call:** [+91-8438692752](tel:+918438692752)\n` +
+        `• 🔗 **LinkedIn:** [linkedin.com/in/sivanesan-b-871ba7264](https://www.linkedin.com/in/sivanesan-b-871ba7264)\n\n` +
+        `*Notice Period:* **Immediate Joining** (0 days). Ready for interviews today!`;
+    }
+
+    // 0E. 1-MINUTE RECRUITER SCREENING CHEAT SHEET
+    if (
+      q.includes('recruiter') ||
+      q.includes('fast screen') ||
+      q.includes('screening') ||
+      q.includes('candidate summary') ||
+      q.includes('cheat sheet') ||
+      q.includes('1-min') ||
+      q.includes('1 min')
+    ) {
+      return `📋 **1-Minute Recruiter Fast Screen (Sivanesan B)**\n\n` +
+        `• **Candidate:** Sivanesan B | AI/ML & Forward Deployed Engineer (FDE)\n` +
+        `• **Availability:** ⚡ **IMMEDIATE JOINING** (0 Days Notice)\n` +
+        `• **Locations:** Coimbatore | Open to relocate to **Chennai, Bengaluru, Hyderabad** | Remote\n` +
+        `• **Target Roles:** Forward Deployed Engineer, GenAI Engineer, AI/ML Engineer, LLM/Agentic AI\n` +
+        `• **Current Experience:** GenAI Executive & FDE at *Nunes Instruments* (Aug 2026 – Present)\n` +
+        `• **Research Credential:** Published Author at **IEEE ICNGCS 2025** (*Eco-Transformers*, 58% CO2 cut, 56% speedup) + Best Final Year Project Award\n` +
+        `• **Academics:** B.Tech AI & Data Science (KCT, CGPA: 8.02/10) | Diploma CE (CGPA: 8.0/10)\n` +
+        `• **Core Stack:** Python, PyTorch, Fastify, FastAPI, Kotlin, Flutter, Docker, LangGraph, FAISS, PostgreSQL\n` +
+        `• **Quick Contact:** [apsiva69@gmail.com](mailto:apsiva69@gmail.com) | [+91-8438692752](tel:+918438692752)\n` +
+        `• **Resume:** [Download Verified 1-Page PDF](assets/Sivanesan_B.pdf)`;
     }
 
     // 1. WHY HIRE SIVANESAN / VALUE PROPOSITION / STRENGTHS
