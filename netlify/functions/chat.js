@@ -18,7 +18,7 @@ Your goal is to assist visitors, recruiters, and hiring managers with 100% accur
   * Phone / WhatsApp: +91-8438692752
   * LinkedIn: https://www.linkedin.com/in/sivanesan-b-871ba7264
   * GitHub: https://github.com/Sivanesanbalu
-  * Portfolio: https://sivanesanbalu.netlify.app
+  * Portfolio: https://sivanesan.tech
 
 2. PROFILE & IDENTITY:
 - Full Name: Sivanesan B
