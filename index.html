@@ -890,26 +890,54 @@
 
   <!-- AI Chatbot Floating Dock -->
   <div class="ai-bot-wrapper" style="position:fixed; bottom:2rem; right:2rem; z-index:9999;">
-    <button id="chatbot-toggle" style="width:56px; height:56px; border-radius:50%; background:#fff; color:#000; border:none; font-size:1.4rem; cursor:pointer; box-shadow:0 8px 24px rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; transition:transform 0.2s ease;">
+    <button id="chatbot-toggle" aria-label="Open Siva AI Assistant" style="width:58px; height:58px; border-radius:50%; background:#fff; color:#000; border:none; font-size:1.45rem; cursor:pointer; box-shadow:0 10px 30px rgba(0,240,255,0.35); display:flex; align-items:center; justify-content:center; transition:transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);">
       <i class="fa-solid fa-robot"></i>
     </button>
   </div>
 
-  <div id="chatbot-window" class="chatbot-window" style="display:none; position:fixed; bottom:6rem; right:2rem; width:380px; max-width:calc(100vw - 2rem); height:500px; background:#0a0c12; border:1px solid var(--border-glass-strong); border-radius:var(--radius-xl); z-index:9999; flex-direction:column; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.8);">
-    <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem 1.25rem; border-bottom:1px solid var(--border-glass); background:rgba(255,255,255,0.03);">
-      <div style="font-weight:600; display:flex; align-items:center; gap:0.5rem;">
-        <i class="fa-solid fa-robot" style="color:var(--accent-cyan);"></i> Siva AI Assistant
+  <div id="chatbot-window" class="chatbot-window" role="dialog" aria-label="Sivanesan Resume AI Assistant">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar-pulse">
+          <i class="fa-solid fa-microchip"></i>
+        </div>
+        <div class="chat-title-text">
+          <span class="chat-title-main">Siva AI Assistant</span>
+          <span class="chat-title-sub"><i class="fa-solid fa-circle" style="font-size:0.5rem; margin-right:3px;"></i>Trained on Sivanesan's Resume</span>
+        </div>
       </div>
-      <button id="chat-close" style="background:transparent; border:none; color:#fff; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+      <button id="chat-close" class="chat-close-btn" aria-label="Close Chat">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
     </div>
-    <div id="chat-messages" style="flex:1; overflow-y:auto; padding:1.25rem; display:flex; flex-direction:column; gap:0.75rem;">
-      <div style="background:rgba(255,255,255,0.05); padding:0.85rem 1rem; border-radius:var(--radius-md); font-size:0.88rem; line-height:1.5;">
-        Hello! I'm Sivanesan's AI Assistant. Ask me about his <strong>NUNES AI Live Call Translator</strong>, <strong>Eco-Transformers research (58% CO₂ cut)</strong>, or <strong>Forward Deployed Engineering work</strong>.
+
+    <div id="chat-messages" class="chat-messages">
+      <div class="msg-bubble bot">
+        👋 <strong>Hello! I'm Siva AI Assistant.</strong><br>
+        I have been trained on Sivanesan's complete resume, research papers, projects, and Forward Deployed Engineering background.<br><br>
+        Ask me anything below, or tap one of the quick suggestions:
       </div>
     </div>
-    <div style="padding:1rem; border-top:1px solid var(--border-glass); display:flex; gap:0.5rem;">
-      <input type="text" id="chat-input" placeholder="Ask a question..." style="flex:1; background:rgba(255,255,255,0.05); border:1px solid var(--border-glass); border-radius:var(--radius-md); padding:0.6rem 0.85rem; color:#fff; font-size:0.88rem; outline:none;">
-      <button id="chat-send" style="background:#fff; color:#000; border:none; border-radius:var(--radius-md); padding:0 1rem; cursor:pointer;"><i class="fa-solid fa-paper-plane"></i></button>
+
+    <div class="chat-suggestions-container">
+      <div class="chat-suggestions">
+        <button class="suggestion-chip" data-query="Give me a summary of Sivanesan's background and resume">📄 Resume Summary</button>
+        <button class="suggestion-chip" data-query="Why should we hire Sivanesan as a Forward Deployed Engineer?">⚡ Why Hire as FDE?</button>
+        <button class="suggestion-chip" data-query="Tell me about the Eco-Transformers IEEE research paper and 58% CO2 cut">🌱 Eco-Transformers (IEEE)</button>
+        <button class="suggestion-chip" data-query="Explain the NUNES AI Live Call Translator architecture">🎙️ Live Call Translator</button>
+        <button class="suggestion-chip" data-query="What does Sivanesan do at Nunes Instruments?">💼 Nunes Instruments</button>
+        <button class="suggestion-chip" data-query="List Sivanesan's top 10 projects and what they do">🏆 Top 10 Projects</button>
+        <button class="suggestion-chip" data-query="What is his education, college, and CGPA?">🎓 Education & CGPA</button>
+        <button class="suggestion-chip" data-query="What are his core technical skills and frameworks?">🛠️ Tech Stack & Skills</button>
+        <button class="suggestion-chip" data-query="How can I contact Sivanesan or download his resume?">📬 Contact & Resume</button>
+      </div>
+    </div>
+
+    <div class="chat-input-bar">
+      <input type="text" id="chat-input" class="chat-input-field" placeholder="Ask anything about Sivanesan's resume..." autocomplete="off">
+      <button id="chat-send" class="chat-send-action-btn" aria-label="Send message">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
     </div>
   </div>
 
