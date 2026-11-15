@@ -4,31 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sivanesan B — AI/ML Engineer & Forward Deployed Engineer (FDE)</title>
-  
-  <!-- Meta & SEO -->
-  <meta name="description" content="Official portfolio of Sivanesan B - AI/ML Engineer & Forward Deployed Engineer (FDE). IEEE-published researcher in carbon-efficient LLM inference (58% CO2 cut), creator of real-time voice translation (Tamil↔Hindi), ConvNeXt vision systems, and enterprise GenAI workflows.">
-  <meta name="keywords" content="Sivanesan B, Sivanesan Balu, AI/ML Engineer, Forward Deployed Engineer, FDE, Generative AI, Eco-Transformers, Nunes Instruments, Live Call Translator, Sarvam AI, Plivo, ConvNeXt, Whisper STT, Agentic AI, LangChain">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Official portfolio of Sivanesan B — AI/ML Engineer & Forward Deployed Engineer (FDE). IEEE-published researcher in carbon-efficient LLM inference (58% CO2 cut), creator of Kinetiq UI developer SaaS, real-time voice translation, and enterprise GenAI workflows.">
+  <meta name="keywords" content="Sivanesan B, Sivanesan Balu, AI/ML Engineer, Forward Deployed Engineer, FDE, Generative AI, Kinetiq UI, Eco-Transformers, Nunes Instruments, Voice AI, ConvNeXt, Whisper STT, PyTorch, TypeScript, Next.js, Cloudflare, Supabase">
   <meta name="author" content="Sivanesan Balu">
-  <link rel="canonical" href="https://sivanesan.tech/">
+  <link rel="canonical" href="https://sivanesanbalu.netlify.app">
 
-  <!-- OpenGraph & Social Sharing -->
+  <!-- OpenGraph -->
   <meta property="og:title" content="Sivanesan B — AI/ML Engineer & Forward Deployed Engineer (FDE)">
-  <meta property="og:description" content="58% lower LLM CO2 emissions, real-time Tamil↔Hindi live call translation, ConvNeXt vision models, and enterprise GenAI pipelines.">
-  <meta property="og:url" content="https://sivanesan.tech/">
+  <meta property="og:description" content="AI/ML and Forward Deployed Engineer building generative AI applications, LLM agents, voice AI, and RAG workflows. IEEE-published researcher in efficient LLM inference.">
+  <meta property="og:url" content="https://sivanesanbalu.netlify.app">
   <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://sivanesan.tech/">
-  <meta name="twitter:title" content="Sivanesan B — AI/ML Engineer & Forward Deployed Engineer (FDE)">
-  <meta name="twitter:description" content="58% lower LLM CO2 emissions, real-time Tamil↔Hindi live call translation, ConvNeXt vision models, and enterprise GenAI pipelines.">
 
-  <!-- Schema.org JSON-LD for Google Search & Knowledge Graph -->
+  <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Sivanesan Balu",
-    "alternateName": ["Sivanesan B", "sivanesan.tech"],
-    "url": "https://sivanesan.tech/",
+    "alternateName": ["Sivanesan B", "sivanesanbalu.netlify.app"],
+    "url": "https://sivanesanbalu.netlify.app",
     "jobTitle": "AI/ML Engineer & Forward Deployed Engineer (FDE)",
     "worksFor": {
       "@type": "Organization",
@@ -55,469 +51,290 @@
   <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- MotionSites Studio Stylesheet -->
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Floating Liquid Glass Header -->
-  <header class="site-header">
-    <nav class="navbar-pill liquid-glass">
-      <a href="#hero" class="brand-text">
-        SIVANESAN<span>.AI</span>
+  <!-- Ambient Glow Effects -->
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+
+  <!-- Navigation Bar -->
+  <header class="site-nav">
+    <div class="container nav-wrapper">
+      <a href="#hero" class="brand-link">
+        <div class="brand-badge">S</div>
+        <div>
+          <div class="brand-name">Sivanesan B</div>
+        </div>
       </a>
 
-      <ul class="nav-menu">
-        <li><a href="#story" class="nav-link">Story</a></li>
+      <ul class="nav-links">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
         <li><a href="#research" class="nav-link">Research</a></li>
-        <li><a href="#engineering" class="nav-link">Engineering</a></li>
-        <li><a href="#toolkit" class="nav-link">Toolkit</a></li>
-        <li><a href="#journey" class="nav-link">Journey</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#education" class="nav-link">Education</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
 
-      <div class="nav-right-actions">
-        <button onclick="openResumeModal()" class="btn-glass-pill liquid-glass">
+      <div class="nav-actions">
+        <button onclick="openResumeModal()" class="btn-primary btn-sm">
           <i class="fa-solid fa-file-pdf"></i> Resume
         </button>
-        <button onclick="document.getElementById('chatbot-toggle').click()" class="btn-white-pill">
-          Start a Chat
+        <button onclick="document.getElementById('chatbot-toggle').click()" class="btn-secondary btn-sm" aria-label="Open Chat">
+          <i class="fa-solid fa-robot"></i> Chat
         </button>
       </div>
-    </nav>
+    </div>
   </header>
 
-  <!-- ==========================================
-       HERO: Full-Bleed 3D Motion Video Viewport
-       ========================================== -->
-  <section id="hero" class="hero-viewport">
-    <!-- Cinematic 3D Motion Video Background (MotionSites Spec) -->
-    <video class="hero-video-bg" autoplay loop muted playsinline poster="assets/project images/publications.png">
-      <source src="assets/motionsite_hero_bg.mp4" type="video/mp4">
-    </video>
-
-    <div class="hero-vignette"></div>
-
-    <div class="site-container hero-content-wrap">
-      <div class="hero-bottom-grid">
-        <!-- Left Column: Animated Heading & Actions -->
-        <div>
-          <h1 id="animated-hero-heading" class="hero-heading">
-            <div>Engineering tomorrow</div>
-            <div>with vision and action.</div>
-          </h1>
-
-          <p id="animated-hero-subhead" class="hero-subhead">
-            AI/ML Engineer & Forward Deployed Engineer (FDE). IEEE-published researcher in carbon-efficient LLM inference (58% CO₂ cut), architect of real-time multilingual voice translation systems, and enterprise GenAI automation pipelines.
-          </p>
-
-          <div id="animated-hero-actions" class="hero-actions-row">
-            <button onclick="document.getElementById('chatbot-toggle').click()" class="btn-white-pill" style="padding: 0.75rem 1.8rem; font-size: 0.95rem;">
-              Start a Conversation
-            </button>
-            <a href="#engineering" class="btn-glass-pill liquid-glass" style="padding: 0.75rem 1.8rem; font-size: 0.95rem;">
-              Explore Engineering <i class="fa-solid fa-arrow-down" style="font-size: 0.8rem; margin-left: 0.25rem;"></i>
-            </a>
-            <button onclick="openResumeModal()" class="btn-glass-pill liquid-glass" style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">
-              <i class="fa-solid fa-file-lines"></i> View Resume
-            </button>
-          </div>
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="container hero-grid">
+      <!-- Left Content -->
+      <div>
+        <div class="hero-badge-status">
+          <span class="status-dot"></span>
+          <span>Available for AI/ML &amp; Forward Deployed Roles</span>
         </div>
 
-        <!-- Right Column: Minimalist Tagline Capsule -->
-        <div id="animated-hero-tag" class="hero-right-badge">
-          <div class="tagline-capsule liquid-glass">
-            Generative AI. LLMs. Forward Deployed.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        <h1 class="hero-heading">
+          Engineering <span>Intelligent Systems</span> For Real Business Impact
+        </h1>
 
-  <!-- ==========================================
-       STORY: Executive Narrative & Keynote Metrics
-       ========================================== -->
-  <section id="story" class="section-story">
-    <div class="site-container">
-      <span class="section-label">// NARRATIVE & IMPACT</span>
-      <h2 class="editorial-lead">
-        At the intersection of deep AI research and real-world enterprise deployment.
-      </h2>
-
-      <div class="narrative-grid">
-        <div class="narrative-body-text">
-          <p>
-            I am an <strong>AI/ML Engineer and Forward Deployed Engineer (FDE)</strong> currently driving business automation and GenAI application integration at Nunes Instruments. My work bridges foundational deep learning with production resilience—taking complex LLM capabilities and translating them directly into reliable, high-ROI client applications.
-          </p>
-          <p>
-            As an IEEE-published author in sustainable deep learning (achieving <strong>58% CO₂ emission reduction and 56% faster inference</strong> through runtime self-pruning and activation freezing), I engineer systems designed for efficiency, low latency, and uncompromising real-world performance.
-          </p>
+        <div class="hero-role-title">
+          AI/ML Engineer &bull; Forward Deployed Engineer (FDE) &bull; GenAI Specialist
         </div>
 
-        <!-- Standout Keynote Metrics -->
-        <div class="keynote-metrics-strip">
-          <div class="metric-cell">
-            <div class="metric-giant-number" style="color:var(--accent-emerald);">58%</div>
-            <div class="metric-giant-label">Lower LLM Carbon Emissions (IEEE ICNGCS 2025)</div>
+        <p class="hero-bio">
+          Hi, I'm <strong>Sivanesan B</strong>. I build generative AI applications, autonomous LLM agents, real-time voice AI, and retrieval-augmented generation (RAG) workflows. Currently developing business software and AI systems at <strong>Nunes Instruments</strong>, backed by IEEE-published research in carbon-efficient LLM inference.
+        </p>
+
+        <div class="hero-actions">
+          <button onclick="openResumeModal()" class="btn-primary">
+            <i class="fa-solid fa-file-lines"></i> View Resume
+          </button>
+          <a href="#contact" class="btn-secondary">
+            <i class="fa-solid fa-envelope"></i> Contact Me
+          </a>
+          <a href="https://github.com/Sivanesanbalu" target="_blank" class="btn-secondary">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+          <a href="https://linkedin.com/in/sivanesan-b-871ba7264" target="_blank" class="btn-secondary">
+            <i class="fa-brands fa-linkedin"></i> LinkedIn
+          </a>
+        </div>
+
+        <!-- Key Metrics Row -->
+        <div class="hero-stats-row">
+          <div>
+            <div class="stat-cell-num emerald">58%</div>
+            <div class="stat-cell-label">LLM CO₂ Cut (IEEE)</div>
           </div>
-          <div class="metric-cell">
-            <div class="metric-giant-number" style="color:var(--accent-cyan);">56%</div>
-            <div class="metric-giant-label">Faster Inference via Dynamic Forward Hooks</div>
+          <div>
+            <div class="stat-cell-num cyan">56%</div>
+            <div class="stat-cell-label">Faster Inference</div>
           </div>
-          <div class="metric-cell">
-            <div class="metric-giant-number" style="color:#ffffff;">92%</div>
-            <div class="metric-giant-label">Detection Accuracy with Fine-Tuned ConvNeXt</div>
+          <div>
+            <div class="stat-cell-num">92%</div>
+            <div class="stat-cell-label">Vision Model Acc.</div>
           </div>
-          <div class="metric-cell">
-            <div class="metric-giant-number" style="color:var(--accent-purple);">&lt;360ms</div>
-            <div class="metric-giant-label">Sub-second Bidirectional Speech Translation Pipeline</div>
+          <div>
+            <div class="stat-cell-num purple">145+</div>
+            <div class="stat-cell-label">React UI Components</div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ==========================================
-       RESEARCH: IEEE Publication & Interactive Benchmark
-       ========================================== -->
-  <section id="research" style="padding-block: 6rem; background: var(--bg-black); border-top: 1px solid var(--border-glass);">
-    <div class="site-container">
-      <span class="section-label">// PEER-REVIEWED SCHOLARSHIP</span>
-      <h2 class="section-title">Eco-Transformers Research</h2>
-
-      <div class="widescreen-project-card" style="margin-bottom: 2.5rem;">
-        <div class="project-card-content">
-          <div style="display:flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap;">
-            <span class="tech-pill" style="color:var(--accent-emerald); border-color:rgba(16,185,129,0.3);"><i class="fa-solid fa-leaf"></i> Sustainable AI</span>
-            <span class="tech-pill" style="color:var(--accent-cyan); border-color:rgba(0,240,255,0.3);"><i class="fa-solid fa-certificate"></i> IEEE ICNGCS-2025</span>
-            <span class="tech-pill" style="color:#fbbf24; border-color:rgba(251,191,36,0.3);"><i class="fa-solid fa-trophy"></i> Best Final Year Project Award (KCT)</span>
+      <!-- Right Card: Real Profile Photo -->
+      <div>
+        <div class="hero-photo-card">
+          <div class="photo-wrapper">
+            <img src="assets/profile.png" alt="Sivanesan B" class="profile-avatar" onerror="this.src='assets/myself/sivanesan.png'">
           </div>
-
-          <h3 class="project-main-heading">
-            Eco-Transformers: Carbon-Efficient and Accelerated Inference through Self-Pruning and Activation Freezing in LLMs
-          </h3>
-
-          <p class="project-main-desc">
-            Large Language Models require immense computational power, leading to high latency and heavy carbon emissions. We introduce <strong>Eco-Transformers</strong>, a novel runtime optimization framework implementing PyTorch forward hooks that dynamically masks low-magnitude weights and freezes near-zero activations at runtime without requiring retraining or modifying model architecture.
-          </p>
-
-          <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-gray-400); margin-bottom:2rem; line-height:1.7;">
-            <div><strong>Conference:</strong> 3rd International Conference on Next Generation Computing Systems (ICNGCS - 2025)</div>
-            <div><strong>Venue & Date:</strong> PSG iTech, Coimbatore, India | August 21–22, 2025</div>
-            <div><strong>Publisher & DOI:</strong> IEEE | <code>10.1109/ICNGCS64900.2025.11183217</code></div>
-          </div>
-
-          <!-- Interactive Multi-Model Benchmark Explorer -->
-          <div class="benchmark-block">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
-              <div style="font-size:0.95rem; font-weight:600; display:flex; align-items:center; gap:0.5rem;">
-                <i class="fa-solid fa-chart-line" style="color:var(--accent-cyan);"></i> Multi-Model Experimental Benchmark
+          <div class="photo-details">
+            <div class="photo-name">Sivanesan B</div>
+            <div class="photo-company">GenAI Executive &amp; FDE at Nunes Instruments</div>
+            <div class="photo-meta-list">
+              <div class="photo-meta-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Coimbatore, Tamil Nadu, India</span>
               </div>
-              <div class="view-switcher-pill">
-                <button class="view-switch-btn bench-model-tab active" data-model="falcon">Falcon-RW-1B</button>
-                <button class="view-switch-btn bench-model-tab" data-model="neo">GPT-Neo-1.3B</button>
-                <button class="view-switch-btn bench-model-tab" data-model="opt">OPT-1.3B</button>
-                <button class="view-switch-btn bench-model-tab" data-model="gpt2">GPT2-XL</button>
+              <div class="photo-meta-item">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>B.Tech in AI &amp; Data Science (KCT) &bull; CGPA: 8.02</span>
               </div>
-            </div>
-
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.5rem;">
-              <div style="background:rgba(255,255,255,0.03); padding:1.25rem; border-radius:var(--radius-md); border:1px solid var(--border-glass);">
-                <div style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-gray-400); text-transform:uppercase;">CO₂ Reduction</div>
-                <div id="bench-co2" style="font-size:2rem; font-weight:700; color:var(--accent-emerald); margin-top:0.35rem;">-58%</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-500); margin-top:0.25rem;">Carbon emissions cut</div>
-              </div>
-
-              <div style="background:rgba(255,255,255,0.03); padding:1.25rem; border-radius:var(--radius-md); border:1px solid var(--border-glass);">
-                <div style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-gray-400); text-transform:uppercase;">Inference Speedup</div>
-                <div id="bench-speed" style="font-size:2rem; font-weight:700; color:var(--accent-cyan); margin-top:0.35rem;">+56%</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-500); margin-top:0.25rem;">Faster generation throughput</div>
-              </div>
-
-              <div style="background:rgba(255,255,255,0.03); padding:1.25rem; border-radius:var(--radius-md); border:1px solid var(--border-glass);">
-                <div style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-gray-400); text-transform:uppercase;">Perplexity Quality</div>
-                <div id="bench-ppl" style="font-size:1.4rem; font-weight:700; color:var(--accent-purple); margin-top:0.6rem;">14.2 ➔ 14.3 (&lt;0.8%)</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-500); margin-top:0.25rem;">Preserved accuracy</div>
+              <div class="photo-meta-item">
+                <i class="fa-solid fa-award"></i>
+                <span>Best Final Year Project Award &bull; IEEE Published</span>
               </div>
             </div>
           </div>
-
-          <div class="project-ctas" style="margin-top:2rem;">
-            <a href="https://doi.org/10.1109/ICNGCS64900.2025.11183217" target="_blank" class="btn-white-pill">
-              View on IEEE Xplore <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==========================================
-       ENGINEERING: Widescreen Systems Showcase
-       ========================================== -->
-  <section id="engineering" class="section-engineering">
-    <div class="site-container">
-      <span class="section-label">// FORWARD DEPLOYED & PRODUCTION AI</span>
-      <h2 class="section-title">Selected Engineering Systems</h2>
+  <!-- About Section -->
+  <section id="about" class="section">
+    <div class="container">
+      <span class="section-label">// BIOGRAPHY &amp; APPROACH</span>
+      <h2 class="section-title">Bridging AI Research &amp; Production Deployment</h2>
+      <p class="section-subtitle">
+        Turning complex customer and business requirements into resilient, measurable AI applications.
+      </p>
 
-      <!-- Project 01: Kinetiq UI -->
-      <article class="widescreen-project-card">
-        <div class="project-card-topbar">
-          <div class="project-index">01 / AI-POWERED DEVELOPER SAAS &bull; LIVE PRODUCT</div>
-          <div class="view-switcher-pill">
-            <button class="view-switch-btn active" data-view="overview">Overview</button>
-            <button class="view-switch-btn" data-view="architecture">Architecture</button>
+      <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:2.25rem; line-height:1.8; color:var(--text-secondary); font-size:1.02rem;">
+        <p style="margin-bottom:1.25rem;">
+          I specialize in <strong>Forward Deployed Engineering (FDE)</strong> and <strong>Generative AI</strong>. In industry, high accuracy on benchmarks is only half the battle—the true engineering challenge is deploying models that run efficiently with low latency, integrate cleanly with existing enterprise infrastructure, and deliver undeniable business return on investment.
+        </p>
+        <p style="margin-bottom:1.25rem;">
+          At <strong>Nunes Instruments</strong>, I independently translate operational requirements into production software—from building automated voice AI agents that handle customer inquiries after 6 PM and bi-directional Tamil–Hindi WebSocket translation, to searchable WhatsApp intelligence and automated ERP reporting pipelines.
+        </p>
+        <p>
+          On the research side, I authored <strong>Eco-Transformers</strong> (published at <strong>IEEE ICNGCS 2025</strong>), developing PyTorch forward hooks that perform runtime self-pruning and activation freezing in Large Language Models without requiring retraining, consistently reducing CO₂ emissions by 58% and accelerating inference by 56%.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="section">
+    <div class="container">
+      <span class="section-label">// WORK EXPERIENCE</span>
+      <h2 class="section-title">Professional Experience</h2>
+      <p class="section-subtitle">
+        Hands-on roles building production software, voice AI systems, and enterprise automation.
+      </p>
+
+      <div class="experience-timeline">
+        <!-- 1. Nunes Instruments -->
+        <article class="exp-card current">
+          <div class="exp-header">
+            <div>
+              <h3 class="exp-role-title">GenAI Executive &amp; Forward Deployed Engineer (FDE)</h3>
+              <div class="exp-company-row">
+                <span>Nunes Instruments</span>
+                <span class="exp-badge-current">Current Role</span>
+              </div>
+            </div>
+            <div class="exp-date">AUG 2026 – PRESENT</div>
           </div>
-        </div>
 
-        <div class="project-card-content">
-          <!-- Overview Panel -->
-          <div class="overview-panel">
-            <h3 class="project-main-heading">Kinetiq UI – AI-Powered Developer SaaS</h3>
-            <p class="project-main-desc">
-              Built and deployed an AI-powered developer SaaS platform featuring 145 production React components and 13 complete application templates using Next.js, TypeScript, and Cloudflare Pages. Integrated Claude LLM APIs for natural-language component search and real-time AI code modification.
+          <ul class="exp-bullets">
+            <li class="exp-bullet-item">
+              Independently turned business requirements into AI and internal software, designing, developing, integrating, and testing solutions using Python, TypeScript, and REST APIs.
+            </li>
+            <li class="exp-bullet-item">
+              Built an AI voice agent that answers calls after 6 PM and records caller details and enquiries for 9 AM next-day follow-up; developed real-time Tamil–Hindi voice translation using TypeScript and WebSockets.
+            </li>
+            <li class="exp-bullet-item">
+              Built stock management software and LLM/RAG document workflows; made WhatsApp chats searchable with Flask and automated daily ERP Excel reports in Python.
+            </li>
+          </ul>
+        </article>
+
+        <!-- 2. Forge Innovation & Ventures -->
+        <article class="exp-card">
+          <div class="exp-header">
+            <div>
+              <h3 class="exp-role-title">Innovation Engineer Trainee</h3>
+              <div class="exp-company-row">
+                <span>Forge Innovation &amp; Ventures, Coimbatore</span>
+              </div>
+            </div>
+            <div class="exp-date">JAN 2025 – JUL 2025</div>
+          </div>
+
+          <ul class="exp-bullets">
+            <li class="exp-bullet-item">
+              Developed an offline voice AI agent for inventory lookup using Whisper speech-to-text, FAISS semantic search, and a quantized local LLM to answer stock queries without internet.
+            </li>
+            <li class="exp-bullet-item">
+              Slashed manual warehouse stock-lookup duration by 45% across pilot deployments with zero internet dependency.
+            </li>
+            <li class="exp-bullet-item">
+              Rapidly prototyped edge AI integrations and applied startup incubation and product-market fit methodologies.
+            </li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section">
+    <div class="container">
+      <span class="section-label">// SELECTED WORKS</span>
+      <h2 class="section-title">Featured Engineering Projects</h2>
+      <p class="section-subtitle">
+        Production SaaS platforms, mobile vision applications, voice agents, and autonomous systems.
+      </p>
+
+      <div class="projects-grid">
+        <!-- 1. Kinetiq UI -->
+        <article class="project-card">
+          <div>
+            <div class="project-card-header">
+              <span class="project-tag-badge live">Live SaaS &bull; Claude LLM</span>
+            </div>
+            <h3 class="project-heading">Kinetiq UI — AI-Powered Developer SaaS</h3>
+            <p class="project-desc">
+              Full-scale developer SaaS with 145 production React components and 13 templates built using Next.js 15, TypeScript, and Cloudflare Pages.
             </p>
-
-            <ul class="project-specs-list">
-              <li class="project-spec-item">145 production React components &amp; 13 application templates deployed on Cloudflare Pages</li>
-              <li class="project-spec-item">Integrated Claude LLM APIs for AI code editing &amp; natural-language component search</li>
-              <li class="project-spec-item">Supabase Edge Functions &amp; PostgreSQL backend with auth, usage limits &amp; token-cost monitoring</li>
-              <li class="project-spec-item">Tailwind CSS v4 &amp; Motion animations with live interactive preview and instant developer workflows</li>
+            <ul class="project-highlights-list">
+              <li class="project-highlight-point">Integrated Claude LLM APIs for real-time natural language code editing and component search</li>
+              <li class="project-highlight-point">Supabase Edge Functions &amp; PostgreSQL with auth, rate limits, and token-cost tracking</li>
+              <li class="project-highlight-point">Live component previews with copy-paste CLI integration and dirty-state code saving</li>
             </ul>
-
-            <div class="tech-tags-cluster">
+          </div>
+          <div>
+            <div class="tech-pills-wrap">
               <span class="tech-pill">TypeScript</span>
               <span class="tech-pill">Next.js</span>
               <span class="tech-pill">React</span>
-              <span class="tech-pill">Claude LLM APIs</span>
+              <span class="tech-pill">Claude LLMs</span>
               <span class="tech-pill">Supabase</span>
               <span class="tech-pill">PostgreSQL</span>
               <span class="tech-pill">Cloudflare</span>
             </div>
-
-            <div class="project-ctas">
-              <a href="https://kinetiq-ui.com" target="_blank" class="btn-white-pill">
+            <div class="project-footer-actions">
+              <a href="https://kinetiq-ui.com" target="_blank" class="btn-primary btn-sm">
                 <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Product
               </a>
-              <a href="https://github.com/Sivanesanbalu" target="_blank" class="btn-glass-pill liquid-glass">
+              <a href="https://github.com/Sivanesanbalu" target="_blank" class="btn-secondary btn-sm">
                 <i class="fa-brands fa-github"></i> Repository
               </a>
             </div>
           </div>
+        </article>
 
-          <!-- Architecture Panel -->
-          <div class="architecture-panel">
-            <div style="font-size:0.8rem; font-family:var(--font-mono); color:var(--accent-purple); margin-bottom:1rem; text-transform:uppercase;">
-              Developer SaaS Architecture Blueprint
+        <!-- 2. AI Book Scanner -->
+        <article class="project-card">
+          <div>
+            <div class="project-card-header">
+              <span class="project-tag-badge live">92% Accuracy &bull; APK</span>
             </div>
-            <div style="display:flex; gap:0.75rem; align-items:center; overflow-x:auto; padding-bottom:0.5rem;">
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">FRONTEND</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">Next.js 15 &amp; React 19</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">Cloudflare Pages</div>
-              </div>
-              <div style="color:var(--accent-purple); font-size:1rem;">→</div>
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">AI ENGINE</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">Claude LLM APIs</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">Code editing &amp; search</div>
-              </div>
-              <div style="color:var(--accent-purple); font-size:1rem;">→</div>
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">EDGE BACKEND</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">Supabase Edge</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">Auth &amp; quotas</div>
-              </div>
-              <div style="color:var(--accent-purple); font-size:1rem;">→</div>
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">PERSISTENCE</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">PostgreSQL</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">Token monitoring</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Project 02: NUNES AI Live Call Translator -->
-      <article class="widescreen-project-card">
-        <div class="project-card-topbar">
-          <div class="project-index">02 / FORWARD DEPLOYED &bull; LIVE VOICE TRANSLATOR &bull; ANDROID APK</div>
-          <div class="view-switcher-pill">
-            <button class="view-switch-btn active" data-view="overview">Overview</button>
-            <button class="view-switch-btn" data-view="simulator">Live Simulator</button>
-            <button class="view-switch-btn" data-view="architecture">Architecture</button>
-          </div>
-        </div>
-
-        <div class="project-card-content">
-          <!-- Overview Panel -->
-          <div class="overview-panel">
-            <h3 class="project-main-heading">NUNES AI Live Call Translator (Tamil ↔ Hindi)</h3>
-            <p class="project-main-desc">
-              AI-powered real-time Tamil↔Hindi voice call translation application engineered for seamless multilingual enterprise communication. Applied Forward Deployed Engineering principles to design and implement an ultra-low-latency bidirectional speech processing pipeline (STT → Translation → TTS).
+            <h3 class="project-heading">AI Book Scanner (ConvNeXt + Vision LLM)</h3>
+            <p class="project-desc">
+              Flutter mobile book recognition application leveraging custom fine-tuned ConvNeXt and high-throughput FastAPI inference microservice.
             </p>
-
-            <ul class="project-specs-list">
-              <li class="project-spec-item">Bidirectional speech translation with Sarvam AI & Plivo Voice API</li>
-              <li class="project-spec-item">High-throughput Fastify WebSocket audio streaming engine</li>
-              <li class="project-spec-item">Live interactive transcripts, contact sync & call history</li>
-              <li class="project-spec-item">PostgreSQL persistence with sub-second real-time latency</li>
+            <ul class="project-highlights-list">
+              <li class="project-highlight-point">Fine-tuned ConvNeXt model achieving 92% recognition accuracy across 1,000+ test images</li>
+              <li class="project-highlight-point">FastAPI inference engine designed for 100+ concurrent requests with sub-second latency</li>
+              <li class="project-highlight-point">FAISS vector search combined with Vision LLMs for semantic book context and discovery</li>
             </ul>
-
-            <div class="tech-tags-cluster">
-              <span class="tech-pill">Kotlin</span>
-              <span class="tech-pill">Jetpack Compose</span>
-              <span class="tech-pill">Plivo Voice API</span>
-              <span class="tech-pill">Sarvam AI</span>
-              <span class="tech-pill">TypeScript</span>
-              <span class="tech-pill">Fastify</span>
-              <span class="tech-pill">WebSocket</span>
-              <span class="tech-pill">PostgreSQL</span>
-            </div>
-
-            <div class="project-ctas">
-              <a href="https://github.com/Sivanesanbalu/Live_Phone_Call_Translate" target="_blank" class="btn-white-pill">
-                <i class="fa-brands fa-github"></i> Source Code
-              </a>
-              <a href="https://github.com/Sivanesanbalu/Live_Phone_Call_Translate" target="_blank" class="btn-glass-pill liquid-glass">
-                <i class="fa-solid fa-mobile-screen"></i> Android APK
-              </a>
-            </div>
           </div>
-
-          <!-- Live Simulator Panel -->
-          <div class="simulator-panel">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
-              <div style="font-size:0.85rem; font-family:var(--font-mono); color:var(--accent-emerald); display:flex; align-items:center; gap:0.5rem;">
-                <span style="width:8px; height:8px; border-radius:50%; background:var(--accent-emerald); display:inline-block;"></span>
-                LIVE CALL AUDIO SIMULATION
-              </div>
-              <div style="font-size:0.85rem; font-family:var(--font-mono); color:var(--text-gray-400);">
-                E2E Pipeline Latency: <strong id="sim-latency-badge" style="color:var(--accent-cyan);">Ready</strong>
-              </div>
-            </div>
-
-            <canvas id="sim-canvas" style="width:100%; height:42px; background:rgba(0,0,0,0.5); border-radius:var(--radius-sm); margin-bottom:1.5rem; display:block;"></canvas>
-
-            <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:1rem; align-items:center; margin-bottom:1.5rem;">
-              <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); border-radius:var(--radius-md); padding:1rem;">
-                <div style="font-size:0.75rem; font-family:var(--font-mono); color:var(--accent-cyan); margin-bottom:0.4rem;">Tamil Speaker (ta-IN)</div>
-                <div style="font-size:0.95rem; color:#fff;">“வணக்கம், இந்த சாதனத்தின் விலை மற்றும் கிடைக்கும் விவரங்கள் சொல்லுங்கள்.”</div>
-              </div>
-              <div style="color:var(--accent-cyan); font-size:1.25rem;"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
-              <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); border-radius:var(--radius-md); padding:1rem;">
-                <div style="font-size:0.75rem; font-family:var(--font-mono); color:var(--accent-purple); margin-bottom:0.4rem;">Hindi Receiver (hi-IN)</div>
-                <div style="font-size:0.95rem; color:var(--accent-cyan);">“नमस्ते, इस उपकरण की कीमत और उपलब्धता बताइए।”</div>
-              </div>
-            </div>
-
-            <!-- Pipeline Latency Breakdown -->
-            <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:0.75rem; margin-bottom:1.5rem;">
-              <div id="sim-st-1" style="background:rgba(255,255,255,0.02); border:1px solid var(--border-glass); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <div style="font-size:0.7rem; color:var(--text-gray-400);">1. Plivo Ingress</div>
-                <div style="font-size:0.9rem; font-family:var(--font-mono); color:var(--accent-cyan); font-weight:700;">22 ms</div>
-              </div>
-              <div id="sim-st-2" style="background:rgba(255,255,255,0.02); border:1px solid var(--border-glass); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <div style="font-size:0.7rem; color:var(--text-gray-400);">2. Sarvam STT</div>
-                <div style="font-size:0.9rem; font-family:var(--font-mono); color:var(--accent-cyan); font-weight:700;">118 ms</div>
-              </div>
-              <div id="sim-st-3" style="background:rgba(255,255,255,0.02); border:1px solid var(--border-glass); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <div style="font-size:0.7rem; color:var(--text-gray-400);">3. Translation</div>
-                <div style="font-size:0.9rem; font-family:var(--font-mono); color:var(--accent-cyan); font-weight:700;">84 ms</div>
-              </div>
-              <div id="sim-st-4" style="background:rgba(255,255,255,0.02); border:1px solid var(--border-glass); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <div style="font-size:0.7rem; color:var(--text-gray-400);">4. Sarvam TTS</div>
-                <div style="font-size:0.9rem; font-family:var(--font-mono); color:var(--accent-cyan); font-weight:700;">132 ms</div>
-              </div>
-            </div>
-
-            <div style="display:flex; gap:1rem; align-items:center; flex-wrap:wrap;">
-              <button id="sim-play-btn" class="btn-white-pill">
-                <i class="fa-solid fa-play"></i> Simulate Live Call Audio
-              </button>
-              <button id="sim-tel-btn" class="btn-glass-pill liquid-glass">
-                View WebSocket Frame
-              </button>
-            </div>
-
-            <pre id="sim-tel-box" style="display:none; margin-top:1.25rem; padding:1rem; background:#000; border-radius:var(--radius-sm); border:1px solid var(--border-glass); font-family:var(--font-mono); font-size:0.78rem; color:var(--accent-cyan); overflow-x:auto;">
-{
-  "event": "media_chunk",
-  "direction": "ta-IN ➔ hi-IN",
-  "telephony_ingress_ms": 22,
-  "sarvam_saaras_stt_ms": 118,
-  "neural_translation_ms": 84,
-  "sarvam_bulbul_tts_ms": 132,
-  "total_e2e_ms": 356,
-  "transcript_source": "வணக்கம், இந்த சாதனத்தின் விலை மற்றும் கிடைக்கும் விவரங்கள் சொல்லுங்கள்.",
-  "transcript_target": "नमस्ते, इस उपकरण की कीमत और उपलब्धता बताइए।"
-}</pre>
-          </div>
-
-          <!-- Architecture Blueprint Panel -->
-          <div class="architecture-panel">
-            <div style="font-size:0.8rem; font-family:var(--font-mono); color:var(--accent-purple); margin-bottom:1rem; text-transform:uppercase;">
-              System Architecture Blueprint
-            </div>
-            <div style="display:flex; gap:0.75rem; align-items:center; overflow-x:auto; padding-bottom:0.5rem;">
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">CLIENT LAYER</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">Kotlin Compose</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">Android Native</div>
-              </div>
-              <div style="color:var(--accent-purple); font-size:1rem;">→</div>
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">STREAMING</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">Fastify WS</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">TypeScript & Node</div>
-              </div>
-              <div style="color:var(--accent-purple); font-size:1rem;">→</div>
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">PIPELINE</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">Sarvam AI</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">STT ➔ Trans ➔ TTS</div>
-              </div>
-              <div style="color:var(--accent-purple); font-size:1rem;">→</div>
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">PERSISTENCE</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">PostgreSQL</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">Call logs & transcripts</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Project 03: AI Book Scanner -->
-      <article class="widescreen-project-card">
-        <div class="project-card-topbar">
-          <div class="project-index">03 / COMPUTER VISION &bull; CONVNEXT + FASTAPI</div>
-          <div class="view-switcher-pill">
-            <button class="view-switch-btn active" data-view="overview">Overview</button>
-            <button class="view-switch-btn" data-view="architecture">Architecture</button>
-          </div>
-        </div>
-
-        <div class="project-card-content">
-          <div class="overview-panel">
-            <h3 class="project-main-heading">AI Book Scanner (ConvNeXt + Vision LLM)</h3>
-            <p class="project-main-desc">
-              Flutter-based AI book recognition app using custom fine-tuned ConvNeXt, achieving 92% detection accuracy across 1,000+ test images. Powered by a FastAPI inference microservice designed for 100+ concurrent users with FAISS semantic retrieval and VLM contextual summaries.
-            </p>
-
-            <ul class="project-specs-list">
-              <li class="project-spec-item">Fine-tuned ConvNeXt model achieving 92% detection accuracy</li>
-              <li class="project-spec-item">FastAPI inference service handling 100+ concurrent requests</li>
-              <li class="project-spec-item">FAISS vector search for instant semantic book discovery</li>
-              <li class="project-spec-item">Vision-Language Model integration for intelligent summaries</li>
-            </ul>
-
-            <div class="tech-tags-cluster">
+          <div>
+            <div class="tech-pills-wrap">
               <span class="tech-pill">Flutter</span>
               <span class="tech-pill">FastAPI</span>
               <span class="tech-pill">PyTorch</span>
@@ -526,577 +343,494 @@
               <span class="tech-pill">VLM / LLM</span>
               <span class="tech-pill">Firebase</span>
             </div>
-
-            <div class="project-ctas">
-              <a href="https://github.com/Sivanesanbalu/Book_AI_Backend" target="_blank" class="btn-white-pill">
-                <i class="fa-brands fa-github"></i> Backend Repo
-              </a>
-              <a href="https://drive.google.com/drive/folders/1C4PsqlBLHErwGyNsTHzbXRFGzT6zTGnS" target="_blank" class="btn-glass-pill liquid-glass">
+            <div class="project-footer-actions">
+              <a href="https://drive.google.com/drive/folders/1C4PsqlBLHErwGyNsTHzbXRFGzT6zTGnS" target="_blank" class="btn-primary btn-sm">
                 <i class="fa-solid fa-mobile-screen"></i> APK Demo
               </a>
+              <a href="https://github.com/Sivanesanbalu/Book_AI_Backend" target="_blank" class="btn-secondary btn-sm">
+                <i class="fa-brands fa-github"></i> Backend Code
+              </a>
             </div>
           </div>
+        </article>
 
-          <div class="architecture-panel">
-            <div style="font-size:0.8rem; font-family:var(--font-mono); color:var(--accent-purple); margin-bottom:1rem; text-transform:uppercase;">
-              Vision & Retrieval Architecture
+        <!-- 3. Enterprise Voice AI & Call Translator -->
+        <article class="project-card">
+          <div>
+            <div class="project-card-header">
+              <span class="project-tag-badge">Voice AI &bull; Nunes Instruments</span>
             </div>
-            <div style="display:flex; gap:0.75rem; align-items:center; overflow-x:auto; padding-bottom:0.5rem;">
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">APP</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">Flutter Mobile</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">Camera capture</div>
-              </div>
-              <div style="color:var(--accent-purple); font-size:1rem;">→</div>
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">API</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">FastAPI Engine</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">100+ concurrent</div>
-              </div>
-              <div style="color:var(--accent-purple); font-size:1rem;">→</div>
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">MODEL</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">ConvNeXt (92%)</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">Embedding gen</div>
-              </div>
-              <div style="color:var(--accent-purple); font-size:1rem;">→</div>
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">VECTOR SEARCH</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">FAISS + VLM</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">&lt;8ms lookup</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Project 04: WhatsApp Business Intelligence & ERP -->
-      <article class="widescreen-project-card">
-        <div class="project-card-topbar">
-          <div class="project-index">04 / FORWARD DEPLOYED AUTOMATION &bull; NUNES INSTRUMENTS</div>
-          <div class="view-switcher-pill">
-            <button class="view-switch-btn active" data-view="overview">Overview</button>
-            <button class="view-switch-btn" data-view="architecture">Architecture</button>
-          </div>
-        </div>
-
-        <div class="project-card-content">
-          <div class="overview-panel">
-            <h3 class="project-main-heading">WhatsApp BI & Automated ERP Reporting</h3>
-            <p class="project-main-desc">
-              Forward Deployed AI automation built for Nunes Instruments. Combines a Flask-based WhatsApp business-intelligence dashboard that turns unstructured customer chat exports into searchable insights with automated Python ERP-based Excel reporting, eliminating manual daily preparation.
+            <h3 class="project-heading">Enterprise AI Voice Agent &amp; Call Translator</h3>
+            <p class="project-desc">
+              Telephony AI system automating customer operations after 6 PM, combined with real-time bidirectional Tamil–Hindi voice translation.
             </p>
-
-            <ul class="project-specs-list">
-              <li class="project-spec-item">Information extraction & classification from unstructured chat exports</li>
-              <li class="project-spec-item">Automated ERP-based Excel reporting in Python (100% manual labor cut)</li>
-              <li class="project-spec-item">Fast historical search archive with interactive Flask dashboard</li>
-              <li class="project-spec-item">REST API integration with internal CRM endpoints</li>
+            <ul class="project-highlights-list">
+              <li class="project-highlight-point">Answers after-hours calls, recording caller details and enquiries for 9 AM next-day follow-up</li>
+              <li class="project-highlight-point">Bidirectional Tamil–Hindi voice translation using TypeScript and full-duplex WebSockets</li>
+              <li class="project-highlight-point">Directly integrated into corporate CRM and telephony dispatch infrastructure</li>
             </ul>
-
-            <div class="tech-tags-cluster">
+          </div>
+          <div>
+            <div class="tech-pills-wrap">
+              <span class="tech-pill">TypeScript</span>
+              <span class="tech-pill">WebSockets</span>
               <span class="tech-pill">Python</span>
-              <span class="tech-pill">Flask</span>
-              <span class="tech-pill">Prompt Engineering</span>
-              <span class="tech-pill">SQLite</span>
+              <span class="tech-pill">Voice AI</span>
               <span class="tech-pill">REST APIs</span>
-              <span class="tech-pill">ERP Automation</span>
+              <span class="tech-pill">PostgreSQL</span>
             </div>
-
-            <div class="project-ctas">
-              <a href="https://github.com/Sivanesanbalu/whatsapp_crm" target="_blank" class="btn-white-pill">
+            <div class="project-footer-actions">
+              <a href="https://github.com/Sivanesanbalu/Live_Phone_Call_Translate" target="_blank" class="btn-secondary btn-sm">
                 <i class="fa-brands fa-github"></i> Repository
               </a>
             </div>
           </div>
+        </article>
 
-          <div class="architecture-panel">
-            <div style="font-size:0.8rem; font-family:var(--font-mono); color:var(--accent-purple); margin-bottom:1rem; text-transform:uppercase;">
-              Enterprise Automation Pipeline
-            </div>
-            <div style="display:flex; gap:0.75rem; align-items:center; overflow-x:auto; padding-bottom:0.5rem;">
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">INGESTION</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">WhatsApp Exports</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">Raw chat logs</div>
-              </div>
-              <div style="color:var(--accent-purple); font-size:1rem;">→</div>
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">PARSER</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">NLP & Regex</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">Quote extraction</div>
-              </div>
-              <div style="color:var(--accent-purple); font-size:1rem;">→</div>
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">INDEX</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">Flask & SQLite</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">Searchable archive</div>
-              </div>
-              <div style="color:var(--accent-purple); font-size:1rem;">→</div>
-              <div style="flex:1; min-width:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md); text-align:center;">
-                <div style="font-size:0.7rem; font-family:var(--font-mono); color:var(--accent-cyan);">ERP OUTPUT</div>
-                <div style="font-size:0.9rem; font-weight:600; margin-top:0.25rem;">Automated Excel</div>
-                <div style="font-size:0.75rem; color:var(--text-gray-400);">Daily reports</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Expandable Trigger: Top 10 Engineering Repositories -->
-      <div class="expand-repos-wrapper">
-        <button id="toggle-more-repos-btn">
-          <i class="fa-brands fa-github" style="color: var(--accent-cyan);"></i>
-          <span>Explore 7 More Engineering Repositories (Top 10)</span>
-          <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 0.5rem;"></i>
-        </button>
-      </div>
-
-      <!-- Hidden Container: Remaining 7 of Top 10 -->
-      <div id="more-repos-container" class="more-repos-grid">
-
-        <!-- 04: VoiceForge-AI -->
-        <div class="more-repo-card">
+        <!-- 4. WhatsApp BI & ERP Automation -->
+        <article class="project-card">
           <div>
-            <div class="more-repo-header">
-              <span class="more-repo-index">04 / VOICE AI &bull; SAAS CONTROL PLANE</span>
-              <span style="font-size:0.75rem; color:var(--text-gray-400);"><i class="fa-solid fa-code-branch"></i> SaaS</span>
+            <div class="project-card-header">
+              <span class="project-tag-badge">Business Automation</span>
             </div>
-            <h4 class="more-repo-title">VoiceForge AI</h4>
-            <p class="more-repo-desc">
-              Multilingual voice-agent control plane SaaS platform built with Next.js, Vapi Voice AI &amp; PostgreSQL for provisioning, orchestrating, and analyzing conversational AI voice agents.
+            <h3 class="project-heading">WhatsApp Intelligence &amp; ERP Automation</h3>
+            <p class="project-desc">
+              GenAI automation system converting unstructured customer chat exports into structured business archives and automated management reports.
             </p>
-            <div class="tech-tags-cluster" style="margin-bottom:1rem;">
-              <span class="tech-pill">Next.js</span>
-              <span class="tech-pill">TypeScript</span>
-              <span class="tech-pill">Vapi Voice AI</span>
-              <span class="tech-pill">PostgreSQL</span>
-              <span class="tech-pill">TailwindCSS</span>
-            </div>
+            <ul class="project-highlights-list">
+              <li class="project-highlight-point">Extracted product names, prices, and quotations into structured SQLite database</li>
+              <li class="project-highlight-point">Made historical conversations instantly searchable with an interactive Flask dashboard</li>
+              <li class="project-highlight-point">Automated daily ERP Excel reports with Python openpyxl, eliminating hours of manual work</li>
+            </ul>
           </div>
-          <div class="more-repo-footer">
-            <a href="https://github.com/Sivanesanbalu/VoiceForge-AI" target="_blank" class="more-repo-link">
-              View Repository <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- 05: RAG Offline Inventory System -->
-        <div class="more-repo-card">
           <div>
-            <div class="more-repo-header">
-              <span class="more-repo-index">05 / ON-DEVICE AI &bull; FORGE INNOVATION</span>
-              <span style="font-size:0.75rem; color:var(--accent-emerald);"><i class="fa-solid fa-bolt"></i> 100% Offline</span>
+            <div class="tech-pills-wrap">
+              <span class="tech-pill">Python</span>
+              <span class="tech-pill">Flask</span>
+              <span class="tech-pill">SQLite</span>
+              <span class="tech-pill">openpyxl</span>
+              <span class="tech-pill">RAG Workflows</span>
+              <span class="tech-pill">Document AI</span>
             </div>
-            <h4 class="more-repo-title">RAG Offline Voice Inventory Assistant</h4>
-            <p class="more-repo-desc">
-              100% offline edge voice assistant for warehouse stock retrieval utilizing Whisper STT, a quantized local Qwen LLM, and FAISS semantic search running completely on-device without internet.
+            <div class="project-footer-actions">
+              <a href="https://github.com/Sivanesanbalu" target="_blank" class="btn-secondary btn-sm">
+                <i class="fa-brands fa-github"></i> Repository
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Offline Voice Assistant -->
+        <article class="project-card">
+          <div>
+            <div class="project-card-header">
+              <span class="project-tag-badge">Edge AI &bull; Zero Internet</span>
+            </div>
+            <h3 class="project-heading">Offline Voice AI Agent (Whisper + Local LLM)</h3>
+            <p class="project-desc">
+              On-device voice assistant for warehouse inventory management built at Forge Innovation &amp; Ventures for air-gapped environments.
             </p>
-            <div class="tech-tags-cluster" style="margin-bottom:1rem;">
+            <ul class="project-highlights-list">
+              <li class="project-highlight-point">Runs local Whisper STT, FAISS vector search, and quantized LLM completely on-device</li>
+              <li class="project-highlight-point">Zero cloud dependency ensuring absolute data privacy and offline operability</li>
+              <li class="project-highlight-point">Slashed manual warehouse stock lookup duration by 45% during pilot testing</li>
+            </ul>
+          </div>
+          <div>
+            <div class="tech-pills-wrap">
               <span class="tech-pill">Python</span>
               <span class="tech-pill">Whisper STT</span>
-              <span class="tech-pill">Qwen LLM</span>
               <span class="tech-pill">FAISS</span>
-              <span class="tech-pill">PyTorch</span>
+              <span class="tech-pill">Quantized LLM</span>
+              <span class="tech-pill">RAG</span>
+              <span class="tech-pill">Edge AI</span>
+            </div>
+            <div class="project-footer-actions">
+              <a href="https://github.com/Sivanesanbalu/RAG-Offline-Inventory-Management-System.git" target="_blank" class="btn-secondary btn-sm">
+                <i class="fa-brands fa-github"></i> Repository
+              </a>
             </div>
           </div>
-          <div class="more-repo-footer">
-            <a href="https://github.com/Sivanesanbalu/RAG-Offline-Inventory-Management-System" target="_blank" class="more-repo-link">
-              View Repository <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
+        </article>
 
-        <!-- 06: AI_AGENT Workflow Platform -->
-        <div class="more-repo-card">
+        <!-- 6. TestPilot AI -->
+        <article class="project-card">
           <div>
-            <div class="more-repo-header">
-              <span class="more-repo-index">06 / AGENTIC WORKFLOWS &bull; ORCHESTRATION</span>
-              <span style="font-size:0.75rem; color:var(--text-gray-400);"><i class="fa-solid fa-robot"></i> Multi-Agent</span>
+            <div class="project-card-header">
+              <span class="project-tag-badge">Agentic AI</span>
             </div>
-            <h4 class="more-repo-title">AI Agent Workflow Platform</h4>
-            <p class="more-repo-desc">
-              Full-stack event-driven AI workflow orchestration platform built with Next.js 16, Inngest background event pipelines, Drizzle ORM, PostgreSQL &amp; autonomous job discovery agents.
+            <h3 class="project-heading">TestPilot AI — Autonomous QA Engineer</h3>
+            <p class="project-desc">
+              Production autonomous AI testing agent platform performing UI, API, accessibility, and security analysis with root-cause bug diagnosis.
             </p>
-            <div class="tech-tags-cluster" style="margin-bottom:1rem;">
-              <span class="tech-pill">Next.js 16</span>
-              <span class="tech-pill">Inngest</span>
-              <span class="tech-pill">Drizzle ORM</span>
-              <span class="tech-pill">TypeScript</span>
+            <ul class="project-highlights-list">
+              <li class="project-highlight-point">Multi-agent orchestration for end-to-end software test execution and verification</li>
+              <li class="project-highlight-point">Automated bug reproduction steps, failure stack trace analysis, and severity scoring</li>
+              <li class="project-highlight-point">Integrated security checks and WCAG accessibility compliance evaluation</li>
+            </ul>
+          </div>
+          <div>
+            <div class="tech-pills-wrap">
+              <span class="tech-pill">Python</span>
+              <span class="tech-pill">LangChain</span>
+              <span class="tech-pill">LangGraph</span>
+              <span class="tech-pill">Groq</span>
               <span class="tech-pill">PostgreSQL</span>
+              <span class="tech-pill">AI Agents</span>
+            </div>
+            <div class="project-footer-actions">
+              <a href="https://github.com/Sivanesanbalu/testpilot-ai" target="_blank" class="btn-secondary btn-sm">
+                <i class="fa-brands fa-github"></i> Repository
+              </a>
             </div>
           </div>
-          <div class="more-repo-footer">
-            <a href="https://github.com/Sivanesanbalu/AI_AGENT" target="_blank" class="more-repo-link">
-              View Repository <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- 07: Healthcare Claims Platform -->
-        <div class="more-repo-card">
-          <div>
-            <div class="more-repo-header">
-              <span class="more-repo-index">07 / HEALTHCARE AI &bull; FRAUD DETECTION</span>
-              <span style="font-size:0.75rem; color:var(--text-gray-400);"><i class="fa-solid fa-heart-pulse"></i> ML Pipeline</span>
-            </div>
-            <h4 class="more-repo-title">Healthcare Claims Intelligence Platform</h4>
-            <p class="more-repo-desc">
-              End-to-end healthcare claims analysis, feature engineering, and fraud detection classification platform featuring FastAPI backend microservices and interactive analytical dashboards.
-            </p>
-            <div class="tech-tags-cluster" style="margin-bottom:1rem;">
-              <span class="tech-pill">Python</span>
-              <span class="tech-pill">FastAPI</span>
-              <span class="tech-pill">scikit-learn</span>
-              <span class="tech-pill">React</span>
-              <span class="tech-pill">Pandas</span>
-            </div>
-          </div>
-          <div class="more-repo-footer">
-            <a href="https://github.com/Sivanesanbalu/Healthcare-Claims-Intelligence-Platform" target="_blank" class="more-repo-link">
-              View Repository <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- 08: AI Recruiter + Vision Proctoring -->
-        <div class="more-repo-card">
-          <div>
-            <div class="more-repo-header">
-              <span class="more-repo-index">08 / VOICE AI + COMPUTER VISION</span>
-              <span style="font-size:0.75rem; color:var(--text-gray-400);"><i class="fa-solid fa-eye"></i> 30 FPS CV</span>
-            </div>
-            <h4 class="more-repo-title">AI Recruiter &amp; Vision Proctoring</h4>
-            <p class="more-repo-desc">
-              Real-time voice interview platform with dynamic question generation, candidate scoring, and 30 FPS (&lt;50ms) in-browser BlazeFace computer vision anti-cheating proctoring.
-            </p>
-            <div class="tech-tags-cluster" style="margin-bottom:1rem;">
-              <span class="tech-pill">Next.js</span>
-              <span class="tech-pill">Vapi AI</span>
-              <span class="tech-pill">OpenRouter</span>
-              <span class="tech-pill">BlazeFace</span>
-              <span class="tech-pill">WebRTC</span>
-            </div>
-          </div>
-          <div class="more-repo-footer">
-            <a href="https://github.com/Sivanesanbalu/AI_Voice_Recruiter" target="_blank" class="more-repo-link">
-              View Repository <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- 09: Nunes Indeed ATS -->
-        <div class="more-repo-card">
-          <div>
-            <div class="more-repo-header">
-              <span class="more-repo-index">09 / RECRUITMENT AUTOMATION &bull; ATS</span>
-              <span style="font-size:0.75rem; color:var(--text-gray-400);"><i class="fa-solid fa-envelope-open-text"></i> Automated</span>
-            </div>
-            <h4 class="more-repo-title">Nunes Indeed ATS Pipeline</h4>
-            <p class="more-repo-desc">
-              Production-ready ATS and candidate recruitment pipeline with automated scheduled interview dispatch, executive HTML templates, and seamless ATS integration.
-            </p>
-            <div class="tech-tags-cluster" style="margin-bottom:1rem;">
-              <span class="tech-pill">Python</span>
-              <span class="tech-pill">REST APIs</span>
-              <span class="tech-pill">HTML5</span>
-              <span class="tech-pill">Vercel</span>
-              <span class="tech-pill">Node.js</span>
-            </div>
-          </div>
-          <div class="more-repo-footer">
-            <a href="https://github.com/Sivanesanbalu/nunes-indeed-ats" target="_blank" class="more-repo-link">
-              View Repository <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- 10: LLM Fine-Tuning -->
-        <div class="more-repo-card">
-          <div>
-            <div class="more-repo-header">
-              <span class="more-repo-index">10 / DEEP LEARNING &bull; PEFT / LORA</span>
-              <span style="font-size:0.75rem; color:var(--accent-purple);"><i class="fa-solid fa-sliders"></i> LoRA / QLoRA</span>
-            </div>
-            <h4 class="more-repo-title">LLM Domain Fine-Tuning &amp; Quantization</h4>
-            <p class="more-repo-desc">
-              Parameter-efficient LLM fine-tuning using LoRA, QLoRA, and PEFT on Hugging Face transformers, optimizing localized language models for high-efficiency enterprise tasks.
-            </p>
-            <div class="tech-tags-cluster" style="margin-bottom:1rem;">
-              <span class="tech-pill">PyTorch</span>
-              <span class="tech-pill">Hugging Face</span>
-              <span class="tech-pill">LoRA</span>
-              <span class="tech-pill">QLoRA</span>
-              <span class="tech-pill">PEFT</span>
-            </div>
-          </div>
-          <div class="more-repo-footer">
-            <a href="https://github.com/Sivanesanbalu/LLM--Fine-Tune-Your-OwnLanguage-Assistant" target="_blank" class="more-repo-link">
-              View Repository <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ==========================================
-       TOOLKIT: Core Technical Matrix
-       ========================================== -->
-  <section id="toolkit" style="padding-block: 6rem; background: var(--bg-black); border-top: 1px solid var(--border-glass);">
-    <div class="site-container">
-      <span class="section-label">// TECHNICAL CAPABILITIES</span>
-      <h2 class="section-title">Core Toolkit & Systems</h2>
+  <!-- Research & Publications Section -->
+  <section id="research" class="section">
+    <div class="container">
+      <span class="section-label">// PEER-REVIEWED SCHOLARSHIP</span>
+      <h2 class="section-title">Publications &amp; Awards</h2>
+      <p class="section-subtitle">
+        Academic research in carbon-efficient deep learning and model inference optimization.
+      </p>
 
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:2rem;">
-        <div style="border:1px solid var(--border-glass); border-radius:var(--radius-lg); padding:2rem; background:rgba(255,255,255,0.02);">
-          <div style="font-size:1.15rem; font-weight:600; margin-bottom:1.25rem; color:#fff;">AI &amp; LLM Engineering</div>
-          <div class="tech-tags-cluster">
-            <span class="tech-pill">Generative AI</span>
-            <span class="tech-pill">LLM APIs (Claude / OpenAI)</span>
-            <span class="tech-pill">RAG Workflows</span>
-            <span class="tech-pill">Agentic AI &amp; AI Agents</span>
-            <span class="tech-pill">Voice AI</span>
-            <span class="tech-pill">Prompt Engineering</span>
-            <span class="tech-pill">Embeddings &amp; FAISS</span>
-            <span class="tech-pill">LLM Evaluation</span>
+      <article class="research-card">
+        <div class="research-meta-badges">
+          <span class="badge-pill ieee"><i class="fa-solid fa-certificate"></i> IEEE ICNGCS 2025</span>
+          <span class="badge-pill award"><i class="fa-solid fa-trophy"></i> Best Final Year Project Award</span>
+          <span class="badge-pill green"><i class="fa-solid fa-leaf"></i> Sustainable AI</span>
+        </div>
+
+        <h3 class="research-title">
+          Eco-Transformers: Carbon-Efficient and Accelerated Inference through Self-Pruning and Activation Freezing in LLMs
+        </h3>
+
+        <div class="research-authors">
+          <strong>Sivanesan B</strong>, Shriaarthy E, Sangeetha S, Niranjana R S, Rohini R, Vijayalakshmi N
+        </div>
+
+        <div class="research-meta-box">
+          <div><strong>Conference:</strong> 3rd International Conference on Next Generation Computing Systems (IEEE ICNGCS 2025)</div>
+          <div><strong>Venue:</strong> PSG iTech, Coimbatore, India | August 2025</div>
+          <div><strong>Publisher &amp; DOI:</strong> IEEE | <code>10.1109/ICNGCS64900.2025.11183217</code></div>
+          <div><strong>Honors:</strong> Best Final Year Project Award – Department of Artificial Intelligence &amp; Data Science, KCT</div>
+        </div>
+
+        <p class="research-abstract">
+          Large Language Models require immense computational power, leading to high latency and heavy carbon emissions. We introduce <strong>Eco-Transformers</strong>, a novel runtime optimization framework implementing PyTorch forward hooks that dynamically masks low-magnitude weights and freezes near-zero activations at runtime without requiring retraining or modifying model architecture. Evaluated on Falcon-RW-1B, GPT-Neo-1.3B, OPT-1.3B, and GPT2-XL, Eco-Transformers consistently reduced CO₂ emissions by up to 58% and accelerated inference by 56% while preserving accuracy.
+        </p>
+
+        <div class="research-stats-grid">
+          <div class="res-stat-box">
+            <div class="res-stat-val" style="color:var(--accent-emerald);">58%</div>
+            <div class="res-stat-label">CO₂ Emission Reduction</div>
+          </div>
+          <div class="res-stat-box">
+            <div class="res-stat-val" style="color:var(--accent-cyan);">56%</div>
+            <div class="res-stat-label">Faster Inference Speedup</div>
+          </div>
+          <div class="res-stat-box">
+            <div class="res-stat-val" style="color:#ffffff;">0 Retraining</div>
+            <div class="res-stat-label">Zero Fine-Tuning Overhead</div>
+          </div>
+          <div class="res-stat-box">
+            <div class="res-stat-val" style="color:var(--accent-purple);">&lt;0.8%</div>
+            <div class="res-stat-label">Perplexity Preserved</div>
           </div>
         </div>
 
-        <div style="border:1px solid var(--border-glass); border-radius:var(--radius-lg); padding:2rem; background:rgba(255,255,255,0.02);">
-          <div style="font-size:1.15rem; font-weight:600; margin-bottom:1.25rem; color:var(--accent-cyan);">Forward Deployed Engineering</div>
-          <div class="tech-tags-cluster">
-            <span class="tech-pill">AI Solution Development</span>
-            <span class="tech-pill">Business Requirements</span>
-            <span class="tech-pill">Business Automation</span>
-            <span class="tech-pill">API &amp; System Integration</span>
-            <span class="tech-pill">Model Deployment</span>
-            <span class="tech-pill">ERP Excel Automations</span>
-            <span class="tech-pill">WebSockets &amp; Real-Time</span>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+          <a href="https://doi.org/10.1109/ICNGCS64900.2025.11183217" target="_blank" class="btn-primary">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> View on IEEE Xplore
+          </a>
+          <button id="btn-copy-cite" class="btn-secondary">
+            <i class="fa-solid fa-quote-right"></i> Copy BibTeX Citation
+          </button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Technical Skills Section -->
+  <section id="skills" class="section">
+    <div class="container">
+      <span class="section-label">// CORE COMPETENCIES</span>
+      <h2 class="section-title">Technical Toolkit</h2>
+      <p class="section-subtitle">
+        Languages, frameworks, and tools applied across AI engineering, systems, and cloud.
+      </p>
+
+      <div class="skills-grid">
+        <!-- 1. Programming Languages -->
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon"><i class="fa-solid fa-code"></i></div>
+            <div class="skill-cat-title">Programming</div>
+          </div>
+          <div class="skill-items-wrap">
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/python/3776AB" width="14" alt=""> Python</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/typescript/3178C6" width="14" alt=""> TypeScript</span>
+            <span class="skill-item-pill"><i class="fa-solid fa-database" style="color:var(--accent-cyan);"></i> SQL</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/flutter/02569B" width="14" alt=""> Flutter / Dart</span>
           </div>
         </div>
 
-        <div style="border:1px solid var(--border-glass); border-radius:var(--radius-lg); padding:2rem; background:rgba(255,255,255,0.02);">
-          <div style="font-size:1.15rem; font-weight:600; margin-bottom:1.25rem; color:#fff;">Machine Learning &amp; Vision</div>
-          <div class="tech-tags-cluster">
-            <span class="tech-pill">PyTorch</span>
-            <span class="tech-pill">TensorFlow</span>
-            <span class="tech-pill">Computer Vision</span>
-            <span class="tech-pill">ConvNeXt</span>
-            <span class="tech-pill">NLP</span>
-            <span class="tech-pill">Model Optimization</span>
-            <span class="tech-pill">Fine-tuning (LoRA / QLoRA)</span>
-            <span class="tech-pill">Quantization</span>
+        <!-- 2. AI & LLM Engineering -->
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon"><i class="fa-solid fa-brain"></i></div>
+            <div class="skill-cat-title">AI &amp; LLM Engineering</div>
+          </div>
+          <div class="skill-items-wrap">
+            <span class="skill-item-pill">Generative AI</span>
+            <span class="skill-item-pill">LLM APIs (Claude, OpenAI)</span>
+            <span class="skill-item-pill">RAG Workflows</span>
+            <span class="skill-item-pill">Agentic AI &amp; AI Agents</span>
+            <span class="skill-item-pill">Voice AI</span>
+            <span class="skill-item-pill">Prompt Engineering</span>
+            <span class="skill-item-pill">Embeddings</span>
+            <span class="skill-item-pill">Semantic Search (FAISS)</span>
+            <span class="skill-item-pill">LLM Evaluation</span>
           </div>
         </div>
 
-        <div style="border:1px solid var(--border-glass); border-radius:var(--radius-lg); padding:2rem; background:rgba(255,255,255,0.02);">
-          <div style="font-size:1.15rem; font-weight:600; margin-bottom:1.25rem; color:#fff;">Frameworks, Backend &amp; Frontend</div>
-          <div class="tech-tags-cluster">
-            <span class="tech-pill">FastAPI</span>
-            <span class="tech-pill">Flask</span>
-            <span class="tech-pill">Next.js</span>
-            <span class="tech-pill">React</span>
-            <span class="tech-pill">REST APIs</span>
-            <span class="tech-pill">WebSockets</span>
-            <span class="tech-pill">LangChain &amp; LangGraph</span>
-            <span class="tech-pill">Hugging Face Transformers</span>
+        <!-- 3. Forward Deployed Engineering -->
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon"><i class="fa-solid fa-gears" style="color:var(--accent-cyan);"></i></div>
+            <div class="skill-cat-title">Forward Deployed Engineering</div>
+          </div>
+          <div class="skill-items-wrap">
+            <span class="skill-item-pill">AI Solution Development</span>
+            <span class="skill-item-pill">Business Requirements</span>
+            <span class="skill-item-pill">Business Automation</span>
+            <span class="skill-item-pill">API &amp; System Integration</span>
+            <span class="skill-item-pill">Model Deployment</span>
+            <span class="skill-item-pill">ERP Excel Automations</span>
+            <span class="skill-item-pill">Real-Time WebSockets</span>
           </div>
         </div>
 
-        <div style="border:1px solid var(--border-glass); border-radius:var(--radius-lg); padding:2rem; background:rgba(255,255,255,0.02);">
-          <div style="font-size:1.15rem; font-weight:600; margin-bottom:1.25rem; color:#fff;">Cloud, DevOps &amp; Databases</div>
-          <div class="tech-tags-cluster">
-            <span class="tech-pill">Supabase</span>
-            <span class="tech-pill">PostgreSQL</span>
-            <span class="tech-pill">Cloudflare</span>
-            <span class="tech-pill">Docker</span>
-            <span class="tech-pill">AWS</span>
-            <span class="tech-pill">Google Cloud</span>
-            <span class="tech-pill">Firebase</span>
-            <span class="tech-pill">SQLite</span>
-            <span class="tech-pill">Git &amp; GitHub</span>
+        <!-- 4. Machine Learning & Vision -->
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon"><i class="fa-solid fa-eye"></i></div>
+            <div class="skill-cat-title">Machine Learning &amp; Vision</div>
+          </div>
+          <div class="skill-items-wrap">
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/pytorch/EE4C2C" width="14" alt=""> PyTorch</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/tensorflow/FF6F00" width="14" alt=""> TensorFlow</span>
+            <span class="skill-item-pill">Computer Vision</span>
+            <span class="skill-item-pill">ConvNeXt</span>
+            <span class="skill-item-pill">NLP</span>
+            <span class="skill-item-pill">Model Optimization</span>
+            <span class="skill-item-pill">Fine-tuning (LoRA / QLoRA)</span>
+            <span class="skill-item-pill">Quantization</span>
           </div>
         </div>
 
-        <div style="border:1px solid var(--border-glass); border-radius:var(--radius-lg); padding:2rem; background:rgba(255,255,255,0.02);">
-          <div style="font-size:1.15rem; font-weight:600; margin-bottom:1.25rem; color:#fff;">Languages &amp; Certifications</div>
-          <div class="tech-tags-cluster" style="margin-bottom:1rem;">
-            <span class="tech-pill">Python</span>
-            <span class="tech-pill">TypeScript</span>
-            <span class="tech-pill">SQL</span>
-            <span class="tech-pill">Flutter / Dart</span>
+        <!-- 5. Frameworks & Backend -->
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon"><i class="fa-solid fa-server"></i></div>
+            <div class="skill-cat-title">Frameworks &amp; Backend</div>
           </div>
-          <div style="font-size:0.85rem; color:var(--text-gray-400); line-height:1.6; border-top:1px solid var(--border-glass); padding-top:0.75rem;">
-            <div><strong style="color:var(--accent-cyan);">• IBM AI Engineering Professional</strong></div>
-            <div><strong style="color:var(--accent-amber);">• AWS AI &amp; ML Scholars (Udacity)</strong></div>
+          <div class="skill-items-wrap">
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/fastapi/009688" width="14" alt=""> FastAPI</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/flask/000000" width="14" alt=""> Flask</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/nextdotjs/000000" width="14" alt=""> Next.js</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/react/61DAFB" width="14" alt=""> React</span>
+            <span class="skill-item-pill">REST APIs</span>
+            <span class="skill-item-pill">WebSockets</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/langchain/00A67E" width="14" alt=""> LangChain &amp; LangGraph</span>
+            <span class="skill-item-pill">Hugging Face Transformers</span>
+          </div>
+        </div>
+
+        <!-- 6. Cloud, DevOps & Databases -->
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon"><i class="fa-solid fa-cloud"></i></div>
+            <div class="skill-cat-title">Cloud &amp; DevOps</div>
+          </div>
+          <div class="skill-items-wrap">
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/supabase/3ECF8E" width="14" alt=""> Supabase</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/postgresql/4169E1" width="14" alt=""> PostgreSQL</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/cloudflare/F38020" width="14" alt=""> Cloudflare</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/docker/2496ED" width="14" alt=""> Docker</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/amazonwebservices/232F3E" width="14" alt=""> AWS</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/googlecloud/4285F4" width="14" alt=""> Google Cloud</span>
+            <span class="skill-item-pill"><img src="https://cdn.simpleicons.org/firebase/FFCA28" width="14" alt=""> Firebase</span>
+            <span class="skill-item-pill">Git &amp; GitHub</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Professional Certifications Showcase -->
+      <div class="cert-showcase">
+        <div class="cert-header">
+          <i class="fa-solid fa-award" style="color:var(--accent-amber);"></i>
+          <span>Professional Certifications</span>
+        </div>
+        <div class="cert-grid">
+          <div class="cert-item">
+            <div class="cert-name">IBM AI Engineering Professional Certificate</div>
+            <div class="cert-issuer">Coursera &amp; IBM &bull; Deep Learning, ML &amp; Production AI Engineering</div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-name">AWS AI &amp; ML Scholars</div>
+            <div class="cert-issuer">Udacity &amp; Amazon Web Services &bull; Generative AI &amp; Cloud Deep Learning</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==========================================
-       JOURNEY: Experience & Education Timeline
-       ========================================== -->
-  <section id="journey" style="padding-block: 6rem; background: var(--bg-deep); border-top: 1px solid var(--border-glass);">
-    <div class="site-container">
-      <span class="section-label">// MILESTONES</span>
-      <h2 class="section-title">Career & Scholarship Journey</h2>
+  <!-- Education Section -->
+  <section id="education" class="section">
+    <div class="container">
+      <span class="section-label">// ACADEMIC FOUNDATIONS</span>
+      <h2 class="section-title">Education</h2>
+      <p class="section-subtitle">
+        Formal degree and diploma training in Computer Science and Artificial Intelligence.
+      </p>
 
-      <div style="display:flex; flex-direction:column; gap:2.5rem; max-width:880px;">
-        <!-- Nunes Instruments -->
-        <div style="padding-left:1.5rem; border-left:2px solid var(--accent-cyan);">
-          <div style="font-size:0.8rem; font-family:var(--font-mono); color:var(--accent-cyan); margin-bottom:0.25rem;">AUG 2026 – PRESENT &bull; CURRENT ROLE</div>
-          <h3 style="font-size:1.35rem; font-weight:600;">GenAI Executive &amp; Forward Deployed Engineer (FDE)</h3>
-          <div style="color:var(--text-gray-400); margin-bottom:0.75rem;">Nunes Instruments</div>
-          <ul style="color:var(--text-gray-300); line-height:1.7; padding-left:1.2rem; display:flex; flex-direction:column; gap:0.4rem;">
-            <li>Independently turned business requirements into AI and internal software, designing, developing, integrating, and testing solutions using Python, TypeScript, and REST APIs.</li>
-            <li>Built an AI voice agent that answers calls after 6 PM and records caller details and enquiries for 9 AM next-day follow-up; developed Tamil–Hindi voice translation using TypeScript and WebSockets.</li>
-            <li>Built stock management software and LLM/RAG document workflows; made WhatsApp chats searchable with Flask and automated daily ERP Excel reports in Python.</li>
-          </ul>
-        </div>
-
-        <!-- Forge Innovation -->
-        <div style="padding-left:1.5rem; border-left:2px solid var(--border-glass);">
-          <div style="font-size:0.8rem; font-family:var(--font-mono); color:var(--text-gray-400); margin-bottom:0.25rem;">JAN 2025 – JUL 2025</div>
-          <h3 style="font-size:1.35rem; font-weight:600;">Innovation Engineer Trainee</h3>
-          <div style="color:var(--text-gray-400); margin-bottom:0.75rem;">Forge Innovation &amp; Ventures, Coimbatore</div>
-          <ul style="color:var(--text-gray-300); line-height:1.7; padding-left:1.2rem; display:flex; flex-direction:column; gap:0.4rem;">
-            <li>Developed an offline voice AI agent for inventory lookup using Whisper speech-to-text, FAISS semantic search, and a quantized local LLM to answer stock queries without internet.</li>
-            <li>Slashed manual warehouse stock-lookup duration by 45% across pilot deployments with zero internet dependency.</li>
-          </ul>
-        </div>
-
-        <!-- KCT -->
-        <div style="padding-left:1.5rem; border-left:2px solid var(--accent-purple);">
-          <div style="font-size:0.8rem; font-family:var(--font-mono); color:var(--accent-purple); margin-bottom:0.25rem;">2023 – 2026</div>
-          <h3 style="font-size:1.35rem; font-weight:600;">B.Tech in Artificial Intelligence and Data Science (Lateral Entry)</h3>
-          <div style="color:var(--text-gray-400); margin-bottom:0.75rem;">Kumaraguru College of Technology, Coimbatore &bull; CGPA: 8.02 / 10</div>
-          <ul style="color:var(--text-gray-300); line-height:1.7; padding-left:1.2rem; display:flex; flex-direction:column; gap:0.4rem;">
-            <li>Awarded the <strong>Best Final Year Project Award</strong> – Department of Artificial Intelligence &amp; Data Science, KCT.</li>
-            <li>Published at <strong>IEEE ICNGCS 2025</strong> (DOI: 10.1109/ICNGCS64900.2025.11183217) on carbon-efficient LLM inference (58% CO2 cut, 56% faster inference).</li>
-          </ul>
-        </div>
-
-        <!-- Tamilnadu Poly -->
-        <div style="padding-left:1.5rem; border-left:2px solid var(--border-glass);">
-          <div style="font-size:0.8rem; font-family:var(--font-mono); color:var(--text-gray-400); margin-bottom:0.25rem;">2020 – 2023</div>
-          <h3 style="font-size:1.35rem; font-weight:600;">Diploma in Computer Engineering</h3>
-          <div style="color:var(--text-gray-400); margin-bottom:0.75rem;">Tamilnadu Government Polytechnic College, Madurai &bull; CGPA: 8.0 / 10</div>
-          <p style="color:var(--text-gray-300); line-height:1.7;">
-            Comprehensive foundation in Computer Science, Data Structures, Algorithms, C/Python, Linux, and Database Architectures.
+      <div class="education-grid">
+        <!-- 1. KCT B.Tech -->
+        <article class="edu-card">
+          <div class="edu-period">2023 – 2026</div>
+          <h3 class="edu-degree">B.Tech in Artificial Intelligence and Data Science (Lateral Entry)</h3>
+          <div class="edu-school">Kumaraguru College of Technology, Coimbatore</div>
+          <div class="edu-score-badge">CGPA: 8.02 / 10</div>
+          <p class="edu-details">
+            Awarded the <strong>Best Final Year Project Award</strong> by the Department of AI &amp; Data Science for research on carbon-efficient LLM inference (Eco-Transformers, published at IEEE ICNGCS 2025).
           </p>
+        </article>
+
+        <!-- 2. Tamilnadu Govt Polytechnic -->
+        <article class="edu-card">
+          <div class="edu-period">2020 – 2023</div>
+          <h3 class="edu-degree">Diploma in Computer Engineering</h3>
+          <div class="edu-school">Tamilnadu Government Polytechnic College, Madurai</div>
+          <div class="edu-score-badge">CGPA: 8.0 / 10</div>
+          <p class="edu-details">
+            Rigorous foundational training in computer systems, programming (C, Python), Linux architecture, networking, data structures, and relational database systems.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="contact-card">
+        <span class="section-label">// LET'S CONNECT</span>
+        <h2 class="contact-heading">Get In Touch</h2>
+        <p class="contact-subtext">
+          I am actively exploring AI/ML Engineer, Forward Deployed Engineer (FDE), and Generative AI opportunities. Whether you have an engineering challenge, an open role, or research to discuss, feel free to reach out.
+        </p>
+
+        <div class="contact-channels-grid">
+          <a href="mailto:apsiva69@gmail.com" class="btn-primary">
+            <i class="fa-solid fa-envelope"></i> apsiva69@gmail.com
+          </a>
+          <button id="btn-copy-email" class="btn-secondary">
+            <i class="fa-solid fa-copy"></i> Copy Email
+          </button>
+          <a href="tel:+918438692752" class="btn-secondary">
+            <i class="fa-solid fa-phone"></i> +91-8438692752
+          </a>
+          <a href="https://linkedin.com/in/sivanesan-b-871ba7264" target="_blank" class="btn-secondary">
+            <i class="fa-brands fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="https://github.com/Sivanesanbalu" target="_blank" class="btn-secondary">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==========================================
-       FOOTER
-       ========================================== -->
+  <!-- Site Footer -->
   <footer class="site-footer">
-    <div class="site-container">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem; margin-bottom:2rem;">
-        <div class="brand-text" style="font-size:1.3rem;">SIVANESAN<span>.AI</span></div>
-        <div style="display:flex; gap:1.5rem;">
-          <a href="https://github.com/Sivanesanbalu" target="_blank" class="nav-link"><i class="fa-brands fa-github"></i> GitHub</a>
-          <a href="https://linkedin.com/in/sivanesan-b-871ba7264" target="_blank" class="nav-link"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-          <a href="mailto:apsiva69@gmail.com" class="nav-link"><i class="fa-solid fa-envelope"></i> Email</a>
-        </div>
-      </div>
-      <p>© 2026 Sivanesan B. Engineered with MotionSites 3D Cinematic Architecture & Precision AI Systems.</p>
+    <div class="container">
+      <p>&copy; 2026 Sivanesan B &bull; AI/ML Engineer &amp; Forward Deployed Engineer &bull; Coimbatore, India</p>
     </div>
   </footer>
 
-  <!-- ==========================================
-       IN-BROWSER PDF RESUME MODAL
-       ========================================== -->
-  <div id="resume-modal" class="modal-backdrop">
-    <div class="modal-window">
-      <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem 1.5rem; border-bottom:1px solid var(--border-glass); background:rgba(0,0,0,0.8);">
-        <div style="font-weight:600; display:flex; align-items:center; gap:0.5rem;">
-          <i class="fa-solid fa-file-pdf" style="color:var(--accent-cyan);"></i> Sivanesan B — Resume Preview
+  <!-- Resume Preview Modal -->
+  <div id="resume-modal" class="resume-modal-overlay">
+    <div class="resume-modal-box">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-file-pdf" style="color:var(--accent-cyan);"></i>
+          <span>Sivanesan B — Resume Preview</span>
         </div>
         <div style="display:flex; align-items:center; gap:0.75rem;">
-          <a href="assets/Sivanesan_B.pdf" download="Sivanesan_B_AI_Engineer_Resume.pdf" class="btn-white-pill" style="padding:0.4rem 0.9rem; font-size:0.8rem;">
+          <a href="assets/Sivanesan_B.pdf" download="Sivanesan_B_Resume.pdf" class="btn-primary btn-sm">
             <i class="fa-solid fa-download"></i> Download PDF
           </a>
-          <button onclick="closeResumeModal()" style="background:rgba(255,255,255,0.1); border:none; color:#fff; width:32px; height:32px; border-radius:50%; cursor:pointer;">
+          <button onclick="closeResumeModal()" class="btn-secondary btn-sm" aria-label="Close Modal" style="padding:0.4rem 0.6rem;">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
       </div>
-      <div style="flex:1; background:#000;">
-        <iframe src="assets/Sivanesan_B.pdf#toolbar=0" style="width:100%; height:100%; border:none;"></iframe>
+      <div class="modal-body">
+        <iframe id="resume-frame" src="assets/Sivanesan_B.pdf" class="modal-iframe"></iframe>
       </div>
     </div>
   </div>
 
-  <!-- AI Chatbot Floating Dock -->
-  <div class="ai-bot-wrapper" style="position:fixed; bottom:2rem; right:2rem; z-index:9999;">
-    <button id="chatbot-toggle" aria-label="Open Siva AI Assistant" style="width:58px; height:58px; border-radius:50%; background:#fff; color:#000; border:none; font-size:1.45rem; cursor:pointer; box-shadow:0 10px 30px rgba(0,240,255,0.35); display:flex; align-items:center; justify-content:center; transition:transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);">
-      <i class="fa-solid fa-robot"></i>
-    </button>
-  </div>
+  <!-- Floating AI Chatbot -->
+  <button id="chatbot-toggle" class="chatbot-trigger-btn" aria-label="Open AI Assistant" title="Chat with Sivanesan's AI Assistant">
+    <i class="fa-solid fa-robot" style="font-size: 1.4rem;"></i>
+  </button>
 
   <div id="chatbot-window" class="chatbot-window" role="dialog" aria-label="Sivanesan Resume AI Assistant">
     <div class="chat-header">
-      <div class="chat-header-info">
-        <div class="chat-avatar-pulse">
-          <i class="fa-solid fa-microchip"></i>
-        </div>
-        <div class="chat-title-text">
-          <span class="chat-title-main">Siva AI Assistant</span>
-          <span class="chat-title-sub"><i class="fa-solid fa-circle" style="font-size:0.5rem; margin-right:3px;"></i>Trained on Sivanesan's Resume</span>
+      <div class="chat-agent-info">
+        <div class="chat-avatar"><i class="fa-solid fa-sparkles"></i></div>
+        <div>
+          <div class="chat-title">Siva AI Assistant</div>
+          <div class="chat-status">● Trained on Sivanesan's Resume</div>
         </div>
       </div>
-      <button id="chat-close" class="chat-close-btn" aria-label="Close Chat">
+      <button id="chat-close" style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:1.1rem;" aria-label="Close Chat">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
 
     <div id="chat-messages" class="chat-messages">
       <div class="msg-bubble bot">
-        👋 <strong>Hello! I'm Siva AI Assistant.</strong><br>
-        Trained directly on Sivanesan's verified resume, IEEE research, and production code.<br><br>
-        💼 <strong style="color:var(--accent-cyan);">For Recruiters & Hiring Managers:</strong><br>
-        • <strong>Availability:</strong> ⚡ <strong>Immediate Joining</strong> (0 days notice)<br>
-        • <strong>Locations:</strong> Coimbatore | Ready to relocate to <strong>Chennai, Bengaluru, Hyderabad</strong> | Remote<br>
-        • <strong>Target Roles:</strong> <strong>AI-related roles</strong> (Forward Deployed Engineer, GenAI, AI/ML, Agents)<br><br>
-        Tap any quick screening action below or type any question:
+        Hello! I'm Sivanesan's AI assistant. Ask me anything about his work at <strong>Nunes Instruments</strong>, <strong>Kinetiq UI</strong>, <strong>Eco-Transformers IEEE paper</strong>, or how to contact him!
       </div>
     </div>
 
-    <div class="chat-suggestions-container">
-      <div class="chat-suggestions">
-        <button class="suggestion-chip" style="background:rgba(0, 240, 255, 0.18); border-color:var(--accent-cyan); font-weight:600;" data-query="Give me a 1-minute recruiter fast screen">📋 1-Min Recruiter Screen</button>
-        <button class="suggestion-chip" data-query="What is his notice period and availability for immediate joining?">⚡ Immediate Joining</button>
-        <button class="suggestion-chip" data-query="Where is he located and can he relocate to Chennai, Bengaluru, or Hyderabad?">📍 Locations & Relocation</button>
-        <button class="suggestion-chip" data-query="What AI related roles is he looking for?">🎯 Target AI Roles</button>
-        <button class="suggestion-chip" data-query="How can a recruiter message him or schedule an interview?">✉️ Send Interview Invite</button>
-        <button class="suggestion-chip" data-query="Why should we hire Sivanesan as a Forward Deployed Engineer?">⚡ Why Hire as FDE?</button>
-        <button class="suggestion-chip" data-query="Tell me about the Eco-Transformers IEEE research paper and 58% CO2 cut">🌱 Eco-Transformers (IEEE)</button>
-        <button class="suggestion-chip" data-query="Explain the NUNES AI Live Call Translator architecture">🎙️ Live Call Translator</button>
-        <button class="suggestion-chip" data-query="List Sivanesan's top 10 projects and what they do">🏆 Top 10 Projects</button>
-        <button class="suggestion-chip" data-query="What is his education, college, and CGPA?">🎓 Education & CGPA</button>
-        <button class="suggestion-chip" data-query="What are his core technical skills and frameworks?">🛠️ Tech Stack & Skills</button>
-        <button class="suggestion-chip" data-query="How can I contact Sivanesan or download his resume?">📬 Contact & Resume</button>
-      </div>
+    <div class="chat-suggestions">
+      <button class="suggestion-chip" data-query="Tell me about Kinetiq UI">Kinetiq UI</button>
+      <button class="suggestion-chip" data-query="Tell me about Eco-Transformers paper">Eco-Transformers</button>
+      <button class="suggestion-chip" data-query="What is his current job?">Current Role</button>
+      <button class="suggestion-chip" data-query="What are his technical skills?">Technical Skills</button>
+      <button class="suggestion-chip" data-query="How can I contact him?">Contact Info</button>
     </div>
 
-    <div class="chat-input-bar">
-      <input type="text" id="chat-input" class="chat-input-field" placeholder="Ask anything about Sivanesan's resume..." autocomplete="off">
-      <button id="chat-send" class="chat-send-action-btn" aria-label="Send message">
-        <i class="fa-solid fa-paper-plane"></i>
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" class="chat-input" placeholder="Ask about Sivanesan's work...">
+      <button id="chat-send" class="chat-send-btn" aria-label="Send message">
+        <i class="fa-solid fa-paper-plane" style="font-size: 0.85rem;"></i>
       </button>
     </div>
   </div>
 
+  <!-- Toast Notification -->
+  <div id="toast-notification" class="toast-msg"></div>
+
   <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
-  <script src="assets/robot-lottie.js"></script>
   <script src="app.js"></script>
   <script src="chatbot.js"></script>
 </body>

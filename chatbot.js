@@ -768,35 +768,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function initLottieBot() {
-    function startAnimation() {
-      if (typeof lottie === 'undefined' || !window.ROBOT_LOTTIE_DATA) {
-        setTimeout(startAnimation, 120);
-        return;
-      }
+    const triggerContainer = document.getElementById('lottie-robot-trigger');
+    const headerContainer = document.getElementById('lottie-robot-header');
+    if (!triggerContainer && !headerContainer) return;
+    if (typeof lottie === 'undefined' || !window.ROBOT_LOTTIE_DATA) return;
 
-      const triggerContainer = document.getElementById('lottie-robot-trigger');
-      if (triggerContainer && !triggerContainer.hasChildNodes()) {
-        lottie.loadAnimation({
-          container: triggerContainer,
-          renderer: 'svg',
-          loop: true,
-          autoplay: true,
-          animationData: window.ROBOT_LOTTIE_DATA
-        });
-      }
-
-      const headerContainer = document.getElementById('lottie-robot-header');
-      if (headerContainer && !headerContainer.hasChildNodes()) {
-        lottie.loadAnimation({
-          container: headerContainer,
-          renderer: 'svg',
-          loop: true,
-          autoplay: true,
-          animationData: window.ROBOT_LOTTIE_DATA
-        });
-      }
+    if (triggerContainer && !triggerContainer.hasChildNodes()) {
+      lottie.loadAnimation({
+        container: triggerContainer,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        animationData: window.ROBOT_LOTTIE_DATA
+      });
     }
 
-    startAnimation();
+    if (headerContainer && !headerContainer.hasChildNodes()) {
+      lottie.loadAnimation({
+        container: headerContainer,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        animationData: window.ROBOT_LOTTIE_DATA
+      });
+    }
   }
 });
