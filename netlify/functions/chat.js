@@ -26,16 +26,13 @@ Your goal is to assist visitors, recruiters, and hiring managers with 100% accur
 
 3. PROFESSIONAL WORK EXPERIENCE:
 A. GenAI Executive & Forward Deployed Engineer (FDE) | Nunes Instruments (Aug 2026 – Present)
-   - Develop and integrate LLM-powered applications, AI agents, and Retrieval-Augmented Generation (RAG) workflows to automate business processes.
-   - Engineer AI-driven document processing, information extraction, and classification workflows using prompt engineering and REST API integration.
-   - Built a Flask-based WhatsApp business-intelligence dashboard that turns chat exports into searchable insights.
-   - Automated ERP-based Excel reporting in Python, replacing manual daily report preparation and saving hours of administrative overhead every single day.
-   - Architected the NUNES AI Live Call Translator (Tamil ↔ Hindi) for real-time multilingual enterprise voice operations.
+   - Independently turned business requirements into AI and internal software, designing, developing, integrating, and testing solutions using Python, TypeScript, and REST APIs.
+   - Built an AI voice agent that answers calls after 6 PM and records caller details and enquiries for 9 AM next-day follow-up; developed Tamil–Hindi voice translation using TypeScript and WebSockets.
+   - Built stock management software and LLM/RAG document workflows; made WhatsApp chats searchable with Flask and automated daily ERP Excel reports in Python.
 
 B. Innovation Engineer Trainee | Forge Innovation & Ventures (Jan 2025 – Jul 2025)
-   - Developed an offline voice-enabled AI inventory assistant using Whisper STT and a quantized local LLM.
-   - Integrated FAISS semantic search with on-device inference for context-aware stock retrieval without internet.
-   - Reduced inventory stock lookup times by 45% across pilot deployments.
+   - Developed an offline voice AI agent for inventory lookup using Whisper speech-to-text, FAISS semantic search, and a quantized local LLM to answer stock queries without internet.
+   - Slashed manual stock-lookup time by 45% across warehouse pilot deployments with zero internet dependency.
 
 4. RESEARCH PUBLICATIONS & HONORS:
 - Paper Title: "Eco-Transformers: Carbon-Efficient and Accelerated Inference through Self-Pruning and Activation Freezing in LLMs"
@@ -46,8 +43,14 @@ B. Innovation Engineer Trainee | Forge Innovation & Ventures (Jan 2025 – Jul 2
 - Key Metrics & Contribution: Achieved 58% reduction in CO2 emissions and 56% faster inference across Falcon-RW-1B, GPT-Neo-1.3B, OPT-1.3B, and GPT2-XL using PyTorch forward hooks without retraining. Enables deployment of foundation models on edge devices with minimal carbon footprint.
 - Award: Best Final Year Project Award from the Department of Artificial Intelligence & Data Science, Kumaraguru College of Technology (Aug 2025).
 
-5. TOP 10 CURATED PROJECTS & REPOSITORIES:
-1. NUNES AI Live Call Translator (Tamil ↔ Hindi)
+5. TOP CURATED PROJECTS & REPOSITORIES:
+1. Kinetiq UI | AI-Powered Developer SaaS (Live)
+   - Built and deployed an AI-powered developer SaaS with 145 React components and 13 templates using Next.js, TypeScript, and Cloudflare Pages.
+   - Integrated Claude LLM APIs for AI code editing and natural-language component search using Supabase Edge Functions and PostgreSQL, with authentication, usage limits, and token-cost monitoring.
+   - Tech: TypeScript, Next.js, React, Claude LLM APIs, Supabase, PostgreSQL, Cloudflare Pages.
+   - Website: https://kinetiq-ui.com | GitHub: https://github.com/Sivanesanbalu
+
+2. NUNES AI Live Call Translator (Tamil ↔ Hindi)
    - Real-time bidirectional voice call translation application and streaming backend.
    - Applied Forward Deployed Engineering principles to design an STT → Translation → TTS pipeline using Plivo Voice API & Sarvam AI.
    - Features live call transcripts, low-latency audio routing, contact sync, and call history tracking.

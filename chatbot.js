@@ -34,11 +34,9 @@ const SIVA_RESUME_KNOWLEDGE = {
       period: "Aug 2026 – Present",
       location: "Coimbatore, India",
       highlights: [
-        "Develop and integrate LLM-powered applications, AI agents, and Retrieval-Augmented Generation (RAG) workflows to automate business processes.",
-        "Engineer AI-driven document processing, information extraction, and classification workflows using prompt engineering and REST API integration.",
-        "Built a Flask-based WhatsApp business-intelligence dashboard that turns chat exports into searchable insights.",
-        "Automated ERP-based Excel reporting in Python, replacing manual daily report preparation and saving hours of administrative overhead daily.",
-        "Engineered the NUNES AI Live Call Translator (Tamil ↔ Hindi) for real-time multilingual enterprise communication."
+        "Independently turned business requirements into AI and internal software, designing, developing, integrating, and testing solutions using Python, TypeScript, and REST APIs.",
+        "Built an AI voice agent that answers calls after 6 PM and records caller details and enquiries for 9 AM next-day follow-up; developed Tamil–Hindi voice translation using TypeScript and WebSockets.",
+        "Built stock management software and LLM/RAG document workflows; made WhatsApp chats searchable with Flask and automated daily ERP Excel reports in Python."
       ]
     },
     {
@@ -47,9 +45,8 @@ const SIVA_RESUME_KNOWLEDGE = {
       period: "Jan 2025 – Jul 2025",
       location: "Coimbatore, India",
       highlights: [
-        "Developed an offline voice-enabled AI inventory assistant using Whisper STT and a quantized local LLM.",
-        "Integrated FAISS semantic search with on-device inference for context-aware stock retrieval without internet.",
-        "Reduced stock lookup times by 45% across pilot warehouse deployments."
+        "Developed an offline voice AI agent for inventory lookup using Whisper speech-to-text, FAISS semantic search, and a quantized local LLM to answer stock queries without internet.",
+        "Slashed manual warehouse stock-lookup duration by 45% across pilot deployments with zero internet dependency."
       ]
     }
   ],
@@ -82,6 +79,14 @@ const SIVA_RESUME_KNOWLEDGE = {
   ],
 
   top10Projects: [
+    {
+      name: "Kinetiq UI | AI-Powered Developer SaaS (Live)",
+      category: "Full-Stack SaaS & Claude LLMs",
+      tech: "TypeScript, Next.js, React, Claude LLM APIs, Supabase, PostgreSQL, Cloudflare Pages",
+      summary: "AI-powered developer SaaS with 145 React components and 13 templates. Integrated Claude LLM APIs for AI code editing & natural-language component search with Supabase Edge Functions, PostgreSQL auth, usage limits, and token-cost monitoring.",
+      url: "https://kinetiq-ui.com",
+      github: "https://github.com/Sivanesanbalu"
+    },
     {
       name: "NUNES AI Live Call Translator (Tamil ↔ Hindi)",
       category: "Voice AI & Forward Deployed Engineering",
@@ -163,20 +168,21 @@ const SIVA_RESUME_KNOWLEDGE = {
       "AI Agents", "Voice AI", "LLM Evaluation"
     ],
     fde: [
-      "AI Solution Development", "Business Requirements Translation",
-      "System Integration", "REST APIs", "AI Workflow Automation",
+      "AI Solution Development", "Business Requirements",
+      "System Integration", "REST APIs", "WebSockets", "AI Workflow Automation",
       "ERP Automation", "Model Deployment"
     ],
     frameworks: [
+      "Next.js", "React", "FastAPI", "Flask", "Claude LLM APIs", "OpenAI API",
       "PyTorch", "TensorFlow", "Hugging Face Transformers", "LangChain",
-      "LangGraph", "FastAPI", "Flask", "OpenAI API", "Pandas", "NumPy", "scikit-learn"
+      "LangGraph", "WebSockets", "Pandas", "NumPy", "scikit-learn"
     ],
     llm_engineering: [
       "Prompt Engineering", "Fine-tuning", "LoRA", "QLoRA", "Embeddings",
       "Model Optimization", "Quantization", "FAISS", "ChromaDB", "Semantic Search"
     ],
     cloud_devops: [
-      "Docker", "Google Cloud (GCP)", "AWS", "Firebase", "Supabase",
+      "Cloudflare", "Docker", "Google Cloud (GCP)", "AWS", "Firebase", "Supabase",
       "PostgreSQL", "SQLite", "Hugging Face Hub", "Git", "GitHub"
     ],
     certifications: [
