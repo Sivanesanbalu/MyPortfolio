@@ -98,8 +98,8 @@ function initNavbarScroll() {
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > 30) {
-      nav.style.borderColor = 'rgba(255, 255, 255, 0.16)';
-      nav.style.boxShadow = '0 10px 30px -10px rgba(0, 0, 0, 0.5)';
+      nav.style.borderColor = 'var(--border-hover)';
+      nav.style.boxShadow = '0 4px 20px -5px rgba(15, 23, 42, 0.08)';
     } else {
       nav.style.borderColor = 'var(--border-subtle)';
       nav.style.boxShadow = 'none';
