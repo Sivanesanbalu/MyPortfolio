@@ -29,3 +29,8 @@ functions = "netlify/functions"
   to = "https://siva-city-openworld.vercel.app/assets/:splat"
   status = 200
   force = false
+
+# Inject the uploaded 3D greeting into the cinematic home page.
+[[edge_functions]]
+  path = "/"
+  function = "portfolio-character"
