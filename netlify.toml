@@ -21,3 +21,11 @@ functions = "netlify/functions"
   to = "https://siva-city-openworld.vercel.app/src/:splat"
   status = 200
   force = true
+
+# The cinematic build references Vercel assets at /assets/*, not /src/assets/*.
+# This unforced proxy preserves existing local Netlify files such as the PDF resume.
+[[redirects]]
+  from = "/assets/*"
+  to = "https://siva-city-openworld.vercel.app/assets/:splat"
+  status = 200
+  force = false
