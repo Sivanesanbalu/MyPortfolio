@@ -1,5 +1,5 @@
 /**
- * Sivanesan's full-body GLB greeting.
+ * Sivanesan's full-body GLB greeting with coordinated body gestures.
  * Motion is procedural because this particular photo-relief GLB has no armature or animation clips.
  * Never substitute a cartoon, emoji, or other character for the supplied model.
  */
@@ -175,86 +175,131 @@
   }
 
   /**
-   * The original photograph relief has no authored bones or animation clips.
-   * Add a conservative seven-bone 2.5D skeleton with ankle pivots. The model
-   * remains the user's original asset; the movement is deliberately subtle to
-   * avoid the tearing caused by trying to make a flat photograph take long steps.
+   * Procedurally articulate the visitor-supplied photographic relief.
+   * It does not contain a native armature or motion clips, so these are
+   * intentionally *small* movements: full-body coordination without
+   * replacing the face, clothes, proportions, or original textured model.
+   * Anatomy measured from the model's own 0..1.78m Y coordinates.
    */
   function buildLegRig(THREE, model) {
-    const root = new THREE.Bone(); root.name = 'Root';
-    const leftHip = new THREE.Bone(); leftHip.name = 'LeftHip';
-    const leftKnee = new THREE.Bone(); leftKnee.name = 'LeftKnee';
-    const leftAnkle = new THREE.Bone(); leftAnkle.name = 'LeftAnkle';
-    const rightHip = new THREE.Bone(); rightHip.name = 'RightHip';
-    const rightKnee = new THREE.Bone(); rightKnee.name = 'RightKnee';
-    const rightAnkle = new THREE.Bone(); rightAnkle.name = 'RightAnkle';
-    // Coordinates are verified against the original relief's 1.78m Y extent.
-    leftHip.position.set(-.105, .84, 0);
-    rightHip.position.set(.105, .84, 0);
-    leftKnee.position.y = -.41;
-    rightKnee.position.y = -.41;
-    leftAnkle.position.y = -.36;
-    rightAnkle.position.y = -.36;
+    const root=new THREE.Bone(); root.name='MotionRoot';
+    const spine=new THREE.Bone(); spine.name='Spine'; spine.position.y=.86;
+    const chest=new THREE.Bone(); chest.name='Chest'; chest.position.y=.40;
+    const neck=new THREE.Bone(); neck.name='Neck'; neck.position.y=.27;
+    const head=new THREE.Bone(); head.name='Head'; head.position.y=.115;
+    root.add(spine); spine.add(chest); chest.add(neck); neck.add(head);
+
+    const leftShoulder=new THREE.Bone(); leftShoulder.name='LeftShoulder';
+    const rightShoulder=new THREE.Bone(); rightShoulder.name='RightShoulder';
+    leftShoulder.position.set(-.205,.135,0);
+    rightShoulder.position.set(.205,.135,0);
+    chest.add(leftShoulder,rightShoulder);
+    const leftElbow=new THREE.Bone(); leftElbow.name='LeftElbow';
+    const rightElbow=new THREE.Bone(); rightElbow.name='RightElbow';
+    leftElbow.position.set(-.028,-.275,0);
+    rightElbow.position.set(.028,-.275,0);
+    leftShoulder.add(leftElbow); rightShoulder.add(rightElbow);
+    const leftWrist=new THREE.Bone(); leftWrist.name='LeftWrist';
+    const rightWrist=new THREE.Bone(); rightWrist.name='RightWrist';
+    leftWrist.position.y=-.225; rightWrist.position.y=-.225;
+    leftElbow.add(leftWrist); rightElbow.add(rightWrist);
+
+    const leftHip=new THREE.Bone(); leftHip.name='LeftHip';
+    const leftKnee=new THREE.Bone(); leftKnee.name='LeftKnee';
+    const leftAnkle=new THREE.Bone(); leftAnkle.name='LeftAnkle';
+    const rightHip=new THREE.Bone(); rightHip.name='RightHip';
+    const rightKnee=new THREE.Bone(); rightKnee.name='RightKnee';
+    const rightAnkle=new THREE.Bone(); rightAnkle.name='RightAnkle';
+    leftHip.position.set(-.105,.84,0); rightHip.position.set(.105,.84,0);
+    leftKnee.position.y=-.41; rightKnee.position.y=-.41;
+    leftAnkle.position.y=-.36; rightAnkle.position.y=-.36;
     leftHip.add(leftKnee); leftKnee.add(leftAnkle);
     rightHip.add(rightKnee); rightKnee.add(rightAnkle);
-    root.add(leftHip, rightHip);
+    root.add(leftHip,rightHip);
     model.add(root);
     model.updateMatrixWorld(true);
-    const skeleton = new THREE.Skeleton([
-      root, leftHip, leftKnee, leftAnkle,
-      rightHip, rightKnee, rightAnkle
-    ]);
+
+    const bones=[root,spine,chest,neck,head,
+      leftShoulder,leftElbow,leftWrist,rightShoulder,rightElbow,rightWrist,
+      leftHip,leftKnee,leftAnkle,rightHip,rightKnee,rightAnkle];
+    const skeleton=new THREE.Skeleton(bones);
     skeleton.calculateInverses();
-    const clamp01 = n => Math.max(0, Math.min(1, n));
-    const smooth = (edge0, edge1, x) => {
-      const v = clamp01((x - edge0) / (edge1 - edge0));
-      return v * v * (3 - 2 * v);
+    const ids={};bones.forEach((b,i)=>{ids[b.name]=i;});
+    const clamp01=n=>Math.max(0,Math.min(1,n));
+    const smooth=(a,b,x)=>{
+      const t=clamp01((x-a)/(b-a)); return t*t*(3-2*t);
     };
-    const meshes = [];
-    model.traverse(node => {if (node.isMesh && !node.isSkinnedMesh) meshes.push(node);});
-    for (const original of meshes) {
-      const geometry = original.geometry.clone();
-      const positions = geometry.getAttribute('position');
-      const indices = new Uint16Array(positions.count * 4);
-      const weights = new Float32Array(positions.count * 4);
-      for (let i=0;i<positions.count;i++) {
-        const x = positions.getX(i), y = positions.getY(i);
-        const lower = 1 - smooth(.78, .91, y);
-        const armGuard = 1 - smooth(.22, .29, Math.abs(x));
-        // Keep the central seam and the suit attached while legs move.
-        const seamGuard = smooth(.004, .023, Math.abs(x));
-        const mobile = lower * armGuard * seamGuard;
-        const belowKnee = 1 - smooth(.41, .59, y);
-        const belowAnkle = 1 - smooth(.075, .22, y);
-        const hip = mobile * (1 - belowKnee);
-        const knee = mobile * belowKnee * (1 - belowAnkle);
-        const ankle = mobile * belowKnee * belowAnkle;
-        const offset = i*4;
-        const base = x < 0 ? 1 : 4;
-        indices[offset] = 0;
-        indices[offset+1] = base;
-        indices[offset+2] = base+1;
-        indices[offset+3] = base+2;
-        weights[offset] = 1 - mobile;
-        weights[offset+1] = hip;
-        weights[offset+2] = knee;
-        weights[offset+3] = ankle;
+    const meshes=[];
+    model.traverse(node=>{if(node.isMesh&&!node.isSkinnedMesh)meshes.push(node);});
+    for(const original of meshes) {
+      const geometry=original.geometry.clone();
+      const position=geometry.getAttribute('position');
+      const indices=new Uint16Array(position.count*4);
+      const weights=new Float32Array(position.count*4);
+      for(let i=0;i<position.count;i++){
+        const x=position.getX(i),y=position.getY(i), ax=Math.abs(x);
+        let influences;
+        if(y<.91) {
+          const lower=1-smooth(.78,.91,y);
+          const legRegion=lower*(1-smooth(.23,.30,ax))*smooth(.003,.023,ax);
+          const belowKnee=1-smooth(.41,.59,y);
+          const belowAnkle=1-smooth(.075,.22,y);
+          const base=x<0 ? ['LeftHip','LeftKnee','LeftAnkle'] : ['RightHip','RightKnee','RightAnkle'];
+          influences=[['MotionRoot',1-legRegion],
+            [base[0],legRegion*(1-belowKnee)],
+            [base[1],legRegion*belowKnee*(1-belowAnkle)],
+            [base[2],legRegion*belowKnee*belowAnkle]];
+        } else {
+          // Sleeve regions are outside the chest. Keep movements small: hands
+          // are in jacket pockets in this particular textured photograph.
+          const armCoverage=smooth(.153,.235,ax)*smooth(.87,1.02,y)*(1-smooth(1.45,1.58,y));
+          const armWeight=.74*armCoverage;
+          if(armWeight>.025) {
+            const side=x<0?'Left':'Right';
+            const wristZone=1-smooth(.91,1.08,y);
+            const elbowZone=(1-wristZone)*(1-smooth(1.16,1.36,y));
+            influences=[['Chest',1-armWeight],
+              [side+'Shoulder',armWeight*(1-elbowZone-wristZone)],
+              [side+'Elbow',armWeight*elbowZone],
+              [side+'Wrist',armWeight*wristZone]];
+          } else if(y>1.48){
+            const headW=smooth(1.47,1.65,y);
+            const neckW=(1-headW)*smooth(1.44,1.53,y);
+            const chestW=(1-headW-neckW)*smooth(1.20,1.39,y);
+            influences=[['MotionRoot',1-headW-neckW-chestW],
+              ['Chest',chestW],['Neck',neckW],['Head',headW]];
+          }else{
+            const torsoW=smooth(.83,1.13,y);
+            const chestW=torsoW*smooth(1.15,1.41,y);
+            influences=[['MotionRoot',1-torsoW],
+              ['Spine',torsoW-chestW],['Chest',chestW]];
+          }
+        }
+        const offset=i*4;
+        // All vertex weights sum to 1 and are bound in original local space.
+        let total=0;for(const [,w] of influences)total+=w;
+        for(let j=0;j<4;j++){
+          const [name,w]=influences[j]||['MotionRoot',0];
+          indices[offset+j]=ids[name]; weights[offset+j]=Math.max(0,w)/Math.max(.000001,total);
+        }
       }
       geometry.setAttribute('skinIndex',new THREE.Uint16BufferAttribute(indices,4));
       geometry.setAttribute('skinWeight',new THREE.Float32BufferAttribute(weights,4));
-      const mesh = new THREE.SkinnedMesh(geometry,original.material);
-      mesh.name=original.name;
-      mesh.position.copy(original.position);
-      mesh.quaternion.copy(original.quaternion);
-      mesh.scale.copy(original.scale);
-      mesh.frustumCulled=false;
-      mesh.renderOrder=original.renderOrder;
-      original.parent.add(mesh);
+      const skin=new THREE.SkinnedMesh(geometry,original.material);
+      skin.name=original.name;
+      skin.position.copy(original.position);
+      skin.quaternion.copy(original.quaternion);
+      skin.scale.copy(original.scale);
+      skin.frustumCulled=false;
+      skin.renderOrder=original.renderOrder;
+      original.parent.add(skin);
       original.parent.remove(original);
-      mesh.updateMatrixWorld(true);
-      mesh.bind(skeleton);
+      skin.updateMatrixWorld(true);
+      skin.bind(skeleton);
     }
-    return {leftHip,leftKnee,leftAnkle,rightHip,rightKnee,rightAnkle};
+    return {leftHip,leftKnee,leftAnkle,rightHip,rightKnee,rightAnkle,
+      spine,chest,neck,head,leftShoulder,leftElbow,leftWrist,
+      rightShoulder,rightElbow,rightWrist};
   }
 
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -307,6 +352,72 @@
     solveFoot(legRig.rightHip,legRig.rightKnee,legRig.rightAnkle,stepCycles+.5,fast,intensity);
   }
 
+  /** Keep head, jacket, arms and legs coordinated throughout the entrance. */
+  function poseUpperBody(cycle,energy,mode='walk',seconds=0){
+    if(!legRig)return;
+    const r=legRig, stride=Math.sin(cycle*2*Math.PI);
+    const anti=Math.sin(cycle*2*Math.PI+Math.PI);
+    const walk=mode==='walk', run=mode==='run';
+    const moving=walk||run;
+    const amount=moving?energy:0;
+    // In the supplied source photo, both hands rest near the pockets.
+    // Conservative shoulder/elbow ranges retain the original suit texture.
+    r.spine.rotation.x=(run ? .065 : .012)*amount;
+    r.spine.rotation.y= .035*stride*amount;
+    r.spine.rotation.z= .014*stride*amount;
+    r.chest.rotation.x= .016*stride*amount;
+    r.chest.rotation.y= -.032*stride*amount;
+    r.chest.rotation.z= -.018*stride*amount;
+    r.leftShoulder.rotation.x= stride*(run ? .135 : .075)*amount;
+    r.rightShoulder.rotation.x= anti*(run ? .135 : .075)*amount;
+    r.leftShoulder.rotation.z= -.038*amount;
+    r.rightShoulder.rotation.z= .038*amount;
+    r.leftElbow.rotation.x= .025*amount+Math.max(0,-stride)*.04*amount;
+    r.rightElbow.rotation.x= .025*amount+Math.max(0,stride)*.04*amount;
+    r.leftElbow.rotation.z= -.022*amount;
+    r.rightElbow.rotation.z= .022*amount;
+    r.leftWrist.rotation.x=-r.leftElbow.rotation.x*.25;
+    r.rightWrist.rotation.x=-r.rightElbow.rotation.x*.25;
+    // Stabilize the face so the greeting looks toward the visitor.
+    r.neck.rotation.x= -.30*r.spine.rotation.x;
+    r.neck.rotation.z= -.65*r.spine.rotation.z;
+    r.head.rotation.x= -.25*r.chest.rotation.x;
+    r.head.rotation.y= -.50*r.chest.rotation.y;
+    r.head.rotation.z= -.75*r.chest.rotation.z;
+    if(mode==='greet'){
+      const wave=Math.sin(seconds*8);
+      r.spine.rotation.x=0;
+      r.chest.rotation.z=.012;
+      r.head.rotation.x=.052*Math.sin(Math.min(seconds,1.6)*Math.PI);
+      r.head.rotation.z=-.018;
+      r.rightShoulder.rotation.z=.14;
+      r.rightShoulder.rotation.x=.10;
+      r.rightElbow.rotation.z=-.08+wave*.045;
+      r.rightWrist.rotation.z=wave*.08;
+      r.leftShoulder.rotation.z=-.025;
+    }else if(mode==='shy'){
+      const q=smoothstep(seconds/.53);
+      // Bashful bow: upper body, head, shoulders and elbows all respond.
+      r.spine.rotation.x=.065*q;
+      r.chest.rotation.x=.055*q;
+      r.chest.rotation.z=-.025*q;
+      r.neck.rotation.x=.045*q;
+      r.head.rotation.x=.095*q;
+      r.head.rotation.z=-.060*q;
+      r.leftShoulder.rotation.z=.035*q;
+      r.rightShoulder.rotation.z=-.035*q;
+      r.leftElbow.rotation.x=.035*q;
+      r.rightElbow.rotation.x=.035*q;
+      r.leftWrist.rotation.z=0;
+      r.rightWrist.rotation.z=0;
+    }
+    if(mode==='idle'){
+      const breathe=Math.sin(seconds*2.4)*.003;
+      r.spine.rotation.x=breathe;
+      r.head.rotation.x=-breathe;
+    }
+  }
+
   function render(now) {
     if(disposed||!renderer||!person)return;
     const t=(now-phaseStart)/1000;
@@ -316,31 +427,38 @@
     person.rotation.y=0;
     person.rotation.z=0;
     if(!reducedMotion && phase==='walk') {
-      // Four steps and a soft settle, synchronized with the CSS translation.
       const progress=clamp(t/(WALK_MS/1000),0,1);
       const fade=1-smoothstep((progress-.83)/.17);
       const cycles=progress*2.2;
       poseLegs(cycles,false,fade);
-      person.position.y=baseY+Math.abs(Math.sin(cycles*Math.PI*2))*.009*fade;
-      person.position.x=Math.sin(cycles*Math.PI*2)*.010*fade;
-      person.rotation.y=-.065+Math.sin(cycles*Math.PI*2)*.022*fade;
-      person.rotation.z=-.012*fade+Math.sin(cycles*Math.PI*2)*.008*fade;
+      poseUpperBody(cycles,fade,'walk',t);
+      person.position.y=baseY+Math.abs(Math.sin(cycles*Math.PI*2))*.008*fade;
+      person.position.x=Math.sin(cycles*Math.PI*2)*.006*fade;
+      person.rotation.y=-.065+Math.sin(cycles*Math.PI*2)*.013*fade;
+      person.rotation.z=-.007*fade+Math.sin(cycles*Math.PI*2)*.006*fade;
     } else if(!reducedMotion && phase==='run') {
       const progress=clamp(t/(RUN_MS/1000),0,1);
       const cycles=progress*2.7;
       poseLegs(cycles,true,1);
-      person.position.y=baseY+Math.abs(Math.sin(cycles*Math.PI*2))*.018;
-      person.position.x=Math.sin(cycles*Math.PI*2)*.012;
-      person.rotation.y=.07+Math.sin(cycles*Math.PI*2)*.022;
-      person.rotation.z=-.045+Math.sin(cycles*Math.PI*2)*.010;
+      poseUpperBody(cycles,1,'run',t);
+      person.position.y=baseY+Math.abs(Math.sin(cycles*Math.PI*2))*.017;
+      person.position.x=Math.sin(cycles*Math.PI*2)*.008;
+      person.rotation.y=.07+Math.sin(cycles*Math.PI*2)*.019;
+      person.rotation.z=-.025+Math.sin(cycles*Math.PI*2)*.008;
     } else if(!reducedMotion && phase==='shy') {
       poseLegs(0,false,0);
+      poseUpperBody(0,0,'shy',t);
       const x=smoothstep(t/.52);
-      person.rotation.y=-.085-x*.09;
-      person.rotation.z=-x*.045;
-      person.position.y=baseY-Math.sin(x*Math.PI)*.018;
+      person.rotation.y=-.06-x*.065;
+      person.rotation.z=-x*.025;
+      person.position.y=baseY-Math.sin(x*Math.PI)*.013;
+    } else if(phase==='greet'){
+      poseLegs(0,false,0);
+      poseUpperBody(0,0,reducedMotion?'idle':'greet',t);
+      if(!reducedMotion)person.position.y=baseY+Math.sin(t*2.0)*.002;
     } else {
       poseLegs(0,false,0);
+      poseUpperBody(0,0,'idle',t);
       if(!reducedMotion)person.position.y=baseY+Math.sin(t*2)*.003;
     }
     renderer.render(scene,camera);
@@ -392,7 +510,7 @@
         const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
         for (const material of materials) if (material) material.side = THREE.DoubleSide;
       });
-      // Convert the photo-relief meshes to a soft procedural leg skeleton.
+      // Add a conservative full-body skeleton to the original relief meshes.
       legRig = buildLegRig(THREE, person);
       scene.add(person);
 
@@ -414,6 +532,7 @@
       raf = requestAnimationFrame(render);
       host.classList.add('siva-present', 'siva-walking');
       after(enterTime - 150, () => host.classList.add('siva-greeting'));
+      after(enterTime, () => setPhase('greet'));
       after(enterTime + GREETING_MS, () => {
         host.classList.remove('siva-walking', 'siva-greeting');
         host.classList.add('siva-shy');
