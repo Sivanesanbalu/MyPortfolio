@@ -1,2 +1,23 @@
 [build]
 functions = "netlify/functions"
+
+# Serve the finished cinematic portfolio on the official Netlify hostname.
+# Keep /assets/* served directly by Netlify so existing resume links stay valid.
+# The Vercel project is the current source of the cinematic design.
+[[redirects]]
+  from = "/"
+  to = "https://siva-city-openworld.vercel.app/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/index.html"
+  to = "https://siva-city-openworld.vercel.app/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/src/*"
+  to = "https://siva-city-openworld.vercel.app/src/:splat"
+  status = 200
+  force = true
