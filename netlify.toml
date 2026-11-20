@@ -34,3 +34,4 @@ functions = "netlify/functions"
 [[edge_functions]]
   path = "/"
   function = "portfolio-character"
+# Companion motion v2: full head/body framing, walk-in, shy pose, quick return.
