@@ -130,7 +130,7 @@
   host.innerHTML = '<div class="siva-ground"></div><div class="siva-speech">Hi! 👋<br>How are you?</div>';
   document.body.appendChild(host);
 
-  let renderer, camera, scene, person;
+  let renderer, camera, scene, person, legRig = null;
   let baseY = 0, modelWidth = 0, modelHeight = 0;
   let raf = 0, disposed = false, phase = 'idle', phaseStart = 0;
   const timers = [];
@@ -170,6 +170,92 @@
     phaseStart = performance.now();
   }
 
+  /**
+   * Add a tiny articulated armature at runtime. The user-supplied .glb is a
+   * textured photo-relief (no native bones), so we weight its actual vertices
+   * below the hips to left/right thigh and shin bones. Unlike a CSS bounce,
+   * this makes the feet, knees, and thighs move independently of the torso.
+   * It keeps the user's face and suit intact instead of swapping characters.
+   */
+  function buildLegRig(THREE, model) {
+    const root = new THREE.Bone();
+    root.name = 'MotionRoot';
+    const leftHip = new THREE.Bone(); leftHip.name = 'LeftHip';
+    const rightHip = new THREE.Bone(); rightHip.name = 'RightHip';
+    leftHip.position.set(-.105, .845, 0);
+    rightHip.position.set(.105, .845, 0);
+    root.add(leftHip, rightHip);
+    const leftKnee = new THREE.Bone(); leftKnee.name = 'LeftKnee';
+    const rightKnee = new THREE.Bone(); rightKnee.name = 'RightKnee';
+    leftKnee.position.y = -.405;
+    rightKnee.position.y = -.405;
+    leftHip.add(leftKnee);
+    rightHip.add(rightKnee);
+    model.add(root);
+    model.updateMatrixWorld(true);
+    const skeleton = new THREE.Skeleton([root, leftHip, leftKnee, rightHip, rightKnee]);
+    skeleton.calculateInverses();
+
+    const originalMeshes = [];
+    model.traverse(node => { if (node.isMesh && !node.isSkinnedMesh) originalMeshes.push(node); });
+    const clamp01 = n => Math.max(0, Math.min(1, n));
+    for (const original of originalMeshes) {
+      const geometry = original.geometry.clone();
+      const positions = geometry.getAttribute('position');
+      const indices = new Uint16Array(positions.count * 4);
+      const weights = new Float32Array(positions.count * 4);
+      for (let i = 0; i < positions.count; i++) {
+        const x = positions.getX(i), y = positions.getY(i);
+        // No motion above the belt or on the outer hands/jacket edges.
+        const lowerBody = clamp01((.84 - y) / .15);
+        const avoidArms = 1 - clamp01((Math.abs(x) - .20) / .065);
+        const influence = lowerBody * avoidArms;
+        // Blend the shin near the knee so the crease isn't a hard tear.
+        const shin = clamp01((.57 - y) / .23);
+        const side = x < 0 ? 1 : 3;
+        const offset = i * 4;
+        indices[offset] = 0;
+        indices[offset + 1] = side;
+        indices[offset + 2] = side + 1;
+        indices[offset + 3] = 0;
+        weights[offset] = 1 - influence;
+        weights[offset + 1] = influence * (1 - shin);
+        weights[offset + 2] = influence * shin;
+        weights[offset + 3] = 0;
+      }
+      geometry.setAttribute('skinIndex', new THREE.Uint16BufferAttribute(indices, 4));
+      geometry.setAttribute('skinWeight', new THREE.Float32BufferAttribute(weights, 4));
+      const skinned = new THREE.SkinnedMesh(geometry, original.material);
+      skinned.name = original.name;
+      skinned.position.copy(original.position);
+      skinned.quaternion.copy(original.quaternion);
+      skinned.scale.copy(original.scale);
+      skinned.frustumCulled = false;
+      skinned.renderOrder = original.renderOrder;
+      original.parent.add(skinned);
+      original.parent.remove(original);
+      skinned.updateMatrixWorld(true);
+      skinned.bind(skeleton);
+    }
+    return {leftHip, rightHip, leftKnee, rightKnee};
+  }
+
+  function poseLegs(step, intensity) {
+    if (!legRig) return;
+    const stride = Math.sin(step);
+    const other = Math.sin(step + Math.PI);
+    // Hip-to-knee-to-foot articulation, visible from the front of the relief.
+    // Both legs alternate. Feet cross slightly and one knee bends as it lifts.
+    legRig.leftHip.rotation.z = stride * .27 * intensity;
+    legRig.rightHip.rotation.z = other * .27 * intensity;
+    legRig.leftHip.rotation.x = stride * .38 * intensity;
+    legRig.rightHip.rotation.x = other * .38 * intensity;
+    legRig.leftKnee.rotation.x = Math.max(0, -stride) * .48 * intensity;
+    legRig.rightKnee.rotation.x = Math.max(0, -other) * .48 * intensity;
+    legRig.leftKnee.rotation.z = -Math.max(0, stride) * .11 * intensity;
+    legRig.rightKnee.rotation.z = -Math.max(0, other) * .11 * intensity;
+  }
+
   function render(now) {
     if (disposed || !renderer || !person) return;
     const t = (now - phaseStart) / 1000;
@@ -179,23 +265,26 @@
     person.rotation.z = 0;
 
     if (!reducedMotion && phase === 'walk') {
-      // The supplied GLB has no rig: simulate footsteps using gentle bounce and weight shift.
-      const step = t * Math.PI * 4.1;
-      person.position.y = baseY + Math.abs(Math.sin(step)) * .042;
-      person.rotation.z = Math.sin(step) * .023;
-      person.rotation.y = -.03 + Math.sin(step) * .048;
+      const step = t * Math.PI * 3.6;
+      poseLegs(step, 1);
+      person.position.y = baseY + Math.abs(Math.sin(step)) * .018;
+      person.rotation.z = Math.sin(step) * .012;
+      person.rotation.y = -.12;
     } else if (!reducedMotion && phase === 'run') {
-      const step = t * Math.PI * 9.5;
-      person.position.y = baseY + Math.abs(Math.sin(step)) * .07;
-      person.rotation.z = -.075 + Math.sin(step) * .033;
-      person.rotation.y = -.055 + Math.sin(step) * .06;
+      const step = t * Math.PI * 7.3;
+      poseLegs(-step, 1.3);
+      person.position.y = baseY + Math.abs(Math.sin(step)) * .034;
+      person.rotation.z = -.07 + Math.sin(step) * .014;
+      person.rotation.y = -.18;
     } else if (!reducedMotion && phase === 'shy') {
+      poseLegs(0, 0);
       const ease = Math.min(1, t / .45);
       person.position.y = baseY - Math.sin(ease * Math.PI) * .032;
       person.rotation.y = -.08 - ease * .11;
       person.rotation.z = -ease * .047;
-    } else if (!reducedMotion) {
-      person.position.y = baseY + Math.sin(t * 2.0) * .005;
+    } else {
+      poseLegs(0, 0);
+      if (!reducedMotion) person.position.y = baseY + Math.sin(t * 2.0) * .005;
     }
     renderer.render(scene, camera);
     raf = requestAnimationFrame(render);
@@ -246,6 +335,8 @@
         const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
         for (const material of materials) if (material) material.side = THREE.DoubleSide;
       });
+      // Convert the photo-relief meshes to a soft procedural leg skeleton.
+      legRig = buildLegRig(THREE, person);
       scene.add(person);
 
       renderer = new THREE.WebGLRenderer({antialias:true, alpha:true, powerPreference:'low-power'});
