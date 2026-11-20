@@ -11,10 +11,10 @@
   const THREE_MODULE = '/assets/three.module-CUzX9mi6.js';
   const LOADER_MODULE = '/assets/GLTFLoader-D67taXcT.js';
   const START_DELAY_MS = 2000;
-  const WALK_MS = 2450;
+  const WALK_MS = 3100;
   const GREETING_MS = 2600;
   const SHY_MS = 900;
-  const RUN_MS = 900;
+  const RUN_MS = 1150;
   const pageStartedAt = performance.now();
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
   const reducedMotion = motionPreference.matches;
@@ -75,19 +75,22 @@
         border-bottom:1px solid rgba(255,147,95,.4);
       }
       #siva-companion.siva-walking {
-        animation:siva-walk-in 2.45s cubic-bezier(.28,.47,.38,1) both;
+        animation:siva-walk-in 3.1s linear both;
       }
       #siva-companion.siva-shy {
         animation:siva-shy-retreat .9s ease-in-out both;
       }
       #siva-companion.siva-running {
-        animation:siva-run-away .9s cubic-bezier(.55,.17,.9,.72) both;
+        animation:siva-run-away 1.15s cubic-bezier(.42,.0,.72,1) both;
       }
       @keyframes siva-walk-in {
-        0% {transform:translate3d(-165%,0,0) rotate(-3deg);opacity:0}
-        12% {opacity:1}
-        83% {transform:translate3d(-7%,0,0) rotate(1deg);opacity:1}
-        100% {transform:translate3d(0,0,0) rotate(0);opacity:1}
+        0% {transform:translate3d(-165%,0,0);opacity:0}
+        10% {opacity:1}
+        25% {transform:translate3d(-124%,0,0);opacity:1}
+        50% {transform:translate3d(-77%,0,0);opacity:1}
+        75% {transform:translate3d(-30%,0,0);opacity:1}
+        92% {transform:translate3d(-3%,0,0);opacity:1}
+        100% {transform:translate3d(0,0,0);opacity:1}
       }
       @keyframes siva-shy-retreat {
         0% {transform:translate3d(0,0,0) rotate(0);opacity:1}
@@ -96,8 +99,9 @@
       }
       @keyframes siva-run-away {
         0% {transform:translate3d(-6%,2px,0) rotate(-3deg) scale(.97);opacity:1}
-        35% {opacity:1}
-        100% {transform:translate3d(-170%,2px,0) rotate(-10deg) scale(.94);opacity:0}
+        25% {transform:translate3d(-34%,0,0) rotate(-5deg) scale(.97);opacity:1}
+        62% {transform:translate3d(-98%,0,0) rotate(-5deg) scale(.96);opacity:1}
+        100% {transform:translate3d(-170%,0,0) rotate(-6deg) scale(.96);opacity:0}
       }
       @media (max-width:700px) {
         #siva-companion {
@@ -171,123 +175,176 @@
   }
 
   /**
-   * Add a tiny articulated armature at runtime. The user-supplied .glb is a
-   * textured photo-relief (no native bones), so we weight its actual vertices
-   * below the hips to left/right thigh and shin bones. Unlike a CSS bounce,
-   * this makes the feet, knees, and thighs move independently of the torso.
-   * It keeps the user's face and suit intact instead of swapping characters.
+   * The original photograph relief has no authored bones or animation clips.
+   * Add a conservative seven-bone 2.5D skeleton with ankle pivots. The model
+   * remains the user's original asset; the movement is deliberately subtle to
+   * avoid the tearing caused by trying to make a flat photograph take long steps.
    */
   function buildLegRig(THREE, model) {
-    const root = new THREE.Bone();
-    root.name = 'MotionRoot';
+    const root = new THREE.Bone(); root.name = 'Root';
     const leftHip = new THREE.Bone(); leftHip.name = 'LeftHip';
-    const rightHip = new THREE.Bone(); rightHip.name = 'RightHip';
-    leftHip.position.set(-.105, .845, 0);
-    rightHip.position.set(.105, .845, 0);
-    root.add(leftHip, rightHip);
     const leftKnee = new THREE.Bone(); leftKnee.name = 'LeftKnee';
+    const leftAnkle = new THREE.Bone(); leftAnkle.name = 'LeftAnkle';
+    const rightHip = new THREE.Bone(); rightHip.name = 'RightHip';
     const rightKnee = new THREE.Bone(); rightKnee.name = 'RightKnee';
-    leftKnee.position.y = -.405;
-    rightKnee.position.y = -.405;
-    leftHip.add(leftKnee);
-    rightHip.add(rightKnee);
+    const rightAnkle = new THREE.Bone(); rightAnkle.name = 'RightAnkle';
+    // Coordinates are verified against the original relief's 1.78m Y extent.
+    leftHip.position.set(-.105, .84, 0);
+    rightHip.position.set(.105, .84, 0);
+    leftKnee.position.y = -.41;
+    rightKnee.position.y = -.41;
+    leftAnkle.position.y = -.36;
+    rightAnkle.position.y = -.36;
+    leftHip.add(leftKnee); leftKnee.add(leftAnkle);
+    rightHip.add(rightKnee); rightKnee.add(rightAnkle);
+    root.add(leftHip, rightHip);
     model.add(root);
     model.updateMatrixWorld(true);
-    const skeleton = new THREE.Skeleton([root, leftHip, leftKnee, rightHip, rightKnee]);
+    const skeleton = new THREE.Skeleton([
+      root, leftHip, leftKnee, leftAnkle,
+      rightHip, rightKnee, rightAnkle
+    ]);
     skeleton.calculateInverses();
-
-    const originalMeshes = [];
-    model.traverse(node => { if (node.isMesh && !node.isSkinnedMesh) originalMeshes.push(node); });
     const clamp01 = n => Math.max(0, Math.min(1, n));
-    for (const original of originalMeshes) {
+    const smooth = (edge0, edge1, x) => {
+      const v = clamp01((x - edge0) / (edge1 - edge0));
+      return v * v * (3 - 2 * v);
+    };
+    const meshes = [];
+    model.traverse(node => {if (node.isMesh && !node.isSkinnedMesh) meshes.push(node);});
+    for (const original of meshes) {
       const geometry = original.geometry.clone();
       const positions = geometry.getAttribute('position');
       const indices = new Uint16Array(positions.count * 4);
       const weights = new Float32Array(positions.count * 4);
-      for (let i = 0; i < positions.count; i++) {
+      for (let i=0;i<positions.count;i++) {
         const x = positions.getX(i), y = positions.getY(i);
-        // No motion above the belt or on the outer hands/jacket edges.
-        const lowerBody = clamp01((.84 - y) / .15);
-        const avoidArms = 1 - clamp01((Math.abs(x) - .20) / .065);
-        const influence = lowerBody * avoidArms;
-        // Blend the shin near the knee so the crease isn't a hard tear.
-        const shin = clamp01((.57 - y) / .23);
-        const side = x < 0 ? 1 : 3;
-        const offset = i * 4;
+        const lower = 1 - smooth(.78, .91, y);
+        const armGuard = 1 - smooth(.22, .29, Math.abs(x));
+        // Keep the central seam and the suit attached while legs move.
+        const seamGuard = smooth(.004, .023, Math.abs(x));
+        const mobile = lower * armGuard * seamGuard;
+        const belowKnee = 1 - smooth(.41, .59, y);
+        const belowAnkle = 1 - smooth(.075, .22, y);
+        const hip = mobile * (1 - belowKnee);
+        const knee = mobile * belowKnee * (1 - belowAnkle);
+        const ankle = mobile * belowKnee * belowAnkle;
+        const offset = i*4;
+        const base = x < 0 ? 1 : 4;
         indices[offset] = 0;
-        indices[offset + 1] = side;
-        indices[offset + 2] = side + 1;
-        indices[offset + 3] = 0;
-        weights[offset] = 1 - influence;
-        weights[offset + 1] = influence * (1 - shin);
-        weights[offset + 2] = influence * shin;
-        weights[offset + 3] = 0;
+        indices[offset+1] = base;
+        indices[offset+2] = base+1;
+        indices[offset+3] = base+2;
+        weights[offset] = 1 - mobile;
+        weights[offset+1] = hip;
+        weights[offset+2] = knee;
+        weights[offset+3] = ankle;
       }
-      geometry.setAttribute('skinIndex', new THREE.Uint16BufferAttribute(indices, 4));
-      geometry.setAttribute('skinWeight', new THREE.Float32BufferAttribute(weights, 4));
-      const skinned = new THREE.SkinnedMesh(geometry, original.material);
-      skinned.name = original.name;
-      skinned.position.copy(original.position);
-      skinned.quaternion.copy(original.quaternion);
-      skinned.scale.copy(original.scale);
-      skinned.frustumCulled = false;
-      skinned.renderOrder = original.renderOrder;
-      original.parent.add(skinned);
+      geometry.setAttribute('skinIndex',new THREE.Uint16BufferAttribute(indices,4));
+      geometry.setAttribute('skinWeight',new THREE.Float32BufferAttribute(weights,4));
+      const mesh = new THREE.SkinnedMesh(geometry,original.material);
+      mesh.name=original.name;
+      mesh.position.copy(original.position);
+      mesh.quaternion.copy(original.quaternion);
+      mesh.scale.copy(original.scale);
+      mesh.frustumCulled=false;
+      mesh.renderOrder=original.renderOrder;
+      original.parent.add(mesh);
       original.parent.remove(original);
-      skinned.updateMatrixWorld(true);
-      skinned.bind(skeleton);
+      mesh.updateMatrixWorld(true);
+      mesh.bind(skeleton);
     }
-    return {leftHip, rightHip, leftKnee, rightKnee};
+    return {leftHip,leftKnee,leftAnkle,rightHip,rightKnee,rightAnkle};
   }
 
-  function poseLegs(step, intensity) {
-    if (!legRig) return;
-    const stride = Math.sin(step);
-    const other = Math.sin(step + Math.PI);
-    // Hip-to-knee-to-foot articulation, visible from the front of the relief.
-    // Both legs alternate. Feet cross slightly and one knee bends as it lifts.
-    legRig.leftHip.rotation.z = stride * .27 * intensity;
-    legRig.rightHip.rotation.z = other * .27 * intensity;
-    legRig.leftHip.rotation.x = stride * .38 * intensity;
-    legRig.rightHip.rotation.x = other * .38 * intensity;
-    legRig.leftKnee.rotation.x = Math.max(0, -stride) * .48 * intensity;
-    legRig.rightKnee.rotation.x = Math.max(0, -other) * .48 * intensity;
-    legRig.leftKnee.rotation.z = -Math.max(0, stride) * .11 * intensity;
-    legRig.rightKnee.rotation.z = -Math.max(0, other) * .11 * intensity;
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  const smoothstep = t => {t=clamp(t,0,1);return t*t*(3-2*t);};
+
+  // Natural foot cadence: the support foot is planted for 62% of each step.
+  // During the remaining 38% the opposite foot lifts, swings, and sets down.
+  // The ankle is counter-rotated so the shoe doesn't spin with the shin.
+  function footTrack(cycle, fast) {
+    const phase = ((cycle % 1) + 1) % 1;
+    const stanceShare = fast ? .53 : .62;
+    const reach = fast ? .118 : .087;
+    const lift = fast ? .125 : .072;
+    if (phase < stanceShare) {
+      const t = phase/stanceShare;
+      return {z:reach*(1-2*t),y:.085,roll:t>.80?(t-.80)/.20*.075:0,swing:false};
+    }
+    const t=(phase-stanceShare)/(1-stanceShare);
+    return {z:reach*(-1+2*smoothstep(t)),y:.085+lift*Math.pow(Math.sin(Math.PI*t),1.4),roll:-.075*Math.sin(Math.PI*t),swing:true};
+  }
+
+  function solveFoot(hip,knee,ankle,cycle,fast,intensity) {
+    if(!hip||!knee||!ankle) return;
+    const track=footTrack(cycle,fast);
+    const hipHeight=.84;
+    const thigh=.41,shin=.36;
+    // Small forward/backwards movement in Z, without giving away the flatness
+    // of the original photograph. Two-bone inverse kinematics prevents feet
+    // from sweeping around like pendulums.
+    const z=track.z*intensity;
+    const dy=track.y-hipHeight;
+    const length=clamp(Math.hypot(z,dy),.015,thigh+shin-.0001);
+    const direction=Math.atan2(-z,-dy);
+    const reachAngle=Math.acos(clamp((thigh*thigh+length*length-shin*shin)/(2*thigh*length),-1,1));
+    const kneeAngle=Math.acos(clamp((length*length-thigh*thigh-shin*shin)/(2*thigh*shin),-1,1));
+    hip.rotation.x=(direction-reachAngle)*intensity;
+    knee.rotation.x=kneeAngle*intensity;
+    ankle.rotation.x=(-(hip.rotation.x+knee.rotation.x)*.85+track.roll)*intensity;
+    // Just a few degrees of lateral weight shift, not the previous 30 degree
+    // leg spreading. The character is dressed in a fitted suit.
+    hip.rotation.z=.019*Math.sin(cycle*Math.PI*2)*intensity;
+    knee.rotation.z=-hip.rotation.z*.4;
+    ankle.rotation.z=-hip.rotation.z*.6;
+    return track;
+  }
+
+  function poseLegs(stepCycles, fast, intensity) {
+    if(!legRig)return;
+    solveFoot(legRig.leftHip,legRig.leftKnee,legRig.leftAnkle,stepCycles,fast,intensity);
+    solveFoot(legRig.rightHip,legRig.rightKnee,legRig.rightAnkle,stepCycles+.5,fast,intensity);
   }
 
   function render(now) {
-    if (disposed || !renderer || !person) return;
-    const t = (now - phaseStart) / 1000;
-    person.position.y = baseY;
-    person.rotation.x = 0;
-    person.rotation.y = -.03;
-    person.rotation.z = 0;
-
-    if (!reducedMotion && phase === 'walk') {
-      const step = t * Math.PI * 3.6;
-      poseLegs(step, 1);
-      person.position.y = baseY + Math.abs(Math.sin(step)) * .018;
-      person.rotation.z = Math.sin(step) * .012;
-      person.rotation.y = -.12;
-    } else if (!reducedMotion && phase === 'run') {
-      const step = t * Math.PI * 7.3;
-      poseLegs(-step, 1.3);
-      person.position.y = baseY + Math.abs(Math.sin(step)) * .034;
-      person.rotation.z = -.07 + Math.sin(step) * .014;
-      person.rotation.y = -.18;
-    } else if (!reducedMotion && phase === 'shy') {
-      poseLegs(0, 0);
-      const ease = Math.min(1, t / .45);
-      person.position.y = baseY - Math.sin(ease * Math.PI) * .032;
-      person.rotation.y = -.08 - ease * .11;
-      person.rotation.z = -ease * .047;
+    if(disposed||!renderer||!person)return;
+    const t=(now-phaseStart)/1000;
+    person.position.y=baseY;
+    person.position.x=0;
+    person.rotation.x=0;
+    person.rotation.y=0;
+    person.rotation.z=0;
+    if(!reducedMotion && phase==='walk') {
+      // Four steps and a soft settle, synchronized with the CSS translation.
+      const progress=clamp(t/(WALK_MS/1000),0,1);
+      const fade=1-smoothstep((progress-.83)/.17);
+      const cycles=progress*2.2;
+      poseLegs(cycles,false,fade);
+      person.position.y=baseY+Math.abs(Math.sin(cycles*Math.PI*2))*.009*fade;
+      person.position.x=Math.sin(cycles*Math.PI*2)*.010*fade;
+      person.rotation.y=-.065+Math.sin(cycles*Math.PI*2)*.022*fade;
+      person.rotation.z=-.012*fade+Math.sin(cycles*Math.PI*2)*.008*fade;
+    } else if(!reducedMotion && phase==='run') {
+      const progress=clamp(t/(RUN_MS/1000),0,1);
+      const cycles=progress*2.7;
+      poseLegs(cycles,true,1);
+      person.position.y=baseY+Math.abs(Math.sin(cycles*Math.PI*2))*.018;
+      person.position.x=Math.sin(cycles*Math.PI*2)*.012;
+      person.rotation.y=.07+Math.sin(cycles*Math.PI*2)*.022;
+      person.rotation.z=-.045+Math.sin(cycles*Math.PI*2)*.010;
+    } else if(!reducedMotion && phase==='shy') {
+      poseLegs(0,false,0);
+      const x=smoothstep(t/.52);
+      person.rotation.y=-.085-x*.09;
+      person.rotation.z=-x*.045;
+      person.position.y=baseY-Math.sin(x*Math.PI)*.018;
     } else {
-      poseLegs(0, 0);
-      if (!reducedMotion) person.position.y = baseY + Math.sin(t * 2.0) * .005;
+      poseLegs(0,false,0);
+      if(!reducedMotion)person.position.y=baseY+Math.sin(t*2)*.003;
     }
-    renderer.render(scene, camera);
-    raf = requestAnimationFrame(render);
+    renderer.render(scene,camera);
+    raf=requestAnimationFrame(render);
   }
 
   async function start() {
